@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>360</x>
+      <x>550</x>
       <y>160</y>
       <w>260</w>
       <h>280</h>
@@ -26,7 +26,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
+      <x>150</x>
       <y>160</y>
       <w>260</w>
       <h>280</h>
@@ -53,12 +53,12 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>250</x>
+      <x>400</x>
       <y>280</y>
-      <w>130</w>
+      <w>170</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
