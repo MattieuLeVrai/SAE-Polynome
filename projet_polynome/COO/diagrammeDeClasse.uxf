@@ -4,24 +4,61 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>70</x>
-      <y>100</y>
-      <w>210</w>
-      <h>190</h>
+      <x>550</x>
+      <y>210</y>
+      <w>260</w>
+      <h>280</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
-Package::FatClass
-{Some Properties}
+    <panel_attributes>TestPolynome
 --
--id: Long
-_-ClassAttribute: Long_
+
 --
-#Operation(i: int): int
-/+AbstractOperation()/
---
-Responsibilities
--- Resp1
-*-- Resp2*</panel_attributes>
++ testConstructeurNul(): void
++ testConstructeurAvecTableau(): void
++ testGetDegre(): void
++ testGetCoefficient(): void
++ testGetLimitesMoinsInfini(): void
++ testGetLimitesPlusInfini(): void
++ testGetRacines(): void
++ testEstNul(): void</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>190</x>
+      <y>210</y>
+      <w>260</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Polynome
+--
+- coefficients: double[]
+- racines: double[]
+
+
+--
++ Polynome()
++ Polynome(coefficients: double[])
++ getDegre(): int
++ getCoefficient(puissance: int): double
++ getLimitesMoinsInfini(): double
++ getLimitesPlusInfini(): double
++ getRacines(): double[]
++ estNul(): boolean
++ toString(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>330</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
