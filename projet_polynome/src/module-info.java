@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module projet_polynome {
-}
