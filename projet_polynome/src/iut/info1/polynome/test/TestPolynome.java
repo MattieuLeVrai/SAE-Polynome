@@ -14,6 +14,7 @@ class TestPolynome {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		
 	}
 
 	@Test
