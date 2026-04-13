@@ -1,5 +1,17 @@
+/*
+ * Polynome                                                         22/05/26 
+ * Iut de rodez, pas de copyright ni copyleft
+ */
+
 package iut.info1.polynome;
 
+/**
+ * TODO Décrire ce que fait la class
+ * @author Higounet Kelvin
+ * @author Laurençont Yanis
+ * @author Liao Mattieu
+ * @author Moqué Baptiste
+ */
 public class Polynome {
 
 	private double[] coefficients;
