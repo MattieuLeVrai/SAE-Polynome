@@ -5,6 +5,8 @@
 
 package iut.info1.polynome;
 
+import java.util.Arrays;
+
 /**
  * TODO Décrire ce que fait la class
  * @author Higounet Kelvin
@@ -22,7 +24,7 @@ public class Polynome {
      * Crée le polynôme nul P(X) = 0.0
      */
     public Polynome() {
-        // TODO: Initialiser le tableau pour le polynôme nul
+    	this.coefficients = new double[]{0.0};
     }
     
     /**
@@ -30,7 +32,12 @@ public class Polynome {
      * @param coefficients Le tableau des coefficients donnés par l'utilisateur
      */
     public Polynome(double[] coefficients) {
-        // TODO: Copier le tableau reçu dans l'attribut de la classe
+    	if (coefficients == null || coefficients.length == 0) {
+            this.coefficients = new double[]{0.0};
+        } else {
+            // On utilise copyOf pour éviter que des modifs externes impactent l'objet
+            this.coefficients = Arrays.copyOf(coefficients, coefficients.length);
+        }
     }
     
     /**
@@ -49,7 +56,10 @@ public class Polynome {
      */
     public double getCoefficient(int puissance) {
         // TODO: Retourner la valeur située au bon index du tableau
-        return 0.0;
+    	if (puissance < 0 || puissance >= coefficients.length) {
+            return 0.0;
+        }
+        return coefficients[puissance];
     }
     
     /**
