@@ -104,13 +104,14 @@ public class Polynome {
      * Vérifie si le polynôme actuel est le polynôme nul.
      * @return Vrai si c'est le polynôme nul, Faux sinon
      */
-    public boolean estNul() {
+    public boolean isNul() {
         // TODO: Parcourir le tableau pour vérifier si tous les coefficients valent 0
         for (int indiceCoefficient = 0; indiceCoefficient <= this.coefficients.length - 1; indiceCoefficient++) {
         	if (this.coefficients[indiceCoefficient] != 0) {
         		return false;
             }
         }
+		return true;
     }
     
     /**

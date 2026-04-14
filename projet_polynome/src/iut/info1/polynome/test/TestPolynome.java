@@ -53,7 +53,7 @@ class TestPolynome {
 	}
 
 	@Test
-	final void testEstNul() {
+	final void testIsNul() {
 		fail("Not yet implemented");
 	}
 
