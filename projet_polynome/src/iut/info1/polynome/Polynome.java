@@ -47,7 +47,7 @@ public class Polynome {
     public int getDegre() {
         // TODO: Écrire la logique pour trouver et retourner le degré
     	// On part de la fin du tableau (le plus haut degré potentiel)
-        for (int indiceCoefficient = this.coefficients.length - 1; indiceCoefficient >= 0; indiceCoefficient--) {
+    	for (int indiceCoefficient = 0; indiceCoefficient <= this.coefficients.length - 1; indiceCoefficient++) {
             if (this.coefficients[indiceCoefficient] != 0) {
                 return indiceCoefficient; // On a trouvé le terme de plus haut degré
             }
