@@ -22,7 +22,9 @@ public class Polynome {
      * Crée le polynôme nul P(X) = 0.0
      */
     public Polynome() {
-        // TODO: Initialiser le tableau pour le polynôme nul
+    	// Initialisation des tableaux pour le polynôme nul
+    	this.coefficients = new double[] {0.0};
+        this.racines = new double[0];
     }
     
     /**
@@ -31,6 +33,11 @@ public class Polynome {
      */
     public Polynome(double[] coefficients) {
         // TODO: Copier le tableau reçu dans l'attribut de la classe
+    	if (coefficients == null || coefficients.length == 0) {
+    		this.coefficients = new double[] {0.0};
+    	} else {
+    		this.coefficients = coefficients;
+    	}
     }
     
     /**
@@ -39,7 +46,16 @@ public class Polynome {
      */
     public int getDegre() {
         // TODO: Écrire la logique pour trouver et retourner le degré
-        return 0; // Valeur par défaut pour que ça compile
+    	// On part de la fin du tableau (le plus haut degré potentiel)
+    	for (int indiceCoefficient = 0; indiceCoefficient <= this.coefficients.length - 1; indiceCoefficient++) {
+            if (this.coefficients[indiceCoefficient] != 0) {
+                return indiceCoefficient; // On a trouvé le terme de plus haut degré
+            }
+        }
+        
+        // Si tous les coefficients sont nuls, le degré est techniquement 0 
+        // (ou parfois défini comme -1 ou -infini pour le polynôme nul)
+        return 0;
     }
     
     /**
@@ -48,8 +64,13 @@ public class Polynome {
      * @return Le coefficient (réel)
      */
     public double getCoefficient(int puissance) {
-        // TODO: Retourner la valeur située au bon index du tableau
-        return 0.0;
+        // Retourner la valeur située au bon index du tableau
+    	int degreMin = this.coefficients.length - 1;
+    	
+    	if (puissance < 0 || puissance >= this.coefficients.length) {
+            return 0.0; // Un polynôme a un coefficient de 0 pour les puissances hors de son degré
+        }
+    	return this.coefficients[degreMin - puissance];
     }
     
     /**
@@ -75,8 +96,8 @@ public class Polynome {
      * @return Un tableau de réels
      */
     public double[] getRacines() {
-        // TODO: Retourner l'attribut racines
-        return null;
+        // Retourner l'attribut racines
+        return this.racines;
     }
     
     /**
@@ -85,7 +106,12 @@ public class Polynome {
      */
     public boolean estNul() {
         // TODO: Parcourir le tableau pour vérifier si tous les coefficients valent 0
-        return false;
+        for (int indiceCoefficient = 0; indiceCoefficient <= this.coefficients.length - 1; indiceCoefficient++) {
+        	if (this.coefficients[indiceCoefficient] != 0) {
+        		return false;
+            }
+        }
+		return true;
     }
     
     /**
