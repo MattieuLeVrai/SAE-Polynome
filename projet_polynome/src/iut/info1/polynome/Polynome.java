@@ -193,4 +193,8 @@ public class Polynome {
         }
         return sb.toString();
     }
+    
+    public double[] calculerRacine() {
+    	
+    }
 }
