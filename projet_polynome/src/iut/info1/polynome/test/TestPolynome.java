@@ -17,7 +17,6 @@ class TestPolynome {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		System.out.println("BeforeEach");
 		pNul = new Polynome();
 		// P(X) = 1.0 - 5.0X + 3.2X^2
 		pDegre2 = new Polynome(new double[]{1.0, -5.0, 3.2});
@@ -25,11 +24,6 @@ class TestPolynome {
 		pDegre3 = new Polynome(new double[]{0.0, 0.0, 0.0, 2.0});
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-		System.out.println("AfterEach");
-	}
-	
 	@Test
 	final void testPolynomeDefaut() {
 		assertDoesNotThrow(() -> new Polynome(), 
@@ -158,4 +152,35 @@ class TestPolynome {
 		assertTrue(affichage.contains("5.0"), 
 				"L'affichage doit contenir le coefficient '5.0'.");
 	}
+//	@Test
+//	final void testCalculerRacines() {
+//		// Test du polynôme nul
+//		double[] racinesNul = pNul.calculerRacines();
+//		assertNotNull(racinesNul, "Le tableau de racines ne doit pas être null.");
+//		assertEquals(0, racinesNul.length, "Le polynôme nul ne possède aucune racine.");
+//
+//		// Test du polynôme de degré 2 défini dans setUp
+//		// P(X) = 1.0 - 5.0X + 3.2X^2 => Delta = (-5)^2 - 4(3.2)(1) = 12.2 (> 0)
+//		double[] racinesDegre2 = pDegre2.calculerRacines();
+//		assertNotNull(racinesDegre2, "Le tableau de racines ne doit pas être null.");
+//		assertEquals(2, racinesDegre2.length,
+//				      "Ce polynôme de degré 2 avec Delta > 0 possède deux racines réelles.");
+//		
+//		// Test d'un polynôme de degré 1 : P(X) = -2.0 + 4.0X  (Racine = 0.5)
+//		Polynome pDegre1 = new Polynome(new double[]{-2.0, 4.0});
+//		double[] racinesDegre1 = pDegre1.calculerRacines();
+//		assertEquals(1, racinesDegre1.length, "Un polynôme de degré 1 a une seule racine.");
+//		assertEquals(0.5, racinesDegre1[0], 0.0001, "La racine de -2 + 4X doit être 0.5.");
+//
+//		// Test d'un cas sans racine réelle : P(X) = 5.0 + 0.0X + 1.0X^2 (X^2 + 5 = 0)
+//		Polynome pSansRacine = new Polynome(new double[]{5.0, 0.0, 1.0});
+//		assertEquals(0, pSansRacine.calculerRacines().length, 
+//				      "Ce polynôme ne devrait pas avoir de racines réelles (Delta < 0).");
+//
+//		// Test de la gestion du degré supérieur à 2 (pDegre3 : P(X) = 2.0X^3)
+//		// On vérifie que le code lève bien l'exception prévue
+//		assertThrows(UnsupportedOperationException.class, () -> {
+//			pDegre3.calculerRacines();
+//		}, "Le calcul pour un degré 3 n'est pas encore supporté et doit lever une exception.");
+//	}
 }
