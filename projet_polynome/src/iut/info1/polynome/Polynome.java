@@ -54,9 +54,9 @@ public class Polynome {
      */
     public int getDegre() {
     	// On cherche l'indice du premier coefficient non nul en partant de la fin
-    	for (int i = this.coefficients.length - 1; i >= 0; i--) {
-            if (this.coefficients[i] != 0) {
-                return i;
+    	for (int indiceCoefficient = this.coefficients.length - 1; indiceCoefficient >= 0; indiceCoefficient--) {
+            if (this.coefficients[indiceCoefficient] != 0) {
+                return indiceCoefficient;
             }
         }
         return 0; // Polynome nul
@@ -79,15 +79,15 @@ public class Polynome {
      * @return La limite (peut utiliser Double.NEGATIVE_INFINITY ou POSITIVE_INFINITY)
      */
     public double getLimitesMoinsInfini() {
-    	int n = this.getDegre();
-        double an = this.getCoefficient(n);
+    	int degre = this.getDegre();
+        double coefficientDominant = this.getCoefficient(degre);
 
-        if (n == 0) return an;
+        if (degre == 0) return coefficientDominant;
 
-        if (n % 2 == 0) {
-            return (an > 0) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+        if (degre % 2 == 0) {
+            return (coefficientDominant > 0) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
         } else {
-            return (an > 0) ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+            return (coefficientDominant > 0) ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
         }
     }
     
@@ -96,12 +96,12 @@ public class Polynome {
      * @return La limite
      */
     public double getLimitesPlusInfini() {
-    	int n = this.getDegre();
-        double an = this.getCoefficient(n);
+    	int degre = this.getDegre();
+        double coefficientDominant = this.getCoefficient(degre);
 
-        if (n == 0) return an;
+        if (degre == 0) return coefficientDominant;
 
-        return (an > 0) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+        return (coefficientDominant > 0) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
     }
     
     /**
@@ -114,17 +114,16 @@ public class Polynome {
         }
 
         // 1. Calcul automatique de l'intervalle de recherche
-        int n = this.getDegre();
-        double an = Math.abs(this.getCoefficient(n));
-        double maxCoeff = 0;
+        int degre = this.getDegre();
+        double coefficientDominant = Math.abs(this.getCoefficient(degre));
+        double coefficientMax = 0;
         
-        for (int i = 0; i < n; i++) {
-            maxCoeff = Math.max(maxCoeff, Math.abs(this.getCoefficient(i)));
+        for (int indice = 0; indice < degre; indice++) {
+            coefficientMax = Math.max(coefficientMax, Math.abs(this.getCoefficient(indice)));
         }
         
         // Toutes les racines se trouvent forcément entre -limite et +limite.
-        // Formule de Borne de Cauchy
-        double limite = 1.0 + (maxCoeff / an); 
+        double limite = 1.0 + (coefficientMax / coefficientDominant); 
         
         // 2. Recherche par balayage et dichotomie
         List<Double> listeRacines = new ArrayList<>();
@@ -133,28 +132,28 @@ public class Polynome {
         // Sinon on garde un pas classique de 0.1
         double pas = (limite > 1000) ? (limite / 10000.0) : 0.1; 
 
-        for (double x = -limite; x < limite; x += pas) {
-            double y1 = evaluer(x);
-            double y2 = evaluer(x + pas);
+        for (double valeurX = -limite; valeurX < limite; valeurX += pas) {
+            double valeurY1 = evaluer(valeurX);
+            double valeurY2 = evaluer(valeurX + pas);
 
             // Si la courbe traverse l'axe (changement de signe)
-            if (y1 * y2 <= 0) {
-                double a = x;
-                double b = x + pas;
+            if (valeurY1 * valeurY2 <= 0) {
+                double borneA = valeurX;
+                double borneB = valeurX + pas;
                 double precision = 1e-6; // Précision à 6 décimales
 
                 // Dichotomie pour affiner la position de la racine
-                while ((b - a) > precision) {
-                    double m = (a + b) / 2.0;
-                    if (evaluer(a) * evaluer(m) <= 0) {
-                        b = m; 
+                while ((borneB - borneA) > precision) {
+                    double milieu = (borneA + borneB) / 2.0;
+                    if (evaluer(borneA) * evaluer(milieu) <= 0) {
+                        borneB = milieu; 
                     } else {
-                        a = m; 
+                        borneA = milieu; 
                     }
                 }
 
                 // Arrondi à 4 décimales pour gérer les impécisions
-                double racine = Math.round(((a + b) / 2.0) * 10000.0) / 10000.0;
+                double racine = Math.round(((borneA + borneB) / 2.0) * 10000.0) / 10000.0;
                 
                 if (!listeRacines.contains(racine)) {
                     listeRacines.add(racine);
@@ -164,8 +163,8 @@ public class Polynome {
 
         // 3. Conversion de la liste en tableau de double
         double[] tableau = new double[listeRacines.size()];
-        for (int i = 0; i < listeRacines.size(); i++) {
-            tableau[i] = listeRacines.get(i);
+        for (int indice = 0; indice < listeRacines.size(); indice++) {
+            tableau[indice] = listeRacines.get(indice);
         }
         return tableau;
     }
@@ -178,8 +177,8 @@ public class Polynome {
     public double evaluer(double x) {
         double resultat = 0;
         // On utilise directement 'i' comme puissance
-        for (int i = 0; i < this.coefficients.length; i++) {
-            resultat += this.coefficients[i] * Math.pow(x, i); 
+        for (int indice = 0; indice < this.coefficients.length; indice++) {
+            resultat += this.coefficients[indice] * Math.pow(x, indice); 
         }
         return resultat;
     }
