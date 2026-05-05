@@ -123,6 +123,7 @@ public class Polynome {
         }
         
         // Toutes les racines se trouvent forcément entre -limite et +limite.
+        // Formule de Borne de Cauchy
         double limite = 1.0 + (maxCoeff / an); 
         
         // 2. Recherche par balayage et dichotomie
