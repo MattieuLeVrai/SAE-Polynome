@@ -53,6 +53,11 @@ class TestPolynome {
 		assertNotSame(pDegre2, pTest, 
 				      "Deux instanciations doivent créer des références"
 		              +" mémoire différentes.");
+	
+		assertThrows(IllegalArgumentException.class, 
+  		            () -> new Polynome(new double[]{Double.NaN, -5.0, 3.2}), 
+  		                  "Un tableau qui contient NaN doit déclencher une "
+  		                  + "IllegalArgumentException.");
 	}
 
 	@Test
