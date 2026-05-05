@@ -44,6 +44,12 @@ public class Polynome {
     	if (coefficients == null || coefficients.length == 0) {
             throw new IllegalArgumentException("Le tableau ne doit pas être null ou vide.");
         }
+    	
+    	for (double coeff : coefficients) {
+    		if (coeff == Double.NaN || coeff == Double.POSITIVE_INFINITY || coeff == Double.NEGATIVE_INFINITY) {
+                throw new IllegalArgumentException("Le tableau ne doit pas contenir de coefficients NaN, ou infinis.");
+            }
+    	}
         
         this.coefficients = coefficients;
     }
