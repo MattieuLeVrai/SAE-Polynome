@@ -122,7 +122,7 @@ public class Polynome {
             maxCoeff = Math.max(maxCoeff, Math.abs(this.getCoefficient(i)));
         }
         
-        // Toutes les racines se trouvent forcément entre -limite et +limite
+        // Toutes les racines se trouvent forcément entre -limite et +limite.
         double limite = 1.0 + (maxCoeff / an); 
         
         // 2. Recherche par balayage et dichotomie
