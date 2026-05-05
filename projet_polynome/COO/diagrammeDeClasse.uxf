@@ -47,6 +47,7 @@
 + getRacines(): double[]
 + estNul(): boolean
 + toString(): String
++ evaluer(double x): double
 </panel_attributes>
     <additional_attributes/>
   </element>
