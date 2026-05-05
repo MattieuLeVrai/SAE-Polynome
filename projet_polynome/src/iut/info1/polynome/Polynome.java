@@ -46,7 +46,7 @@ public class Polynome {
         }
     	
     	for (double coeff : coefficients) {
-    		if (coeff == Double.NaN || coeff == Double.POSITIVE_INFINITY || coeff == Double.NEGATIVE_INFINITY) {
+    		if (Double.isNaN(coeff) || Double.isInfinite(coeff)) {
                 throw new IllegalArgumentException("Le tableau ne doit pas contenir de coefficients NaN, ou infinis.");
             }
     	}

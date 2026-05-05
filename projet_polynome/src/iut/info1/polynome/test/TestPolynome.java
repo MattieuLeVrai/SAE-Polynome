@@ -58,6 +58,14 @@ class TestPolynome {
   		            () -> new Polynome(new double[]{Double.NaN, -5.0, 3.2}), 
   		                  "Un tableau qui contient NaN doit déclencher une "
   		                  + "IllegalArgumentException.");
+		assertThrows(IllegalArgumentException.class, 
+		            () -> new Polynome(new double[]{1.6, Double.POSITIVE_INFINITY, -5.0, 3.2}), 
+		                  "Un tableau qui contient NaN doit déclencher une "
+		                  + "IllegalArgumentException.");
+		assertThrows(IllegalArgumentException.class, 
+	            () -> new Polynome(new double[]{1.6, 6.4, -5.0, 3.2, Double.NEGATIVE_INFINITY}), 
+	                  "Un tableau qui contient NaN doit déclencher une "
+	                  + "IllegalArgumentException.");
 	}
 
 	@Test
