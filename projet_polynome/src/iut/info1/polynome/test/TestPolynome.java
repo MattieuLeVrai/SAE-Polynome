@@ -165,6 +165,17 @@ class TestPolynome {
 		assertTrue(affichage.contains("5.0"), 
 				"L'affichage doit contenir le coefficient '5.0'.");
 	}
+	
+	@Test
+	void testEvaluer() {
+	    // P(X) = 3.2X² - 5.0X + 1.0
+	    // P(2) = 3.2(4) - 5.0(2) + 1.0 = 12.8 - 10 + 1 = 3.8
+	    assertEquals(3.8, pDegre2.evaluer(2.0), 1e-6);
+	    assertEquals(1.0, pDegre2.evaluer(0.0), 1e-6);
+	    assertEquals(0.0, pNul.evaluer(5.0), 1e-6);
+	}
+	
+	
 //	@Test
 //	final void testCalculerRacines() {
 //		// Test du polynôme nul
