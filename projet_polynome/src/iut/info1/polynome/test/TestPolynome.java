@@ -17,7 +17,7 @@ class TestPolynome {
 	private Polynome pNul;
 	private Polynome pDegre2;
 	private Polynome pDegre3; // Utile pour tester des limites différentes
-	private double coefficientGargantuesque;
+	private double grosCoefficient;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -27,7 +27,7 @@ class TestPolynome {
 		// P(X) = 2.0X^3
 		pDegre3 = new Polynome(new double[]{0.0, 0.0, 0.0, 2.0});
 		
-		coefficientGargantuesque = Double.MAX_VALUE * 2.0;
+		grosCoefficient = Double.MAX_VALUE * 2.0;
 	}
 
 	@Test
@@ -52,7 +52,7 @@ class TestPolynome {
         		      () -> new Polynome(new double[]{}), 
             "Un tableau vide doit déclencher une IllegalArgumentException.");
         assertThrows(IllegalArgumentException.class, () -> {
-			new Polynome(new double[] {1.0, coefficientGargantuesque});
+			new Polynome(new double[] {1.0, grosCoefficient});
 		},"Le constructeur doit refuser les coefficients Infinity (overflow).");
     }
 
