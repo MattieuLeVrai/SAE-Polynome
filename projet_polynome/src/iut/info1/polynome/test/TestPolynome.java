@@ -3,6 +3,7 @@ package iut.info1.polynome.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.AfterEach;
@@ -16,6 +17,7 @@ class TestPolynome {
 	private Polynome pNul;
 	private Polynome pDegre2;
 	private Polynome pDegre3; // Utile pour tester des limites différentes
+	private double coefficientGargantuesque;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -24,6 +26,8 @@ class TestPolynome {
 		pDegre2 = new Polynome(new double[]{1.0, -5.0, 3.2});
 		// P(X) = 2.0X^3
 		pDegre3 = new Polynome(new double[]{0.0, 0.0, 0.0, 2.0});
+		
+		coefficientGargantuesque = Double.MAX_VALUE * 2.0;
 	}
 
 	@Test
@@ -47,6 +51,9 @@ class TestPolynome {
         assertThrows(IllegalArgumentException.class, 
         		      () -> new Polynome(new double[]{}), 
             "Un tableau vide doit déclencher une IllegalArgumentException.");
+        assertThrows(IllegalArgumentException.class, () -> {
+			new Polynome(new double[] {1.0, coefficientGargantuesque});
+		},"Le constructeur doit refuser les coefficients Infinity (overflow).");
     }
 
 	@Test
@@ -99,6 +106,9 @@ class TestPolynome {
 		// Test sur le polynôme nul
 		assertEquals(0.0, pNul.getCoefficient(0), 
 				     "Le coefficient du polynôme nul doit être 0.0.");
+		int puissanceOverflow = Integer.MAX_VALUE + 1;
+		assertEquals(0.0, pDegre2.getCoefficient(puissanceOverflow),
+			"Une puissance ayant subi un overflow (négative) doit retourner 0.0.");
 	}
 
 	@Test
@@ -150,6 +160,13 @@ class TestPolynome {
         Arrays.sort(racinesDecimales);
         assertEquals(-0.75, racinesDecimales[0], 0.0001, "La première racine doit être -0.75");
         assertEquals(2.0, racinesDecimales[1], 0.0001, "La deuxième racine doit être 2.0");
+        
+        // P(X) = 0.01X + MAX_VALUE  => Borne = 1 + (MAX_VALUE / 0.01) = Infinity
+     	Polynome pExtrême = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
+     		
+     	assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+     		pExtrême.getRacines();
+     	}, "L'algorithme de racines ne doit pas boucler à l'infini si la borne dépasse Double.MAX_VALUE.");
 	}
 
 	@Test
