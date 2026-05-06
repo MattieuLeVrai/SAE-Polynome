@@ -3,6 +3,8 @@ package iut.info1.polynome.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -135,6 +137,19 @@ class TestPolynome {
 				      "Le tableau de racines ne doit pas être null.");
 		assertEquals(2, racinesDegre2.length, 
 				      "Ce polynôme de degré 2 possède deux racines réelles.");
+		
+		// Test d'un polynôme de degré 2 sans racines réelles : P(X) = X^2 + 4
+        Polynome pDegre2SansRacine = new Polynome(new double[]{4.0, 0.0, 1.0});
+        double[] racinesVides = pDegre2SansRacine.getRacines();
+        assertEquals(0, racinesVides.length, "Ce polynôme de degré 2 ne coupe jamais l'axe des abscisses.");
+
+        // Test d'un polynôme avec des racines non entières : P(X) = 4X^2 - 5X - 6 (Racines : -0.75 et 2.0)
+        Polynome pDegre2Decimal = new Polynome(new double[]{-6.0, -5.0, 4.0});
+        double[] racinesDecimales = pDegre2Decimal.getRacines();
+        assertEquals(2, racinesDecimales.length);
+        Arrays.sort(racinesDecimales);
+        assertEquals(-0.75, racinesDecimales[0], 0.0001, "La première racine doit être -0.75");
+        assertEquals(2.0, racinesDecimales[1], 0.0001, "La deuxième racine doit être 2.0");
 	}
 
 	@Test
