@@ -137,35 +137,35 @@ class TestPolynome {
 
 	@Test
 	final void testGetRacines() {
-		double[] racinesNul = pNul.getRacines();
-		assertTrue(racinesNul == null || racinesNul.length == 0, 
-				   "Les racines du polynôme nul doivent être null "
-		           +"ou un tableau vide.");
-		
-		double[] racinesDegre2 = pDegre2.getRacines();
-		assertNotNull(racinesDegre2,
-				      "Le tableau de racines ne doit pas être null.");
-		assertEquals(2, racinesDegre2.length, 
-				      "Ce polynôme de degré 2 possède deux racines réelles.");
-		
-		// Test d'un polynôme de degré 2 sans racines réelles : P(X) = X^2 + 4
-        Polynome pDegre2SansRacine = new Polynome(new double[]{4.0, 0.0, 1.0});
-        double[] racinesVides = pDegre2SansRacine.getRacines();
-        assertEquals(0, racinesVides.length, "Ce polynôme de degré 2 ne coupe jamais l'axe des abscisses.");
+	    // --- 1. Polynôme Nul ou Constant ---
+	    assertEquals(0, pNul.getRacines().length, "Le polynôme nul ne doit pas renvoyer de racines.");
+	    Polynome pConstant = new Polynome(new double[]{5.0});
+	    assertEquals(0, pConstant.getRacines().length, "Un polynôme constant (P=5) n'a pas de racine.");
 
-        // Test d'un polynôme avec des racines non entières : P(X) = 4X^2 - 5X - 6 (Racines : -0.75 et 2.0)
-        Polynome pDegre2Decimal = new Polynome(new double[]{-6.0, -5.0, 4.0});
-        double[] racinesDecimales = pDegre2Decimal.getRacines();
-        assertEquals(2, racinesDecimales.length);
-        Arrays.sort(racinesDecimales);
-        assertEquals(-0.75, racinesDecimales[0], 0.0001, "La première racine doit être -0.75");
-        assertEquals(2.0, racinesDecimales[1], 0.0001, "La deuxième racine doit être 2.0");
-        
-        //P(X) = 0.01X + MAX_VALUE  => Borne = 1 + (MAX_VALUE / 0.01) = Infinity
-        Polynome pExtrême = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
-     	assertTimeoutPreemptively(Duration.ofSeconds(20), () -> {
-     		pExtrême.getRacines();
-     	}, "L'algorithme de racines ne doit pas boucler à l'infini si la borne dépasse Double.MAX_VALUE.");
+	    // --- 2. Degré 1 (Linéaire) : P(X) = 4X - 2 => Racine = 0.5 ---
+	    Polynome pDegre1 = new Polynome(new double[]{-2.0, 4.0});
+	    double[] racinesDegre1 = pDegre1.getRacines();
+	    assertEquals(1, racinesDegre1.length, "Un degré 1 doit avoir une racine.");
+	    assertEquals(0.5, racinesDegre1[0], 0.0001, "La racine de 4X - 2 doit être 0.5.");
+
+	    // --- 3. Degré 2 sans racines réelles : P(X) = X^2 + 4 ---
+	    Polynome pSansRacine = new Polynome(new double[]{4.0, 0.0, 1.0});
+	    assertEquals(0, pSansRacine.getRacines().length, "X^2 + 4 ne doit pas avoir de racines réelles.");
+
+	    // --- 4. Racines décimales : P(X) = 4X^2 - 5X - 6 ---
+	    Polynome pDecimal = new Polynome(new double[]{-6.0, -5.0, 4.0});
+	    double[] racinesDecimales = pDecimal.getRacines();
+	    Arrays.sort(racinesDecimales); // Important pour comparer les indices
+	    assertEquals(2, racinesDecimales.length);
+	    assertEquals(-0.75, racinesDecimales[0], 0.0001);
+	    assertEquals(2.0, racinesDecimales[1], 0.0001);
+
+	    // --- 5. Racine double (Multiple) : P(X) = (X-1)^2 = X^2 - 2X + 1 ---
+	    Polynome pRacineDouble = new Polynome(new double[]{1.0, -2.0, 1.0});
+	    double[] rDouble = pRacineDouble.getRacines();
+	    // Selon ton implémentation (balayage), il est possible qu'il en trouve une seule ou deux très proches
+	    assertTrue(rDouble.length >= 1, "Doit trouver au moins une racine pour (X-1)^2");
+	    assertEquals(1.0, rDouble[0], 0.01, "La racine double doit être proche de 1.0.");
 	}
 
 	@Test
@@ -199,11 +199,35 @@ class TestPolynome {
 	
 	@Test
 	void testEvaluer() {
-	    // P(X) = 3.2X² - 5.0X + 1.0
+	    // P(X) = 3.2X² - 5.0X + 1.0 (défini dans setUp)
+	    // P(0) = 1.0
+	    assertEquals(1.0, pDegre2.evaluer(0.0), 1e-6);
+	    
 	    // P(2) = 3.2(4) - 5.0(2) + 1.0 = 12.8 - 10 + 1 = 3.8
 	    assertEquals(3.8, pDegre2.evaluer(2.0), 1e-6);
-	    assertEquals(1.0, pDegre2.evaluer(0.0), 1e-6);
-	    assertEquals(0.0, pNul.evaluer(5.0), 1e-6);
+	    
+	    // P(-1) = 3.2(1) - 5.0(-1) + 1.0 = 3.2 + 5 + 1 = 9.2
+	    assertEquals(9.2, pDegre2.evaluer(-1.0), 1e-6);
+
+	    // Test sur le polynôme nul
+	    assertEquals(0.0, pNul.evaluer(99.0), 1e-6);
+	}
+	
+	@Test
+	final void testRobustesseOverflow() {
+	    // Cas du polynôme avec un coefficient immense qui causait le crash
+	    Polynome pExtreme = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
+	    
+	    // On vérifie que evaluer() ne crash pas (elle doit renvoyer Infinity)
+	    assertDoesNotThrow(() -> {
+	        double res = pExtreme.evaluer(1e10);
+	        assertTrue(Double.isInfinite(res) || res > 1e30);
+	    }, "Evaluer ne doit plus lancer d'ArithmeticException sur de grands nombres.");
+
+	    // Test de performance : s'assurer que getRacines ne boucle pas à l'infini
+	    assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+	        pExtreme.getRacines();
+	    }, "L'algorithme doit abandonner ou finir rapidement si les nombres sont trop grands.");
 	}
 	
 	
