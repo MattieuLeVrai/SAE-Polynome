@@ -181,11 +181,24 @@ public class Polynome {
      * @return Le résultat de l'équation
      */
     public double evaluer(double x) {
-        double resultat = 0;
-        // On utilise directement 'i' comme puissance
+    	double resultat = 0;
+
         for (int indice = 0; indice < this.coefficients.length; indice++) {
-            resultat += this.coefficients[indice] * Math.pow(x, indice); 
+            double terme = this.coefficients[indice] * Math.pow(x, indice);
+
+            // Détection overflow / NaN
+            if (Double.isInfinite(terme) || Double.isNaN(terme)) {
+                throw new ArithmeticException("Overflow détecté lors du calcul d'un terme.");
+            }
+
+            resultat += terme;
+            
+            // Détection overflow / NaN
+            if (Double.isInfinite(resultat) || Double.isNaN(resultat)) {
+                throw new ArithmeticException("Overflow détecté lors de l'évaluation du polynôme.");
+            }
         }
+
         return resultat;
     }
     
