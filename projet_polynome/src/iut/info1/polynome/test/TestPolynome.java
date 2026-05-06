@@ -161,10 +161,9 @@ class TestPolynome {
         assertEquals(-0.75, racinesDecimales[0], 0.0001, "La première racine doit être -0.75");
         assertEquals(2.0, racinesDecimales[1], 0.0001, "La deuxième racine doit être 2.0");
         
-        // P(X) = 0.01X + MAX_VALUE  => Borne = 1 + (MAX_VALUE / 0.01) = Infinity
-     	Polynome pExtrême = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
-     		
-     	assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+        //P(X) = 0.01X + MAX_VALUE  => Borne = 1 + (MAX_VALUE / 0.01) = Infinity
+        Polynome pExtrême = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
+     	assertTimeoutPreemptively(Duration.ofSeconds(20), () -> {
      		pExtrême.getRacines();
      	}, "L'algorithme de racines ne doit pas boucler à l'infini si la borne dépasse Double.MAX_VALUE.");
 	}

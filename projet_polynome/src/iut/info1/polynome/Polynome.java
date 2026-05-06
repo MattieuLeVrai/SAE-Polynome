@@ -129,7 +129,12 @@ public class Polynome {
         }
         
         // Toutes les racines se trouvent forcément entre -limite et +limite.
-        double limite = 1.0 + (coefficientMax / coefficientDominant); 
+        double limite = 1.0 + (coefficientMax / coefficientDominant);
+        
+        if (Double.isInfinite(limite) || limite > 1e15) {
+            // On force une limite raisonnable pour éviter l'overflow
+            limite = 1e15; 
+        }
         
         // 2. Recherche par balayage et dichotomie
         List<Double> listeRacines = new ArrayList<>();
@@ -181,22 +186,13 @@ public class Polynome {
      * @return Le résultat de l'équation
      */
     public double evaluer(double x) {
-    	double resultat = 0;
+        double resultat = 0;
 
         for (int indice = 0; indice < this.coefficients.length; indice++) {
+            // On laisse Java calculer naturellement. 
+            // Si le chiffre dépasse, terme deviendra "Infinity".
             double terme = this.coefficients[indice] * Math.pow(x, indice);
-
-            // Détection overflow / NaN
-            if (Double.isInfinite(terme) || Double.isNaN(terme)) {
-                throw new ArithmeticException("Overflow détecté lors du calcul d'un terme.");
-            }
-
             resultat += terme;
-            
-            // Détection overflow / NaN
-            if (Double.isInfinite(resultat) || Double.isNaN(resultat)) {
-                throw new ArithmeticException("Overflow détecté lors de l'évaluation du polynôme.");
-            }
         }
 
         return resultat;
