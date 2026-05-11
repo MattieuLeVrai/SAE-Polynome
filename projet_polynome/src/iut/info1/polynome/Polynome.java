@@ -98,7 +98,7 @@ public class Polynome {
     }
     
     /**
-     * Calcule et retourn e la limite du polynôme quand X tend vers +infini.
+     * Calcule et retourne la limite du polynôme quand X tend vers +infini.
      * @return La limite 
      */
     public double getLimitesPlusInfini() {
