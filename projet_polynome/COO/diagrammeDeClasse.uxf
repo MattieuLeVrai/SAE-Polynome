@@ -1,35 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>170</y>
-      <w>260</w>
-      <h>280</h>
+      <x>459</x>
+      <y>360</y>
+      <w>234</w>
+      <h>216</h>
     </coordinates>
-    <panel_attributes>TestPolynome
+    <panel_attributes>TestOperationPolynome
 --
 
 --
-+ testConstructeurNul(): void
-+ testConstructeurAvecTableau(): void
-+ testGetDegre(): void
-+ testGetCoefficient(): void
-+ testGetLimitesMoinsInfini(): void
-+ testGetLimitesPlusInfini(): void
-+ testGetRacines(): void
-+ testEstNul(): void</panel_attributes>
++ testAddition()
++ testSoustraction()
++ testMultiplication()
++ testDivision()
++ testDerivee()
++ testCalculImageFonction()
++ testCalculValeurMoyenneIntervalle()
++ testIntegrationPolynome()
+
+
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>170</y>
-      <w>260</w>
-      <h>280</h>
+      <x>108</x>
+      <y>369</y>
+      <w>207</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>OperationPolynome
+--
+
+--
++ addition()
++ soustraction()
++ multipliation()
++ division()
++ derivee()
++ calculImageFonction()
++ calculValeurMoyenneIntervalle()
++ integrationPolynome()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>324</x>
+      <y>171</y>
+      <w>153</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>99</x>
+      <y>45</y>
+      <w>234</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>Polynome
 --
@@ -54,34 +92,47 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>260</x>
-      <y>290</y>
-      <w>170</w>
-      <h>30</h>
+      <x>198</x>
+      <y>288</y>
+      <w>72</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>480</y>
-      <w>210</w>
-      <h>190</h>
+      <x>459</x>
+      <y>63</y>
+      <w>234</w>
+      <h>252</h>
     </coordinates>
-    <panel_attributes>OperationPolynome
+    <panel_attributes>TestPolynome
 --
 
 --
-+ addition()
-+ soustraction()
-+ multipliation()
-+ division()
-+ derivee()
-+ calculImageFonction()
-+ calculValeurMoyenneIntervalle()
-+ integrationPolynome()</panel_attributes>
++ testConstructeurNul(): void
++ testConstructeurAvecTableau(): void
++ testGetDegre(): void
++ testGetCoefficient(): void
++ testGetLimitesMoinsInfini(): void
++ testGetLimitesPlusInfini(): void
++ testGetRacines(): void
++ testEstNul(): void</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>459</y>
+      <w>171</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
   </element>
 </diagram>
