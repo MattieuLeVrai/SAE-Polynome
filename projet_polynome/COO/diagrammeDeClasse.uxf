@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>459</x>
-      <y>360</y>
+      <x>522</x>
+      <y>315</y>
       <w>234</w>
       <h>216</h>
     </coordinates>
@@ -30,9 +30,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>108</x>
-      <y>369</y>
-      <w>207</w>
+      <x>144</x>
+      <y>324</y>
+      <w>234</w>
       <h>207</h>
     </coordinates>
     <panel_attributes>OperationPolynome
@@ -52,21 +52,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>324</x>
-      <y>171</y>
-      <w>153</w>
+      <x>396</x>
+      <y>126</y>
+      <w>144</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>99</x>
-      <y>45</y>
-      <w>234</w>
+      <x>0</x>
+      <y>0</y>
+      <w>405</w>
       <h>252</h>
     </coordinates>
     <panel_attributes>Polynome
@@ -78,6 +78,7 @@
 --
 + Polynome()
 + Polynome(coefficients: double[])
++ Polynome(double coefficientDominant, double[] racines, int[] ordres)
 + getDegre(): int
 + getCoefficient(puissance: int): double
 + getLimitesMoinsInfini(): double
@@ -92,8 +93,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>198</x>
-      <y>288</y>
+      <x>261</x>
+      <y>243</y>
       <w>72</w>
       <h>99</h>
     </coordinates>
@@ -104,8 +105,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>459</x>
-      <y>63</y>
+      <x>522</x>
+      <y>18</y>
       <w>234</w>
       <h>252</h>
     </coordinates>
@@ -126,8 +127,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>306</x>
-      <y>459</y>
+      <x>369</x>
+      <y>414</y>
       <w>171</w>
       <h>36</h>
     </coordinates>

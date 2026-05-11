@@ -55,6 +55,38 @@ public class Polynome {
     }
     
     /**
+     * Constructeur à partir des racines réelles, de leurs ordres de multiplicité
+     * et du coefficient du monôme de plus haut degré.
+     * Construit P = coefficientDominant × ∏ (X − racines[i])^ordres[i]
+     *
+     * Exemple : coefficientDominant=2.0, racines={1.0, -3.0}, ordres={2, 1}
+     * donne P = 2(X−1)²(X+3) = 2X³ + 2X² − 8X + 6
+     *
+     * @param coefficientDominant Coefficient du terme de plus haut degré (non nul)
+     * @param racines             Racines réelles du polynôme
+     * @param ordres              Ordres de multiplicité (>= 1 chacun)
+     * @throws IllegalArgumentException si les paramètres sont invalides
+     */
+    public Polynome(double coefficientDominant, double[] racines, int[] ordres) {
+        if (racines == null || ordres == null) {
+            throw new IllegalArgumentException(
+                    "Les tableaux racines et ordres ne peuvent pas être null.");
+        }
+        if (racines.length != ordres.length) {
+            throw new IllegalArgumentException(
+                    "Les tableaux racines et ordres doivent avoir la même taille.");
+        }
+        if (coefficientDominant == 0.0) {
+            throw new IllegalArgumentException("Le coefficient dominant ne peut pas être zéro.");
+        }
+        for (int o : ordres) {
+            if (o < 1) {
+                throw new IllegalArgumentException(
+                        "Chaque ordre de multiplicité doit être >= 1.");
+            }
+        }
+    }
+    /**
      * Retourne le degré du polynôme.
      * @return Le degré (entier)
      */
@@ -196,6 +228,26 @@ public class Polynome {
         }
 
         return resultat;
+    }
+    
+    
+    /**
+     * Multiplie deux polynômes représentés sous forme de tableaux de coefficients.
+     * Utilisée par le constructeur par racines pour éviter une dépendance circulaire
+     * avec OperationPolynome.
+     *
+     * @param a Coefficients du premier polynôme (indice = puissance)
+     * @param b Coefficients du second polynôme  (indice = puissance)
+     * @return Tableau de coefficients du produit
+     */
+    private double[] multiplierTableaux(double[] a, double[] b) {
+        double[] produit = new double[a.length + b.length - 1];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                produit[i + j] += a[i] * b[j];
+            }
+        }
+        return produit;
     }
     
     /**
