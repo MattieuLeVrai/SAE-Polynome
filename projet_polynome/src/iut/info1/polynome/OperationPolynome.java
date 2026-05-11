@@ -190,7 +190,6 @@ public class OperationPolynome {
      * @throws IllegalArgumentException si le diviseur est le polynôme nul
      */
     public Polynome reste(Polynome p1, Polynome p2) {
-    	//TODO Completer la méthode
         return divisionEuclidienne(p1, p2)[1];
     }
     
@@ -340,10 +339,9 @@ public class OperationPolynome {
     }
     
     /**
-     * Supprime les coefficients numériquement négligeables du polynôme.
+     * Supprime les coefficients négligeables du polynôme.
      * Un coefficient est mis à zéro si sa valeur absolue est inférieure à
      * 1e-9 × max(|coefficients|). Utile pour stabiliser l'algorithme d'Euclide.
-     *
      * @param p Le polynôme à nettoyer
      * @return Un nouveau polynôme avec les petits coefficients mis à zéro
      */

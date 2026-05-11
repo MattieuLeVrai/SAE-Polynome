@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>522</x>
-      <y>315</y>
+      <x>621</x>
+      <y>333</y>
       <w>234</w>
       <h>216</h>
     </coordinates>
@@ -30,30 +30,38 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>144</x>
-      <y>324</y>
-      <w>234</w>
-      <h>207</h>
+      <x>99</x>
+      <y>342</y>
+      <w>378</w>
+      <h>297</h>
     </coordinates>
     <panel_attributes>OperationPolynome
 --
 
 --
-+ addition()
-+ soustraction()
-+ multipliation()
-+ division()
-+ derivee()
-+ calculImageFonction()
-+ calculValeurMoyenneIntervalle()
-+ integrationPolynome()</panel_attributes>
++ addition(Polynome, Polynome)
++ soustraction(Polynome, Polynome)
++ multiplicationScalaire(Polynome, Polynome)
++ multipliation(Polynome, Polynome)
++ divisionEuclidienne(Polynome, Polynome)
++ division(Polynome, Polynome)
++ reste(Polynome, Polynome)
++ pgcd(Polynome, Polynome)
++ derivee(Polynome)
++ primitive(Polynome)
++ calculImageFonction(Polynome, double)
++ calculValeurMoyenneIntervalle(Polynome, double, double)
++ integrationPolynome(Polynome, double, double)
++ normaliser(Polynome)
++ nettoyer(Polynome)
++ estEffectivementNul(Polynome)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>396</x>
-      <y>126</y>
+      <x>495</x>
+      <y>144</y>
       <w>144</w>
       <h>36</h>
     </coordinates>
@@ -64,8 +72,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>0</y>
+      <x>99</x>
+      <y>18</y>
       <w>405</w>
       <h>252</h>
     </coordinates>
@@ -93,8 +101,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>261</x>
-      <y>243</y>
+      <x>360</x>
+      <y>261</y>
       <w>72</w>
       <h>99</h>
     </coordinates>
@@ -105,8 +113,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>522</x>
-      <y>18</y>
+      <x>621</x>
+      <y>36</y>
       <w>234</w>
       <h>252</h>
     </coordinates>
@@ -127,8 +135,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>369</x>
-      <y>414</y>
+      <x>468</x>
+      <y>432</y>
       <w>171</w>
       <h>36</h>
     </coordinates>
