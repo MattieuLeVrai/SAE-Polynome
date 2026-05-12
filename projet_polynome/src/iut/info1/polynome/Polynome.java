@@ -83,6 +83,19 @@ public class Polynome {
                         "Chaque ordre de multiplicité doit être >= 1.");
             }
         }
+        // Départ : polynôme constant égal au coefficient dominant
+        double[] result = new double[]{coefficientDominant};
+ 
+        // Pour chaque racine r d'ordre k, on multiplie par (X − r)^k
+        for (int i = 0; i < racines.length; i++) {
+            // (X − r) en tableau : [-r, 1.0]
+            double[] facteur = new double[]{-racines[i], 1.0};
+            for (int k = 0; k < ordres[i]; k++) {
+                result = multiplierTableaux(result, facteur);
+            }
+        }
+ 
+        this.coefficients = result;
     }
     /**
      * Retourne le degré du polynôme.
