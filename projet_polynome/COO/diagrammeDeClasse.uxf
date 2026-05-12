@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>9</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
-      <y>333</y>
-      <w>234</w>
-      <h>216</h>
+      <x>504</x>
+      <y>280</y>
+      <w>208</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>TestOperationPolynome
 --
@@ -30,10 +30,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>99</x>
-      <y>342</y>
-      <w>378</w>
-      <h>297</h>
+      <x>40</x>
+      <y>288</y>
+      <w>336</w>
+      <h>264</h>
     </coordinates>
     <panel_attributes>OperationPolynome
 --
@@ -60,10 +60,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>144</y>
-      <w>144</w>
-      <h>36</h>
+      <x>392</x>
+      <y>112</y>
+      <w>128</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
@@ -72,10 +72,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>99</x>
-      <y>18</y>
-      <w>405</w>
-      <h>252</h>
+      <x>40</x>
+      <y>0</y>
+      <w>360</w>
+      <h>224</h>
     </coordinates>
     <panel_attributes>Polynome
 --
@@ -101,10 +101,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>261</y>
-      <w>72</w>
-      <h>99</h>
+      <x>272</x>
+      <y>216</y>
+      <w>64</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
@@ -113,10 +113,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
-      <y>36</y>
-      <w>234</w>
-      <h>252</h>
+      <x>504</x>
+      <y>16</y>
+      <w>208</w>
+      <h>224</h>
     </coordinates>
     <panel_attributes>TestPolynome
 --
@@ -135,10 +135,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>468</x>
-      <y>432</y>
-      <w>171</w>
-      <h>36</h>
+      <x>368</x>
+      <y>368</y>
+      <w>152</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>

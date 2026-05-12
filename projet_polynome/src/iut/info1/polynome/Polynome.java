@@ -58,13 +58,11 @@ public class Polynome {
      * Constructeur à partir des racines réelles, de leurs ordres de multiplicité
      * et du coefficient du monôme de plus haut degré.
      * Construit P = coefficientDominant × ∏ (X − racines[i])^ordres[i]
-     *
-     * Exemple : coefficientDominant=2.0, racines={1.0, -3.0}, ordres={2, 1}
+     * Exemple : coefficientDominant = 2.0, racines={1.0, -3.0}, ordres = {2, 1}
      * donne P = 2(X−1)²(X+3) = 2X³ + 2X² − 8X + 6
-     *
-     * @param coefficientDominant Coefficient du terme de plus haut degré (non nul)
-     * @param racines             Racines réelles du polynôme
-     * @param ordres              Ordres de multiplicité (>= 1 chacun)
+     * @param coefficientDominant Coefficient du terme de plus haut degré(non nul)
+     * @param racines Racines réelles du polynôme
+     * @param ordres Ordres de multiplicité (>= 1 chacun)
      * @throws IllegalArgumentException si les paramètres sont invalides
      */
     public Polynome(double coefficientDominant, double[] racines, int[] ordres) {
