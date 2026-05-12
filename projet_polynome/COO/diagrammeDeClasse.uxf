@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>280</y>
+      <x>472</x>
+      <y>304</y>
       <w>208</w>
       <h>192</h>
     </coordinates>
@@ -30,8 +30,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>288</y>
+      <x>8</x>
+      <y>312</y>
       <w>336</w>
       <h>264</h>
     </coordinates>
@@ -60,8 +60,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>392</x>
-      <y>112</y>
+      <x>360</x>
+      <y>136</y>
       <w>128</w>
       <h>32</h>
     </coordinates>
@@ -72,10 +72,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>0</y>
+      <x>8</x>
+      <y>8</y>
       <w>360</w>
-      <h>224</h>
+      <h>240</h>
     </coordinates>
     <panel_attributes>Polynome
 --
@@ -95,14 +95,15 @@
 + estNul(): boolean
 + toString(): String
 + evaluer(double x): double
+- multiplierTableaux(double[], double[]): double[]
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>272</x>
-      <y>216</y>
+      <x>240</x>
+      <y>240</y>
       <w>64</w>
       <h>88</h>
     </coordinates>
@@ -113,8 +114,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>16</y>
+      <x>472</x>
+      <y>40</y>
       <w>208</w>
       <h>224</h>
     </coordinates>
@@ -135,8 +136,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>368</x>
-      <y>368</y>
+      <x>336</x>
+      <y>392</y>
       <w>152</w>
       <h>32</h>
     </coordinates>
