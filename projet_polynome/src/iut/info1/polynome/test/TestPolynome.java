@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -198,7 +197,7 @@ class TestPolynome {
 	}
 	
 	@Test
-	void testEvaluer() {
+	final void testEvaluer() {
 	    // P(X) = 3.2X² - 5.0X + 1.0 (défini dans setUp)
 	    // P(0) = 1.0
 	    assertEquals(1.0, pDegre2.evaluer(0.0), 1e-6);
@@ -214,7 +213,7 @@ class TestPolynome {
 	}
 	
 	@Test
-	final void testRobustesseOverflow() {
+	final void testOverflow() {
 	    // Cas du polynôme avec un coefficient immense qui causait le crash
 	    Polynome pExtreme = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
 	    
@@ -229,5 +228,78 @@ class TestPolynome {
 	        pExtreme.getRacines();
 	    }, "L'algorithme doit abandonner ou finir rapidement si les nombres sont trop grands.");
 	}
+	
+    @Test
+    final void testMultiplierTableaux() {
+        Polynome p = new Polynome();
+
+        // Test 1 : (X - 1) * (X - 2) = X² - 3X + 2
+        double[] a = {-1.0, 1.0}; // -1 + X
+        double[] b = {-2.0, 1.0}; // -2 + X
+        double[] resultat = p.multiplierTableaux(a, b);
+
+        assertEquals(3, resultat.length);
+        assertEquals(2.0, resultat[0], 1e-6); // constant
+        assertEquals(-3.0, resultat[1], 1e-6); // coefficient de X
+        assertEquals(1.0, resultat[2], 1e-6); // coefficient de X²
+
+        // Test 2 : (2X + 1) * (X - 1) = 2X² - X - 1
+        double[] c = {1.0, 2.0}; // 1 + 2X
+        double[] d = {-1.0, 1.0}; // -1 + X
+        double[] resultat2 = p.multiplierTableaux(c, d);
+
+        assertEquals(3, resultat2.length);
+        assertEquals(-1.0, resultat2[0], 1e-6);
+        assertEquals(-1.0, resultat2[1], 1e-6);
+        assertEquals(2.0, resultat2[2], 1e-6);
+    }
+
+    @Test
+    final void testConstructeurAvecRacinesValides() {
+        // Test 1 : P = 2(X-1)²(X+3) = 2X³ + 2X² - 8X + 6
+        Polynome p1 = new Polynome(2.0, new double[]{1.0, -3.0}, new int[]{2, 1});
+
+        assertEquals(3, p1.getDegre());
+        assertEquals(2.0, p1.getCoefficient(3), 1e-6); // coeff de X³
+        assertEquals(2.0, p1.getCoefficient(2), 1e-6); // coeff de X²
+        assertEquals(-10.0, p1.getCoefficient(1), 1e-6); // coeff de X
+        assertEquals(6.0, p1.getCoefficient(0), 1e-6); // constant
+
+        // Test 2 : P = (X - 2) = X - 2
+        Polynome p2 = new Polynome(1.0, new double[]{2.0}, new int[]{1});
+
+        assertEquals(1, p2.getDegre());
+        assertEquals(-2.0, p2.getCoefficient(0), 1e-6);
+        assertEquals(1.0, p2.getCoefficient(1), 1e-6);
+
+        // Test 3 : P = 3(X + 1)³ 
+        Polynome p3 = new Polynome(3.0, new double[]{-1.0}, new int[]{3});
+
+        assertEquals(3, p3.getDegre());
+        assertEquals(3.0, p3.getCoefficient(3), 1e-6); // 3X³
+    }
+
+    @Test
+    final void testConstructeurAvecRacinesInvalides() {
+        // Test : racines et ordres de tailles différentes
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(1.0, new double[]{1.0, 2.0}, new int[]{1});
+        });
+
+        // Test : coefficient dominant zéro
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(0.0, new double[]{1.0}, new int[]{1});
+        });
+
+        // Test : ordre de multiplicité invalide
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(1.0, new double[]{1.0}, new int[]{0});
+        });
+
+        // Test : tableaux null
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(1.0, null, new int[]{1});
+        });
+    }
 	
 }

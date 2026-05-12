@@ -251,7 +251,7 @@ public class Polynome {
      * @param b Coefficients du second polynôme  (indice = puissance)
      * @return Tableau de coefficients du produit
      */
-    private double[] multiplierTableaux(double[] a, double[] b) {
+    public double[] multiplierTableaux(double[] a, double[] b) {
         double[] produit = new double[a.length + b.length - 1];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < b.length; j++) {
