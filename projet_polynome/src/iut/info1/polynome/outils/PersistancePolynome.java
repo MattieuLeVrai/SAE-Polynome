@@ -44,10 +44,6 @@ public class PersistancePolynome {
     /** Mot-clé identifiant le format racines. */
     private static final String PREFIXE_RACINES = "RACINES";
 
-    // -------------------------------------------------------------------------
-    // Sauvegarde
-    // -------------------------------------------------------------------------
-
     /**
      * Sauvegarde une liste de polynômes dans un fichier texte au format coefficients.
      *
@@ -136,10 +132,6 @@ public class PersistancePolynome {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // Chargement
-    // -------------------------------------------------------------------------
-
     /**
      * Charge une liste de polynômes depuis un fichier texte.
      * Les formats {@code COEFF} et {@code RACINES} sont tous deux reconnus.
@@ -183,10 +175,6 @@ public class PersistancePolynome {
 
         return polynomes;
     }
-
-    // -------------------------------------------------------------------------
-    // Méthodes privées utilitaires
-    // -------------------------------------------------------------------------
 
     /**
      * Sérialise un polynôme au format {@code COEFF}.
