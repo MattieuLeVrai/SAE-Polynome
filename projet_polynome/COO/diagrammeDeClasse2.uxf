@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>108</x>
+      <y>60</y>
+      <w>288</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome::Polynome
+--
+-coefficients: double[]
+--
++Polynome(): ctor
++Polynome(double[] coefficients): ctor
++Polynome(double coefficientDominant, double[] racines, int[] ordres): ctor
++getDegre(): int
++getCoefficient(int puissance): double
++getLimitesMoinsInfini(): double
++getLimitesPlusInfini(): double
++getRacines(): double[]
++evaluer(double x): double
++multiplierTableaux(double[] a, double[] b): double[]
++estNul(): boolean
++toString(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>66</y>
+      <w>240</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.test::TestPolynome
+--
+-pNul: Polynome
+-pDegre2: Polynome
+-pDegre3: Polynome
+-grosCoefficient: double
+--
+~setUp(): void
+~testPolynomeDefaut(): void
+~testPolynomeDoubleArray_InstanciationEtExceptions(): void
+~testPolynomeDoubleArray(): void
+~testGetDegre(): void
+~testGetCoefficient(): void
+~testGetLimitesMoinsInfini(): void
+~testGetLimitesPlusInfini(): void
+~testGetRacines(): void
+~testEstNul(): void
+~testToString(): void
+~testEvaluer(): void
+~testOverflow(): void
+~testMultiplierTableaux(): void
+~testConstructeurAvecRacinesValides(): void
+~testConstructeurAvecRacinesInvalides(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>366</y>
+      <w>192</w>
+      <h>174</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.test::TestOperationPolynome
+--
+--
+~setUp(): void
+~testAddition(): void
+~testSoustraction(): void
+~testMultiplicationScalaire(): void
+~testMultiplication(): void
+~testDivision(): void
+~testReste(): void
+~testPgcd(): void
+~testDerivee(): void
+~testPrimitive(): void
+~testCalculImageFonction(): void
+~testCalculValeurMoyenneIntervalle(): void
+~testIntegrationPolynome(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>108</x>
+      <y>360</y>
+      <w>288</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome::OperationPolynome
+--
+--
++addition(Polynome p1, Polynome p2): Polynome
++soustraction(Polynome p1, Polynome p2): Polynome
++multiplicationScalaire(Polynome p, double scalaire): Polynome
++multiplication(Polynome p1, Polynome p2): Polynome
+-divisionEuclidienne(Polynome p1, Polynome p2): Polynome[]
++division(Polynome p1, Polynome p2): Polynome
++reste(Polynome p1, Polynome p2): Polynome
++pgcd(Polynome a, Polynome b): Polynome
++derivee(Polynome p): Polynome
++primitive(Polynome p): Polynome
++calculImageFonction(Polynome p, double x): double
++calculValeurMoyenneIntervalle(Polynome p, double a, double b): double
++integrationPolynome(Polynome p, double a, double b): double
+-normaliser(Polynome p): Polynome
+-nettoyer(Polynome p): Polynome
+-estEffectivementNul(Polynome p): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
