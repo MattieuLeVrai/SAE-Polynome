@@ -286,42 +286,69 @@ public class Polynome {
     }
     
     /**
-     * Retourne une représentation textuelle du polynôme (ex: "3.0X^2 + 2.0X - 5.0").
+     * Retourne une représentation textuelle du polynôme (ex: "7.0X^4 + 2.0X^3 + 12.0").
+     * L'ordre d'affichage est décroissant (du plus haut degré vers le terme constant).
      * @return La chaîne de caractères représentant le polynôme
      */
     @Override
     public String toString() {
-    	if (this.estNul()) return "0.0";
+        // Gestion du cas particulier : polynôme nul
+        if (this.estNul()) {
+            return "0.0";
+        }
 
         StringBuilder sb = new StringBuilder();
         boolean premierTerme = true;
 
-        // On parcourt à l'envers pour afficher d'abord les X de plus haut degré
-        for (int puissance = this.coefficients.length - 1;
-        	 puissance >= 0;
-        	 puissance--) {
+        /* * On parcourt le tableau à l'envers :
+         * L'indice 'puissance' correspond à l'exposant de X.
+         * coefficients[coefficients.length - 1] est le coefficient de plus haut degré (an).
+         */
+        for (int puissance = this.coefficients.length - 1; puissance >= 0; puissance--) {
             double coeff = this.coefficients[puissance];
-            if (coeff == 0) continue;
 
-            if (coeff > 0 && !premierTerme) {
-                sb.append(" + ");
-            } else if (coeff < 0) {
-                sb.append(premierTerme ? "-" : " - ");
+            // On ignore les termes dont le coefficient est zéro
+            if (coeff == 0) {
+                continue;
             }
 
+            // 1. Gestion du signe et des opérateurs de liaison (+ / -)
+            if (coeff > 0) {
+                if (!premierTerme) {
+                    sb.append(" + ");
+                }
+            } else {
+                // Pour un coefficient négatif
+                if (premierTerme) {
+                    sb.append("-");
+                } else {
+                    sb.append(" - ");
+                }
+            }
+
+            // 2. Gestion de la valeur absolue du coefficient
             double absCoeff = Math.abs(coeff);
-            if (absCoeff != 1 || puissance == 0) {
+            
+            /* * On affiche le coefficient si :
+             * - Il est différent de 1.0 (on préfère "X" à "1.0X")
+             * - OU si c'est le terme constant (puissance 0), car là il faut afficher "1.0"
+             */
+            if (absCoeff != 1.0 || puissance == 0) {
                 sb.append(absCoeff);
             }
 
+            // 3. Gestion de la variable X et de sa puissance
             if (puissance > 0) {
                 sb.append("X");
                 if (puissance > 1) {
                     sb.append("^").append(puissance);
                 }
             }
+
+            // Une fois qu'on a ajouté un terme, le suivant ne sera plus le "premier"
             premierTerme = false;
         }
+
         return sb.toString();
     }
 }
