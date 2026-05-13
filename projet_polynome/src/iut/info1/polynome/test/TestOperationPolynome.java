@@ -24,6 +24,7 @@ class TestOperationPolynome {
     private Polynome pNul;                  // P = 0
     private Polynome pDeriveResultat;       // P = 4X + 3 (dérivée de 2X^2 + 3X + 1)
     private Polynome pPrimitiveResultat;    // P = 3X + 2X^2
+    
 
     @BeforeEach
     void setUp() throws Exception {

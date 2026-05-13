@@ -11,6 +11,63 @@ import org.junit.jupiter.api.Test;
 
 import iut.info1.polynome.Polynome;
 
+/**
+ * Test unitaire pour la classe Polynome.
+ * Plan de test :
+ * 	- Test des constructeurs :
+ *         - Constructeur par défaut : doit créer un polynôme nul sans exception.
+ *         - Constructeur avec tableau de coefficients :
+ *         - Cas valide : doit créer un polynôme correct sans exception.
+ *         
+ *     - Cas invalides :
+ *         - Tableau null : doit lancer IllegalArgumentException.
+ *         - Tableau vide : doit lancer IllegalArgumentException.
+ *         - Coefficients non finis (NaN, Infinity) : 
+ *              doit lancer IllegalArgumentException.
+ *         
+ * - Test des méthodes d'accès :
+ *         - getDegre() : 
+ *             doit retourner le degré correct pour différents polynômes.
+ *         - getCoefficient(int n) : 
+ *             doit retourner le coefficient correct pour différentes puissances,
+ *         et 0 pour les puissances supérieures au degré.
+ *         - getLimitesMoinsInfini() et getLimitesPlusInfini() : 
+ *             doit retourner les limites correctes en -infini et +infini.
+ *         - getRacines() : 
+ *             doit retourner les racines correctes pour différents polynômes
+ *             (nul, constant, linéaire, 
+ *             quadratique avec ou sans racines réelles).
+ * - Test des méthodes de comportement :
+ *         - estNul() : doit retourner true pour le polynôme nul 
+ *                      et false pour les autres.
+ *         - toString() : doit retourner une représentation textuelle non nulle 
+ *                        et non vide du polynôme.
+ * - Test de l'évaluation du polynôme :
+ *         - evaluer(double x) : 
+ *             doit retourner la valeur correcte du polynôme 
+ *             pour différentes valeurs de x, y compris des cas extrêmes.
+ * - Test de robustesse et performance :
+ *         - Evaluer un polynôme avec des coefficients très grands pour vérifier 
+ *             que cela ne cause pas de crash (doit retourner Infinity 
+ *             ou un grand nombre au lieu de lancer une exception).
+ *         - Test de multiplication de tableaux (si la méthode est publique) : 
+ *             doit retourner le résultat correct 
+ *             pour des tableaux d'entrée spécifiques.
+ * - Test du constructeur avec racines et ordres de multiplicité :
+ *         - Cas valide : doit créer un polynôme correct sans exception pour
+ *             des racines et ordres valides.
+ *         - Cas invalides : doit lancer IllegalArgumentException pour
+ *             des racines et ordres de tailles différentes, 
+ *             coefficient dominant zéro, ordre de multiplicité invalide, 
+ *             ou tableaux null.
+ *     
+ * 
+ * @author Higounet Kelvin
+ * @author Laurençont Yanis
+ * @author Liao Mattieu
+ * @author Moqué Baptiste 
+ * 
+ */
 class TestPolynome {
 	
 	private Polynome pNul;
