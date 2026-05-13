@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>108</x>
-      <y>60</y>
-      <w>288</w>
-      <h>168</h>
+      <x>300</x>
+      <y>40</y>
+      <w>480</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome::Polynome
 --
@@ -31,10 +31,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>456</x>
-      <y>66</y>
-      <w>240</w>
-      <h>240</h>
+      <x>960</x>
+      <y>40</y>
+      <w>400</w>
+      <h>400</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome.test::TestPolynome
 --
@@ -65,13 +65,14 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>456</x>
-      <y>366</y>
-      <w>192</w>
-      <h>174</h>
+      <x>980</x>
+      <y>580</y>
+      <w>320</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome.test::TestOperationPolynome
 --
+
 --
 ~setUp(): void
 ~testAddition(): void
@@ -92,13 +93,14 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>108</x>
-      <y>360</y>
-      <w>288</w>
-      <h>192</h>
+      <x>300</x>
+      <y>540</y>
+      <w>480</w>
+      <h>320</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome::OperationPolynome
 --
+
 --
 +addition(Polynome p1, Polynome p2): Polynome
 +soustraction(Polynome p1, Polynome p2): Polynome
@@ -118,5 +120,41 @@
 -estEffectivementNul(Polynome p): boolean
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>310</y>
+      <w>80</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>190</y>
+      <w>210</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>700</y>
+      <w>230</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
   </element>
 </diagram>
