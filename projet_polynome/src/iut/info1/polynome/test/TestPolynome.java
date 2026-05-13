@@ -67,11 +67,13 @@ class TestPolynome {
   		                  "Un tableau qui contient NaN doit déclencher une "
   		                  + "IllegalArgumentException.");
 		assertThrows(IllegalArgumentException.class, 
-		            () -> new Polynome(new double[]{1.6, Double.POSITIVE_INFINITY, -5.0, 3.2}), 
+		            () -> new Polynome(new double[]{1.6,
+		            	  Double.POSITIVE_INFINITY, -5.0, 3.2}), 
 		                  "Un tableau qui contient NaN doit déclencher une "
 		                  + "IllegalArgumentException.");
 		assertThrows(IllegalArgumentException.class, 
-	            () -> new Polynome(new double[]{1.6, 6.4, -5.0, 3.2, Double.NEGATIVE_INFINITY}), 
+	            () -> new Polynome(new double[]{1.6, 6.4, -5.0, 3.2,
+	            	  Double.NEGATIVE_INFINITY}), 
 	                  "Un tableau qui contient NaN doit déclencher une "
 	                  + "IllegalArgumentException.");
 	}
@@ -136,33 +138,40 @@ class TestPolynome {
 
 	@Test
 	final void testGetRacines() {
-	    // --- 1. Polynôme Nul ou Constant ---
-	    assertEquals(0, pNul.getRacines().length, "Le polynôme nul ne doit pas renvoyer de racines.");
+	    // Polynôme Nul ou Constant 
+	    assertEquals(0, pNul.getRacines().length,
+	    		                         "Le polynôme nul ne doit pas" +
+	                                     "renvoyer de racines.");
 	    Polynome pConstant = new Polynome(new double[]{5.0});
-	    assertEquals(0, pConstant.getRacines().length, "Un polynôme constant (P=5) n'a pas de racine.");
+	    assertEquals(0, pConstant.getRacines().length, "Un polynôme constant" +
+	                                                   "(P=5) n'a pas de racine.");
 
-	    // --- 2. Degré 1 (Linéaire) : P(X) = 4X - 2 => Racine = 0.5 ---
+	    // Degré 1 : P(X) = 4X - 2 => Racine = 0.5
 	    Polynome pDegre1 = new Polynome(new double[]{-2.0, 4.0});
 	    double[] racinesDegre1 = pDegre1.getRacines();
 	    assertEquals(1, racinesDegre1.length, "Un degré 1 doit avoir une racine.");
 	    assertEquals(0.5, racinesDegre1[0], 0.0001, "La racine de 4X - 2 doit être 0.5.");
 
-	    // --- 3. Degré 2 sans racines réelles : P(X) = X^2 + 4 ---
+	    // Degré 2 sans racines réelles : P(X) = X^2 + 4
 	    Polynome pSansRacine = new Polynome(new double[]{4.0, 0.0, 1.0});
-	    assertEquals(0, pSansRacine.getRacines().length, "X^2 + 4 ne doit pas avoir de racines réelles.");
+	    assertEquals(0, pSansRacine.getRacines().length, "X^2 + 4 ne doit" +
+	                                                     "pas avoir de racines réelles.");
 
-	    // --- 4. Racines décimales : P(X) = 4X^2 - 5X - 6 ---
+	    // Racines décimales : P(X) = 4X^2 - 5X - 6 
 	    Polynome pDecimal = new Polynome(new double[]{-6.0, -5.0, 4.0});
 	    double[] racinesDecimales = pDecimal.getRacines();
 	    Arrays.sort(racinesDecimales); // Important pour comparer les indices
-	    assertEquals(2, racinesDecimales.length);
-	    assertEquals(-0.75, racinesDecimales[0], 0.0001);
-	    assertEquals(2.0, racinesDecimales[1], 0.0001);
+	    assertEquals(2, racinesDecimales.length,"Le polynôme 4X² - 5X - 6" +
+	                                            "devrait avoir exactement 2 racines réelles.");
+	    assertEquals(-0.75, racinesDecimales[0], 0.0001,"La première racine" +
+	                                                    "(x1) est incorrecte." +
+	    		                                        "Attendu : -0.75.");
+	    assertEquals(2.0, racinesDecimales[1], 0.0001,"La deuxième racine " +
+	    		                                      "(x2) est incorrecte. Attendu : 2.0.");
 
-	    // --- 5. Racine double (Multiple) : P(X) = (X-1)^2 = X^2 - 2X + 1 ---
+	    // Racine double (Multiple) : P(X) = (X-1)^2 = X^2 - 2X + 1 
 	    Polynome pRacineDouble = new Polynome(new double[]{1.0, -2.0, 1.0});
 	    double[] rDouble = pRacineDouble.getRacines();
-	    // Selon ton implémentation (balayage), il est possible qu'il en trouve une seule ou deux très proches
 	    assertTrue(rDouble.length >= 1, "Doit trouver au moins une racine pour (X-1)^2");
 	    assertEquals(1.0, rDouble[0], 0.01, "La racine double doit être proche de 1.0.");
 	}
@@ -174,7 +183,7 @@ class TestPolynome {
 		assertFalse(pDegre2.estNul(), 
 				     "estNul() doit retourner false pour un polynôme non nul.");
 		
-		// Test d'un faux polynôme nul (ex: des zéros dans le constructeur)
+		// Test d'un "faux" polynôme nul (ex: des zéros dans le constructeur)
 		Polynome pFauxNul = new Polynome(new double[]{0.0, 0.0, 0.0});
 		assertTrue(pFauxNul.estNul(), 
 				     "Un polynôme construit avec que des 0.0 "

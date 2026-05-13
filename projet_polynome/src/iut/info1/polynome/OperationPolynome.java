@@ -5,7 +5,6 @@
 
 package iut.info1.polynome;
 
-import iut.info1.polynome.Polynome;
 
 /**
  * Fournit les principales opérations algébriques sur les polynômes de IR[X] :

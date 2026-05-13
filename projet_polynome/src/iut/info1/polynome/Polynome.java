@@ -16,7 +16,6 @@ import java.util.List;
  * <li>Déterminer le degré du polynôme.</li>
  * <li>Calculer les limites aux voisinages de l'infini.</li>
  * <li>Obtenir les coefficients pour une puissance donnée.</li>
- * <li>Générer une représentation textuelle formatée de l'expression.</li>
  * </ul>
  * @author Higounet Kelvin
  * @author Laurençont Yanis
@@ -32,7 +31,6 @@ public class Polynome {
      * Crée le polynôme nul P(X) = 0.0
      */
     public Polynome() {
-    	// Initialisation des tableaux pour le polynôme nul
     	this.coefficients = new double[] {0.0};
     }
     
@@ -42,12 +40,15 @@ public class Polynome {
      */
     public Polynome(double[] coefficients) {
     	if (coefficients == null || coefficients.length == 0) {
-            throw new IllegalArgumentException("Le tableau ne doit pas être null ou vide.");
+            throw new IllegalArgumentException("Le tableau ne doit pas être" +
+    	                                       "null ou vide.");
         }
     	
     	for (double coeff : coefficients) {
     		if (Double.isNaN(coeff) || Double.isInfinite(coeff)) {
-                throw new IllegalArgumentException("Le tableau ne doit pas contenir de coefficients NaN, ou infinis.");
+                throw new IllegalArgumentException("Le tableau ne doit pas" +
+    		                                       "contenir de coefficients NaN" +
+                		                            ", ou infinis.");
             }
     	}
         
@@ -57,7 +58,6 @@ public class Polynome {
     /**
      * Constructeur à partir des racines réelles, de leurs ordres de multiplicité
      * et du coefficient du monôme de plus haut degré.
-     * Construit P = coefficientDominant × ∏ (X − racines[i])^ordres[i]
      * Exemple : coefficientDominant = 2.0, racines={1.0, -3.0}, ordres = {2, 1}
      * donne P = 2(X−1)²(X+3) = 2X³ + 2X² − 8X + 6
      * @param coefficientDominant Coefficient du terme de plus haut degré(non nul)
@@ -75,7 +75,8 @@ public class Polynome {
                     "Les tableaux racines et ordres doivent avoir la même taille.");
         }
         if (coefficientDominant == 0.0) {
-            throw new IllegalArgumentException("Le coefficient dominant ne peut pas être zéro.");
+            throw new IllegalArgumentException("Le coefficient dominant ne peut" +
+                                               " pas être zéro.");
         }
         for (int o : ordres) {
             if (o < 1) {
@@ -103,7 +104,9 @@ public class Polynome {
      */
     public int getDegre() {
     	// On cherche l'indice du premier coefficient non nul en partant de la fin
-    	for (int indiceCoefficient = this.coefficients.length - 1; indiceCoefficient >= 0; indiceCoefficient--) {
+    	for (int indiceCoefficient = this.coefficients.length - 1;
+    	     indiceCoefficient >= 0;
+    		 indiceCoefficient--) {
             if (this.coefficients[indiceCoefficient] != 0) {
                 return indiceCoefficient;
             }
@@ -134,9 +137,13 @@ public class Polynome {
         if (degre == 0) return coefficientDominant;
 
         if (degre % 2 == 0) {
-            return (coefficientDominant > 0) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+            return (coefficientDominant > 0) ?
+            		                         Double.POSITIVE_INFINITY :
+            		                         Double.NEGATIVE_INFINITY;
         } else {
-            return (coefficientDominant > 0) ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+            return (coefficientDominant > 0) ?
+            		                         Double.NEGATIVE_INFINITY :
+            		                         Double.POSITIVE_INFINITY;
         }
     }
     
@@ -150,7 +157,9 @@ public class Polynome {
 
         if (degre == 0) return coefficientDominant;
 
-        return (coefficientDominant > 0) ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
+        return (coefficientDominant > 0) ?
+        		                         Double.POSITIVE_INFINITY :
+        		                         Double.NEGATIVE_INFINITY;
     }
     
     /**
@@ -168,7 +177,8 @@ public class Polynome {
         double coefficientMax = 0;
         
         for (int indice = 0; indice < degre; indice++) {
-            coefficientMax = Math.max(coefficientMax, Math.abs(this.getCoefficient(indice)));
+            coefficientMax = Math.max(coefficientMax,
+            		                  Math.abs(this.getCoefficient(indice)));
         }
         
         // Toutes les racines se trouvent forcément entre -limite et +limite.
@@ -207,7 +217,8 @@ public class Polynome {
                 }
 
                 // Arrondi à 4 décimales pour gérer les impécisions
-                double racine = Math.round(((borneA + borneB) / 2.0) * 10000.0) / 10000.0;
+                double racine = Math.round(((borneA + borneB) / 2.0) * 10000.0)
+                		                   / 10000.0;
                 
                 if (!listeRacines.contains(racine)) {
                     listeRacines.add(racine);
@@ -286,7 +297,9 @@ public class Polynome {
         boolean premierTerme = true;
 
         // On parcourt à l'envers pour afficher d'abord les X de plus haut degré
-        for (int puissance = this.coefficients.length - 1; puissance >= 0; puissance--) {
+        for (int puissance = this.coefficients.length - 1;
+        	 puissance >= 0;
+        	 puissance--) {
             double coeff = this.coefficients[puissance];
             if (coeff == 0) continue;
 
