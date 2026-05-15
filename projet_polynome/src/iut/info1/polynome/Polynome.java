@@ -351,4 +351,12 @@ public class Polynome {
 
         return sb.toString();
     }
+<<<<<<< HEAD
 }
+=======
+    
+    public double[] calculerRacine() {
+    	
+    }
+}
+>>>>>>> branch 'dev' of https://github.com/MattieuLeVrai/SAE-Polynome
