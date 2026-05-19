@@ -124,30 +124,30 @@ class TestOperationPolynome {
     final void testAddition() {
         // 1. Même degré
         Polynome resMemeDegre = op.addition(pQuadratique, pQuadratique3);
-        assertEquals(2, resMemeDegre.getDegre());
-        assertEquals(4, resMemeDegre.getCoefficient(0));
-        assertEquals(5, resMemeDegre.getCoefficient(1));
-        assertEquals(3, resMemeDegre.getCoefficient(2));
+        assertEquals(2, resMemeDegre.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + resMemeDegre.getDegre());
+        assertEquals(4, resMemeDegre.getCoefficient(0), "Valeur attendue : 4 | Valeur obtenue : " + resMemeDegre.getCoefficient(0));
+        assertEquals(5, resMemeDegre.getCoefficient(1), "Valeur attendue : 5 | Valeur obtenue : " + resMemeDegre.getCoefficient(1));
+        assertEquals(3, resMemeDegre.getCoefficient(2), "Valeur attendue : 3 | Valeur obtenue : " + resMemeDegre.getCoefficient(2));
 
         // 2. Degrés différents
         Polynome resDegDiff = op.addition(pCubique, pLinaire);
-        assertEquals(3, resDegDiff.getDegre());
-        assertEquals(5, resDegDiff.getCoefficient(0)); // 4 + 1
-        assertEquals(4, resDegDiff.getCoefficient(1)); // 3 + 1
+        assertEquals(3, resDegDiff.getDegre(), "Valeur attendue : 3 | Valeur obtenue : " + resDegDiff.getDegre());
+        assertEquals(5, resDegDiff.getCoefficient(0), "Valeur attendue : 5 | Valeur obtenue : " + resDegDiff.getCoefficient(0));
+        assertEquals(4, resDegDiff.getCoefficient(1), "Valeur attendue : 4 | Valeur obtenue : " + resDegDiff.getCoefficient(1));
 
         // 3. Avec un polynôme nul
         Polynome resNul = op.addition(pQuadratique, pNul);
-        assertEquals(2, resNul.getDegre());
-        assertEquals(1, resNul.getCoefficient(0));
+        assertEquals(2, resNul.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + resNul.getDegre());
+        assertEquals(1, resNul.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resNul.getCoefficient(0));
 
         // 4. Deux polynômes nuls
         Polynome resDeuxNuls = op.addition(pNul, pNul);
-        assertTrue(resDeuxNuls.estNul());
+        assertTrue(resDeuxNuls.estNul(), "Le polynôme devrait être nul.");
 
         // 5. Compensation (annulation de coefficients)
         Polynome pOppose = new Polynome(new double[]{-1, -3, -2});
         Polynome resCompensation = op.addition(pQuadratique, pOppose);
-        assertTrue(resCompensation.estNul() || resCompensation.getDegre() == 0 && resCompensation.getCoefficient(0) == 0);
+        assertTrue(resCompensation.estNul() || resCompensation.getDegre() == 0 && resCompensation.getCoefficient(0) == 0, "Le polynôme devrait s'annuler après compensation.");
     }
 
     /**
@@ -158,24 +158,24 @@ class TestOperationPolynome {
         // 1. Même degré
         Polynome p1 = new Polynome(new double[]{4, 5, 3});
         Polynome resMemeDegre = op.soustraction(p1, pQuadratique3);
-        assertEquals(2, resMemeDegre.getDegre());
-        assertEquals(1, resMemeDegre.getCoefficient(0));
-        assertEquals(3, resMemeDegre.getCoefficient(1));
-        assertEquals(2, resMemeDegre.getCoefficient(2));
+        assertEquals(2, resMemeDegre.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + resMemeDegre.getDegre());
+        assertEquals(1, resMemeDegre.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resMemeDegre.getCoefficient(0));
+        assertEquals(3, resMemeDegre.getCoefficient(1), "Valeur attendue : 3 | Valeur obtenue : " + resMemeDegre.getCoefficient(1));
+        assertEquals(2, resMemeDegre.getCoefficient(2), "Valeur attendue : 2 | Valeur obtenue : " + resMemeDegre.getCoefficient(2));
 
         // 2. Degrés différents
         Polynome resDegDiff = op.soustraction(pCubique, pLinaire);
-        assertEquals(3, resDegDiff.getDegre());
-        assertEquals(3, resDegDiff.getCoefficient(0)); // 4 - 1
-        assertEquals(2, resDegDiff.getCoefficient(1)); // 3 - 1
+        assertEquals(3, resDegDiff.getDegre(), "Valeur attendue : 3 | Valeur obtenue : " + resDegDiff.getDegre());
+        assertEquals(3, resDegDiff.getCoefficient(0), "Valeur attendue : 3 | Valeur obtenue : " + resDegDiff.getCoefficient(0));
+        assertEquals(2, resDegDiff.getCoefficient(1), "Valeur attendue : 2 | Valeur obtenue : " + resDegDiff.getCoefficient(1));
 
         // 3. Avec un polynôme nul
         Polynome resNul = op.soustraction(pQuadratique, pNul);
-        assertEquals(1, resNul.getCoefficient(0));
+        assertEquals(1, resNul.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resNul.getCoefficient(0));
 
         // 4. P - P = 0
         Polynome resAnnulation = op.soustraction(pQuadratique, pQuadratique);
-        assertTrue(resAnnulation.estNul() || resAnnulation.getCoefficient(0) == 0);
+        assertTrue(resAnnulation.estNul() || resAnnulation.getCoefficient(0) == 0, "Le polynôme devrait être nul après soustraction par lui-même.");
     }
 
     /**
@@ -185,24 +185,24 @@ class TestOperationPolynome {
     final void testMultiplicationScalaire() {
         // 1. Scalaire > 1
         Polynome resGrand = op.multiplicationScalaire(pQuadratique, 2);
-        assertEquals(2, resGrand.getDegre());
-        assertEquals(2, resGrand.getCoefficient(0));
-        assertEquals(6, resGrand.getCoefficient(1));
-        assertEquals(4, resGrand.getCoefficient(2));
+        assertEquals(2, resGrand.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + resGrand.getDegre());
+        assertEquals(2, resGrand.getCoefficient(0), "Valeur attendue : 2 | Valeur obtenue : " + resGrand.getCoefficient(0));
+        assertEquals(6, resGrand.getCoefficient(1), "Valeur attendue : 6 | Valeur obtenue : " + resGrand.getCoefficient(1));
+        assertEquals(4, resGrand.getCoefficient(2), "Valeur attendue : 4 | Valeur obtenue : " + resGrand.getCoefficient(2));
 
         // 2. Scalaire négatif
         Polynome resNeg = op.multiplicationScalaire(pLinaire, -1);
-        assertEquals(-1, resNeg.getCoefficient(0));
-        assertEquals(-1, resNeg.getCoefficient(1));
+        assertEquals(-1, resNeg.getCoefficient(0), "Valeur attendue : -1 | Valeur obtenue : " + resNeg.getCoefficient(0));
+        assertEquals(-1, resNeg.getCoefficient(1), "Valeur attendue : -1 | Valeur obtenue : " + resNeg.getCoefficient(1));
 
         // 3. Scalaire = 1
         Polynome resUn = op.multiplicationScalaire(pQuadratique, 1);
-        assertEquals(1, resUn.getCoefficient(0));
-        assertEquals(3, resUn.getCoefficient(1));
+        assertEquals(1, resUn.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resUn.getCoefficient(0));
+        assertEquals(3, resUn.getCoefficient(1), "Valeur attendue : 3 | Valeur obtenue : " + resUn.getCoefficient(1));
 
         // 4. Polynôme original nul
         Polynome resPInul = op.multiplicationScalaire(pNul, 5);
-        assertTrue(resPInul.estNul());
+        assertTrue(resPInul.estNul(), "Le résultat de la multiplication d'un polynôme nul devrait être nul.");
     }
 
     /**
@@ -221,31 +221,31 @@ class TestOperationPolynome {
     final void testMultiplication() {
         // 1. Deux linéaires : (X + 1)(X + 2) = X^2 + 3X + 2
         Polynome resDeuxLin = op.multiplication(pLinaire, pLineaire2);
-        assertEquals(2, resDeuxLin.getDegre());
-        assertEquals(2, resDeuxLin.getCoefficient(0));
-        assertEquals(3, resDeuxLin.getCoefficient(1));
-        assertEquals(1, resDeuxLin.getCoefficient(2));
+        assertEquals(2, resDeuxLin.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + resDeuxLin.getDegre());
+        assertEquals(2, resDeuxLin.getCoefficient(0), "Valeur attendue : 2 | Valeur obtenue : " + resDeuxLin.getCoefficient(0));
+        assertEquals(3, resDeuxLin.getCoefficient(1), "Valeur attendue : 3 | Valeur obtenue : " + resDeuxLin.getCoefficient(1));
+        assertEquals(1, resDeuxLin.getCoefficient(2), "Valeur attendue : 1 | Valeur obtenue : " + resDeuxLin.getCoefficient(2));
 
         // 2. Linéaire × Quadratique : (X + 1)(X^2 + 2X + 1) = X^3 + 3X^2 + 3X + 1
         Polynome resLinQuad = op.multiplication(pLinaire, pQuadratique2);
-        assertEquals(3, resLinQuad.getDegre());
-        assertEquals(1, resLinQuad.getCoefficient(0));
-        assertEquals(3, resLinQuad.getCoefficient(1));
-        assertEquals(3, resLinQuad.getCoefficient(2));
-        assertEquals(1, resLinQuad.getCoefficient(3));
+        assertEquals(3, resLinQuad.getDegre(), "Valeur attendue : 3 | Valeur obtenue : " + resLinQuad.getDegre());
+        assertEquals(1, resLinQuad.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resLinQuad.getCoefficient(0));
+        assertEquals(3, resLinQuad.getCoefficient(1), "Valeur attendue : 3 | Valeur obtenue : " + resLinQuad.getCoefficient(1));
+        assertEquals(3, resLinQuad.getCoefficient(2), "Valeur attendue : 3 | Valeur obtenue : " + resLinQuad.getCoefficient(2));
+        assertEquals(1, resLinQuad.getCoefficient(3), "Valeur attendue : 1 | Valeur obtenue : " + resLinQuad.getCoefficient(3));
 
         // 3. Constante × P
         Polynome resConstP = op.multiplication(pConstante3, pQuadratique);
-        assertEquals(3, resConstP.getCoefficient(0)); // 1 * 3
-        assertEquals(9, resConstP.getCoefficient(1)); // 3 * 3
+        assertEquals(3, resConstP.getCoefficient(0), "Valeur attendue : 3 | Valeur obtenue : " + resConstP.getCoefficient(0));
+        assertEquals(9, resConstP.getCoefficient(1), "Valeur attendue : 9 | Valeur obtenue : " + resConstP.getCoefficient(1));
 
         // 4. Un polynôme nul
         Polynome resUnNul = op.multiplication(pQuadratique, pNul);
-        assertTrue(resUnNul.estNul());
+        assertTrue(resUnNul.estNul(), "Le produit avec un polynôme nul doit être nul.");
 
         // 5. Deux polynômes nuls
         Polynome resDeuxNuls = op.multiplication(pNul, pNul);
-        assertTrue(resDeuxNuls.estNul());
+        assertTrue(resDeuxNuls.estNul(), "Le produit de deux polynômes nuls doit être nul.");
     }
 
     /**
@@ -255,25 +255,25 @@ class TestOperationPolynome {
     final void testDivision() {
         // 1. Division exacte : (X^2 + 2X + 1) / (X + 1) = X + 1
         Polynome quotExact = op.division(pQuadratique2, pDiviseur);
-        assertEquals(1, quotExact.getDegre());
-        assertEquals(1, quotExact.getCoefficient(0));
-        assertEquals(1, quotExact.getCoefficient(1));
+        assertEquals(1, quotExact.getDegre(), "Valeur attendue : 1 | Valeur obtenue : " + quotExact.getDegre());
+        assertEquals(1, quotExact.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + quotExact.getCoefficient(0));
+        assertEquals(1, quotExact.getCoefficient(1), "Valeur attendue : 1 | Valeur obtenue : " + quotExact.getCoefficient(1));
 
         // 2. Division avec reste : (X^2 + 2X + 3) / (X + 1) = X + 1 (reste 2)
         Polynome quotAvecReste = op.division(pQuadratique3, pDiviseur);
-        assertEquals(1, quotAvecReste.getDegre());
-        assertEquals(1, quotAvecReste.getCoefficient(0));
+        assertEquals(1, quotAvecReste.getDegre(), "Valeur attendue : 1 | Valeur obtenue : " + quotAvecReste.getDegre());
+        assertEquals(1, quotAvecReste.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + quotAvecReste.getCoefficient(0));
 
         // 3. Degré inférieur (deg P1 < deg P2) -> quotient nul
         Polynome quotDegInf = op.division(pLinaire, pQuadratique);
-        assertTrue(quotDegInf.estNul() || quotDegInf.getDegre() == 0 && quotDegInf.getCoefficient(0) == 0);
+        assertTrue(quotDegInf.estNul() || quotDegInf.getDegre() == 0 && quotDegInf.getCoefficient(0) == 0, "Le quotient devrait être nul si le degré du dividende est inférieur.");
 
         // 4. Par une constante : (2X^2 + 3X + 1) / 5 = 0.4X^2 + 0.6X + 0.2
         Polynome quotConst = op.division(pQuadratique, pConstante5);
-        assertEquals(2, quotConst.getDegre());
-        assertEquals(0.2, quotConst.getCoefficient(0), 1e-9);
-        assertEquals(0.6, quotConst.getCoefficient(1), 1e-9);
-        assertEquals(0.4, quotConst.getCoefficient(2), 1e-9);
+        assertEquals(2, quotConst.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + quotConst.getDegre());
+        assertEquals(0.2, quotConst.getCoefficient(0), 1e-9, "Valeur attendue : 0.2 | Valeur obtenue : " + quotConst.getCoefficient(0));
+        assertEquals(0.6, quotConst.getCoefficient(1), 1e-9, "Valeur attendue : 0.6 | Valeur obtenue : " + quotConst.getCoefficient(1));
+        assertEquals(0.4, quotConst.getCoefficient(2), 1e-9, "Valeur attendue : 0.4 | Valeur obtenue : " + quotConst.getCoefficient(2));
     }
 
     /**
@@ -293,17 +293,17 @@ class TestOperationPolynome {
     final void testReste() {
         // 1. Reste exact (nul)
         Polynome resteNul = op.reste(pQuadratique2, pDiviseur);
-        assertTrue(resteNul.estNul() || Math.abs(resteNul.getCoefficient(0)) < 1e-9);
+        assertTrue(resteNul.estNul() || Math.abs(resteNul.getCoefficient(0)) < 1e-9, "Le reste devrait être nul.");
 
         // 2. Reste non nul : (X^2 + 2X + 3) % (X + 1) = 2
         Polynome resteNonNul = op.reste(pQuadratique3, pDiviseur);
-        assertEquals(0, resteNonNul.getDegre());
-        assertEquals(2, resteNonNul.getCoefficient(0));
+        assertEquals(0, resteNonNul.getDegre(), "Valeur attendue : 0 | Valeur obtenue : " + resteNonNul.getDegre());
+        assertEquals(2, resteNonNul.getCoefficient(0), "Valeur attendue : 2 | Valeur obtenue : " + resteNonNul.getCoefficient(0));
 
         // 3. Degré inférieur (le reste est le dividende lui-même)
         Polynome resteDegInf = op.reste(pLinaire, pQuadratique);
-        assertEquals(1, resteDegInf.getDegre());
-        assertEquals(1, resteDegInf.getCoefficient(0));
+        assertEquals(1, resteDegInf.getDegre(), "Valeur attendue : 1 | Valeur obtenue : " + resteDegInf.getDegre());
+        assertEquals(1, resteDegInf.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resteDegInf.getCoefficient(0));
 
         // 4. Erreur si diviseur nul
         assertThrows(IllegalArgumentException.class, () -> {
@@ -318,23 +318,23 @@ class TestOperationPolynome {
     final void testPgcd() {
         // 1. Degré 1 : pgcd((X+1)^2, X+1) = X + 1
         Polynome pgcdDeg1 = op.pgcd(pQuadratique2, pDiviseur);
-        assertEquals(1, pgcdDeg1.getDegre());
-        assertEquals(1, pgcdDeg1.getCoefficient(1)); // Vérifie le caractère unitaire
+        assertEquals(1, pgcdDeg1.getDegre(), "Valeur attendue : 1 | Valeur obtenue : " + pgcdDeg1.getDegre());
+        assertEquals(1, pgcdDeg1.getCoefficient(1), "Valeur attendue : 1 | Valeur obtenue : " + pgcdDeg1.getCoefficient(1));
 
         // 2. Premiers entre eux : pgcd(X+1, X+2) = 1
         Polynome pgcdPremiers = op.pgcd(pLinaire, pLineaire2);
-        assertEquals(0, pgcdPremiers.getDegre());
-        assertEquals(1, pgcdPremiers.getCoefficient(0));
+        assertEquals(0, pgcdPremiers.getDegre(), "Valeur attendue : 0 | Valeur obtenue : " + pgcdPremiers.getDegre());
+        assertEquals(1, pgcdPremiers.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + pgcdPremiers.getCoefficient(0));
 
         // 3. b nul : pgcd(A, 0) = A normalisé
         Polynome pgcdBNul = op.pgcd(pQuadratique, pNul);
-        assertEquals(2, pgcdBNul.getDegre());
-        assertEquals(1.0, pgcdBNul.getCoefficient(2)); // Coeff dominant rendu unitaire (2/2 = 1)
+        assertEquals(2, pgcdBNul.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + pgcdBNul.getDegre());
+        assertEquals(1.0, pgcdBNul.getCoefficient(2), "Valeur attendue : 1.0 | Valeur obtenue : " + pgcdBNul.getCoefficient(2));
 
         // 4. a = b : pgcd(A, A) = A normalisé
         Polynome pgcdIdentique = op.pgcd(pQuadratique, pQuadratique);
-        assertEquals(2, pgcdIdentique.getDegre());
-        assertEquals(1.0, pgcdIdentique.getCoefficient(2));
+        assertEquals(2, pgcdIdentique.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + pgcdIdentique.getDegre());
+        assertEquals(1.0, pgcdIdentique.getCoefficient(2), "Valeur attendue : 1.0 | Valeur obtenue : " + pgcdIdentique.getCoefficient(2));
     }
 
     /**
@@ -344,25 +344,25 @@ class TestOperationPolynome {
     final void testDerivee() {
         // 1. Quadratique : (2X^2 + 3X + 1)' = 4X + 3
         Polynome resQuad = op.derivee(pQuadratique);
-        assertEquals(1, resQuad.getDegre());
-        assertEquals(3, resQuad.getCoefficient(0));
-        assertEquals(4, resQuad.getCoefficient(1));
+        assertEquals(1, resQuad.getDegre(), "Valeur attendue : 1 | Valeur obtenue : " + resQuad.getDegre());
+        assertEquals(3, resQuad.getCoefficient(0), "Valeur attendue : 3 | Valeur obtenue : " + resQuad.getCoefficient(0));
+        assertEquals(4, resQuad.getCoefficient(1), "Valeur attendue : 4 | Valeur obtenue : " + resQuad.getCoefficient(1));
 
         // 2. Cubique : (X^3 + 2X^2 + 3X + 4)' = 3X^2 + 4X + 3
         Polynome resCub = op.derivee(pCubique);
-        assertEquals(2, resCub.getDegre());
-        assertEquals(3, resCub.getCoefficient(0));
-        assertEquals(4, resCub.getCoefficient(1));
-        assertEquals(3, resCub.getCoefficient(2));
+        assertEquals(2, resCub.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + resCub.getDegre());
+        assertEquals(3, resCub.getCoefficient(0), "Valeur attendue : 3 | Valeur obtenue : " + resCub.getCoefficient(0));
+        assertEquals(4, resCub.getCoefficient(1), "Valeur attendue : 4 | Valeur obtenue : " + resCub.getCoefficient(1));
+        assertEquals(3, resCub.getCoefficient(2), "Valeur attendue : 3 | Valeur obtenue : " + resCub.getCoefficient(2));
 
         // 3. Linéaire : (X + 1)' = 1
         Polynome resLin = op.derivee(pLinaire);
-        assertEquals(0, resLin.getDegre());
-        assertEquals(1, resLin.getCoefficient(0));
+        assertEquals(0, resLin.getDegre(), "Valeur attendue : 0 | Valeur obtenue : " + resLin.getDegre());
+        assertEquals(1, resLin.getCoefficient(0), "Valeur attendue : 1 | Valeur obtenue : " + resLin.getCoefficient(0));
 
         // 4. Nul : (0)' = 0
         Polynome resNul = op.derivee(pNul);
-        assertTrue(resNul.estNul());
+        assertTrue(resNul.estNul(), "La dérivée d'un polynôme nul doit être nulle.");
     }
 
     /**
@@ -381,28 +381,28 @@ class TestOperationPolynome {
     final void testPrimitive() {
         // 1. Linéaire : primitive de (X + 1) = 0.5X^2 + X
         Polynome primLin = op.primitive(pLinaire);
-        assertEquals(2, primLin.getDegre());
-        assertEquals(0.0, primLin.getCoefficient(0));
-        assertEquals(1.0, primLin.getCoefficient(1));
-        assertEquals(0.5, primLin.getCoefficient(2));
+        assertEquals(2, primLin.getDegre(), "Valeur attendue : 2 | Valeur obtenue : " + primLin.getDegre());
+        assertEquals(0.0, primLin.getCoefficient(0), "Valeur attendue : 0.0 | Valeur obtenue : " + primLin.getCoefficient(0));
+        assertEquals(1.0, primLin.getCoefficient(1), "Valeur attendue : 1.0 | Valeur obtenue : " + primLin.getCoefficient(1));
+        assertEquals(0.5, primLin.getCoefficient(2), "Valeur attendue : 0.5 | Valeur obtenue : " + primLin.getCoefficient(2));
 
         // 2. Quadratique : primitive de (X^2 + 2X + 1) = 0.333X^3 + X^2 + X
         Polynome primQuad = op.primitive(pQuadratique2);
-        assertEquals(3, primQuad.getDegre());
-        assertEquals(0.0, primQuad.getCoefficient(0));
-        assertEquals(1.0, primQuad.getCoefficient(1));
-        assertEquals(1.0, primQuad.getCoefficient(2));
-        assertEquals(1.0 / 3.0, primQuad.getCoefficient(3), 1e-9);
+        assertEquals(3, primQuad.getDegre(), "Valeur attendue : 3 | Valeur obtenue : " + primQuad.getDegre());
+        assertEquals(0.0, primQuad.getCoefficient(0), "Valeur attendue : 0.0 | Valeur obtenue : " + primQuad.getCoefficient(0));
+        assertEquals(1.0, primQuad.getCoefficient(1), "Valeur attendue : 1.0 | Valeur obtenue : " + primQuad.getCoefficient(1));
+        assertEquals(1.0, primQuad.getCoefficient(2), "Valeur attendue : 1.0 | Valeur obtenue : " + primQuad.getCoefficient(2));
+        assertEquals(1.0 / 3.0, primQuad.getCoefficient(3), 1e-9, "Valeur attendue : 0.333333333 | Valeur obtenue : " + primQuad.getCoefficient(3));
 
         // 3. Constante : primitive de 3 = 3X
         Polynome primConst = op.primitive(pConstante3);
-        assertEquals(1, primConst.getDegre());
-        assertEquals(0.0, primConst.getCoefficient(0));
-        assertEquals(3.0, primConst.getCoefficient(1));
+        assertEquals(1, primConst.getDegre(), "Valeur attendue : 1 | Valeur obtenue : " + primConst.getDegre());
+        assertEquals(0.0, primConst.getCoefficient(0), "Valeur attendue : 0.0 | Valeur obtenue : " + primConst.getCoefficient(0));
+        assertEquals(3.0, primConst.getCoefficient(1), "Valeur attendue : 3.0 | Valeur obtenue : " + primConst.getCoefficient(1));
 
         // 4. Nul : primitive de 0 = 0
         Polynome primNul = op.primitive(pNul);
-        assertTrue(primNul.estNul());
+        assertTrue(primNul.estNul(), "La primitive d'un polynôme nul doit être nulle.");
     }
 
     /**
@@ -412,19 +412,19 @@ class TestOperationPolynome {
     final void testCalculImageFonction() {
         // 1. x > 0 : Image de 2 par (X^2 + 2X + 1) -> 2^2 + 2*2 + 1 = 9
         double imgPos = op.calculImageFonction(pQuadratique2, 2);
-        assertEquals(9.0, imgPos);
+        assertEquals(9.0, imgPos, "Valeur attendue : 9.0 | Valeur obtenue : " + imgPos);
 
         // 2. x < 0 : Image de -1 par (X^2 + 2X + 1) -> (-1)^2 + 2*(-1) + 1 = 0
         double imgNeg = op.calculImageFonction(pQuadratique2, -1);
-        assertEquals(0.0, imgNeg);
+        assertEquals(0.0, imgNeg, "Valeur attendue : 0.0 | Valeur obtenue : " + imgNeg);
 
         // 3. Polynôme nul
         double imgPInul = op.calculImageFonction(pNul, 15);
-        assertEquals(0.0, imgPInul);
+        assertEquals(0.0, imgPInul, "Valeur attendue : 0.0 | Valeur obtenue : " + imgPInul);
 
         // 4. Polynôme constant : Image de n'importe quoi par 5 -> 5
         double imgConst = op.calculImageFonction(pConstante5, 10);
-        assertEquals(5.0, imgConst);
+        assertEquals(5.0, imgConst, "Valeur attendue : 5.0 | Valeur obtenue : " + imgConst);
     }
 
     /**
@@ -433,7 +433,7 @@ class TestOperationPolynome {
     @Test
     final void testCalculImageFonctionZero() {
         double resultat = op.calculImageFonction(pQuadratique2, 0);
-        assertEquals(1.0, resultat, "L'image doit être = 1, reçu: " + resultat);
+        assertEquals(1.0, resultat, "Valeur attendue : 1.0 | Valeur obtenue : " + resultat);
     }
 
     /**
@@ -444,17 +444,17 @@ class TestOperationPolynome {
         // 1. Nominal : moyenne de (X) sur [0, 2] -> primitive 0.5X^2 -> intégrale (2 - 0) = 2 -> moyenne = 2 / 2 = 1.0
         Polynome p = new Polynome(new double[]{0, 1}); // P = X
         double resNominal = op.calculValeurMoyenneIntervalle(p, 0, 2);
-        assertEquals(1.0, resNominal, "La valeur moyenne doit être = 1.0, reçu: " + resNominal);
+        assertEquals(1.0, resNominal, "Valeur attendue : 1.0 | Valeur obtenue : " + resNominal);
 
         // 2. Décimal : moyenne de (X + 1) sur [0, 1.5]
         double resDecimal = op.calculValeurMoyenneIntervalle(pLinaire, 0, 1.5);
         // intégrale de 0 à 1.5 de (X+1) = [0.5X^2 + X] = 1.125 + 1.5 = 2.625
         // moyenne = 2.625 / 1.5 = 1.75
-        assertEquals(1.75, resDecimal, 1e-9);
+        assertEquals(1.75, resDecimal, 1e-9, "Valeur attendue : 1.75 | Valeur obtenue : " + resDecimal);
 
         // 3. Polynôme nul
         double resNul = op.calculValeurMoyenneIntervalle(pNul, 1, 4);
-        assertEquals(0.0, resNul);
+        assertEquals(0.0, resNul, "Valeur attendue : 0.0 | Valeur obtenue : " + resNul);
     }
 
     /**
@@ -475,14 +475,14 @@ class TestOperationPolynome {
     final void testIntegrationPolynome() {
         // 1. Nominal : intégrale de (X + 1) entre 0 et 2 -> [0.5X^2 + X] = 2 + 2 = 4
         double resNominal = op.integrationPolynome(pLinaire, 0, 2);
-        assertEquals(4.0, resNominal, 1e-9);
+        assertEquals(4.0, resNominal, 1e-9, "Valeur attendue : 4.0 | Valeur obtenue : " + resNominal);
 
         // 2. Bornes inversées : intégrale entre 2 et 0 -> doit être l'opposé (-4)
         double resInverse = op.integrationPolynome(pLinaire, 2, 0);
-        assertEquals(-4.0, resInverse, 1e-9);
+        assertEquals(-4.0, resInverse, 1e-9, "Valeur attendue : -4.0 | Valeur obtenue : " + resInverse);
 
         // 3. Bornes identiques : intégrale entre 3 et 3 -> doit être 0
         double resIdentique = op.integrationPolynome(pLinaire, 3, 3);
-        assertEquals(0.0, resIdentique, 1e-9);
+        assertEquals(0.0, resIdentique, 1e-9, "Valeur attendue : 0.0 | Valeur obtenue : " + resIdentique);
     }
 }
