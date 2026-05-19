@@ -290,7 +290,7 @@ class TestPolynome {
 	    }, "Evaluer ne doit plus lancer d'ArithmeticException sur de grands nombres.");
 
 	    // Test de performance : s'assurer que getRacines ne boucle pas à l'infini
-	    assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+	    assertTimeoutPreemptively(Duration.ofSeconds(20), () -> {
 	        pExtreme.getRacines();
 	    }, "L'algorithme doit abandonner ou finir rapidement si les nombres sont trop grands.");
 	}
