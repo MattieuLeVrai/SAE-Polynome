@@ -18,9 +18,9 @@ import java.util.List;
  *
  * <ul>
  *   <li><b>Format coefficients</b> (mot-clé {@code COEFF}) :<br>
- *       {@code COEFF a0 a1 a2 ... an}<br>
+ *       {@code COEFF an an-1 an-2 ... a0}<br>
  *       où a0 est le coefficient de degré 0, a1 celui de degré 1, etc.<br>
- *       Exemple : {@code COEFF 1.0 -5.0 3.2}  →  P(X) = 3.2X² − 5X + 1</li>
+ *       Exemple : {@code COEFF 3.2 -5.0 1.0}  →  P(X) = 3.2X² − 5X + 1</li>
  *
  *   <li><b>Format racines</b> (mot-clé {@code RACINES}) :<br>
  *       {@code RACINES coeffDominant r1:k1 r2:k2 ...}<br>
@@ -63,7 +63,7 @@ public class PersistancePolynome {
                 new BufferedWriter(new FileWriter(chemin)))) {
 
             writer.println("# Fichier de polynômes – Bibliothèque IR[X]");
-            writer.println("# Format : COEFF a0 a1 ... an  (de degré 0 à n)");
+            writer.println("# Format : COEFF an an-1 ... a0  (de degré n à 0)");
             writer.println("# Format : RACINES coeffDom r1:k1 r2:k2 ...");
             writer.println();
 
