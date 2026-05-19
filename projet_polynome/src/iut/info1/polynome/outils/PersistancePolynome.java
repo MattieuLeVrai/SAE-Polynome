@@ -178,6 +178,7 @@ public class PersistancePolynome {
 
     /**
      * Sérialise un polynôme au format {@code COEFF}.
+     * TODO Changer l'ordre : commencer par la fin de la boulce pour afficher de an a a0
      */
     private static String serialiserCoefficients(Polynome p) {
         StringBuilder sb = new StringBuilder(PREFIXE_COEFF);
