@@ -33,7 +33,7 @@ public class Main {
                 entreeUtilisateur.nextLine(); // Consomme le retour à la ligne
 
                 if (choixMenu == 1) {
-                    System.out.print("Entrez les coefficients séparés par des espaces (de a0 à an) : ");
+                    System.out.print("Entrez les coefficients séparés par des espaces (de an à a0) : ");
                     String saisieCoefficients = entreeUtilisateur.nextLine();
                     String[] segmentsCoefficients = saisieCoefficients.split("\\s+");
                     
