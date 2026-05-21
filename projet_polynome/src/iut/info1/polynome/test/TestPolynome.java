@@ -3,17 +3,77 @@ package iut.info1.polynome.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
+import java.time.Duration;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import iut.info1.polynome.Polynome;
 
+/**
+ * Test unitaire pour la classe Polynome.
+ * Plan de test :
+ * 	- Test des constructeurs :
+ *         - Constructeur par défaut : doit créer un polynôme nul sans exception.
+ *         - Constructeur avec tableau de coefficients :
+ *         - Cas valide : doit créer un polynôme correct sans exception.
+ *         
+ *     - Cas invalides :
+ *         - Tableau null : doit lancer IllegalArgumentException.
+ *         - Tableau vide : doit lancer IllegalArgumentException.
+ *         - Coefficients non finis (NaN, Infinity) : 
+ *              doit lancer IllegalArgumentException.
+ *         
+ * - Test des méthodes d'accès :
+ *         - getDegre() : 
+ *             doit retourner le degré correct pour différents polynômes.
+ *         - getCoefficient(int n) : 
+ *             doit retourner le coefficient correct pour différentes puissances,
+ *         et 0 pour les puissances supérieures au degré.
+ *         - getLimitesMoinsInfini() et getLimitesPlusInfini() : 
+ *             doit retourner les limites correctes en -infini et +infini.
+ *         - getRacines() : 
+ *             doit retourner les racines correctes pour différents polynômes
+ *             (nul, constant, linéaire, 
+ *             quadratique avec ou sans racines réelles).
+ * - Test des méthodes de comportement :
+ *         - estNul() : doit retourner true pour le polynôme nul 
+ *                      et false pour les autres.
+ *         - toString() : doit retourner une représentation textuelle non nulle 
+ *                        et non vide du polynôme.
+ * - Test de l'évaluation du polynôme :
+ *         - evaluer(double x) : 
+ *             doit retourner la valeur correcte du polynôme 
+ *             pour différentes valeurs de x, y compris des cas extrêmes.
+ * - Test de robustesse et performance :
+ *         - Evaluer un polynôme avec des coefficients très grands pour vérifier 
+ *             que cela ne cause pas de crash (doit retourner Infinity 
+ *             ou un grand nombre au lieu de lancer une exception).
+ *         - Test de multiplication de tableaux (si la méthode est publique) : 
+ *             doit retourner le résultat correct 
+ *             pour des tableaux d'entrée spécifiques.
+ * - Test du constructeur avec racines et ordres de multiplicité :
+ *         - Cas valide : doit créer un polynôme correct sans exception pour
+ *             des racines et ordres valides.
+ *         - Cas invalides : doit lancer IllegalArgumentException pour
+ *             des racines et ordres de tailles différentes, 
+ *             coefficient dominant zéro, ordre de multiplicité invalide, 
+ *             ou tableaux null.
+ *     
+ * 
+ * @author Higounet Kelvin
+ * @author Laurençont Yanis
+ * @author Liao Mattieu
+ * @author Moqué Baptiste 
+ * 
+ */
 class TestPolynome {
 	
 	private Polynome pNul;
 	private Polynome pDegre2;
 	private Polynome pDegre3; // Utile pour tester des limites différentes
+	private double grosCoefficient;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -22,6 +82,8 @@ class TestPolynome {
 		pDegre2 = new Polynome(new double[]{1.0, -5.0, 3.2});
 		// P(X) = 2.0X^3
 		pDegre3 = new Polynome(new double[]{0.0, 0.0, 0.0, 2.0});
+		
+		grosCoefficient = Double.MAX_VALUE * 2.0;
 	}
 
 	@Test
@@ -45,6 +107,9 @@ class TestPolynome {
         assertThrows(IllegalArgumentException.class, 
         		      () -> new Polynome(new double[]{}), 
             "Un tableau vide doit déclencher une IllegalArgumentException.");
+        assertThrows(IllegalArgumentException.class, () -> {
+			new Polynome(new double[] {1.0, grosCoefficient});
+		},"Le constructeur doit refuser les coefficients Infinity (overflow).");
     }
 
 	@Test
@@ -53,6 +118,21 @@ class TestPolynome {
 		assertNotSame(pDegre2, pTest, 
 				      "Deux instanciations doivent créer des références"
 		              +" mémoire différentes.");
+	
+		assertThrows(IllegalArgumentException.class, 
+  		            () -> new Polynome(new double[]{Double.NaN, -5.0, 3.2}), 
+  		                  "Un tableau qui contient NaN doit déclencher une "
+  		                  + "IllegalArgumentException.");
+		assertThrows(IllegalArgumentException.class, 
+		            () -> new Polynome(new double[]{1.6,
+		            	  Double.POSITIVE_INFINITY, -5.0, 3.2}), 
+		                  "Un tableau qui contient NaN doit déclencher une "
+		                  + "IllegalArgumentException.");
+		assertThrows(IllegalArgumentException.class, 
+	            () -> new Polynome(new double[]{1.6, 6.4, -5.0, 3.2,
+	            	  Double.NEGATIVE_INFINITY}), 
+	                  "Un tableau qui contient NaN doit déclencher une "
+	                  + "IllegalArgumentException.");
 	}
 
 	@Test
@@ -84,6 +164,9 @@ class TestPolynome {
 		// Test sur le polynôme nul
 		assertEquals(0.0, pNul.getCoefficient(0), 
 				     "Le coefficient du polynôme nul doit être 0.0.");
+		int puissanceOverflow = Integer.MAX_VALUE + 1;
+		assertEquals(0.0, pDegre2.getCoefficient(puissanceOverflow),
+			"Une puissance ayant subi un overflow (négative) doit retourner 0.0.");
 	}
 
 	@Test
@@ -112,16 +195,42 @@ class TestPolynome {
 
 	@Test
 	final void testGetRacines() {
-		double[] racinesNul = pNul.getRacines();
-		assertTrue(racinesNul == null || racinesNul.length == 0, 
-				   "Les racines du polynôme nul doivent être null "
-		           +"ou un tableau vide.");
-		
-		double[] racinesDegre2 = pDegre2.getRacines();
-		assertNotNull(racinesDegre2,
-				      "Le tableau de racines ne doit pas être null.");
-		assertEquals(2, racinesDegre2.length, 
-				      "Ce polynôme de degré 2 possède deux racines réelles.");
+	    // Polynôme Nul ou Constant 
+	    assertEquals(0, pNul.getRacines().length,
+	    		                         "Le polynôme nul ne doit pas" +
+	                                     "renvoyer de racines.");
+	    Polynome pConstant = new Polynome(new double[]{5.0});
+	    assertEquals(0, pConstant.getRacines().length, "Un polynôme constant" +
+	                                                   "(P=5) n'a pas de racine.");
+
+	    // Degré 1 : P(X) = 4X - 2 => Racine = 0.5
+	    Polynome pDegre1 = new Polynome(new double[]{-2.0, 4.0});
+	    double[] racinesDegre1 = pDegre1.getRacines();
+	    assertEquals(1, racinesDegre1.length, "Un degré 1 doit avoir une racine.");
+	    assertEquals(0.5, racinesDegre1[0], 0.0001, "La racine de 4X - 2 doit être 0.5.");
+
+	    // Degré 2 sans racines réelles : P(X) = X^2 + 4
+	    Polynome pSansRacine = new Polynome(new double[]{4.0, 0.0, 1.0});
+	    assertEquals(0, pSansRacine.getRacines().length, "X^2 + 4 ne doit" +
+	                                                     "pas avoir de racines réelles.");
+
+	    // Racines décimales : P(X) = 4X^2 - 5X - 6 
+	    Polynome pDecimal = new Polynome(new double[]{-6.0, -5.0, 4.0});
+	    double[] racinesDecimales = pDecimal.getRacines();
+	    Arrays.sort(racinesDecimales); // Important pour comparer les indices
+	    assertEquals(2, racinesDecimales.length,"Le polynôme 4X² - 5X - 6" +
+	                                            "devrait avoir exactement 2 racines réelles.");
+	    assertEquals(-0.75, racinesDecimales[0], 0.0001,"La première racine" +
+	                                                    "(x1) est incorrecte." +
+	    		                                        "Attendu : -0.75.");
+	    assertEquals(2.0, racinesDecimales[1], 0.0001,"La deuxième racine " +
+	    		                                      "(x2) est incorrecte. Attendu : 2.0.");
+
+	    // Racine double (Multiple) : P(X) = (X-1)^2 = X^2 - 2X + 1 
+	    Polynome pRacineDouble = new Polynome(new double[]{1.0, -2.0, 1.0});
+	    double[] rDouble = pRacineDouble.getRacines();
+	    assertTrue(rDouble.length >= 1, "Doit trouver au moins une racine pour (X-1)^2");
+	    assertEquals(1.0, rDouble[0], 0.01, "La racine double doit être proche de 1.0.");
 	}
 
 	@Test
@@ -131,7 +240,7 @@ class TestPolynome {
 		assertFalse(pDegre2.estNul(), 
 				     "estNul() doit retourner false pour un polynôme non nul.");
 		
-		// Test d'un faux polynôme nul (ex: des zéros dans le constructeur)
+		// Test d'un "faux" polynôme nul (ex: des zéros dans le constructeur)
 		Polynome pFauxNul = new Polynome(new double[]{0.0, 0.0, 0.0});
 		assertTrue(pFauxNul.estNul(), 
 				     "Un polynôme construit avec que des 0.0 "
@@ -152,35 +261,106 @@ class TestPolynome {
 		assertTrue(affichage.contains("5.0"), 
 				"L'affichage doit contenir le coefficient '5.0'.");
 	}
-//	@Test
-//	final void testCalculerRacines() {
-//		// Test du polynôme nul
-//		double[] racinesNul = pNul.calculerRacines();
-//		assertNotNull(racinesNul, "Le tableau de racines ne doit pas être null.");
-//		assertEquals(0, racinesNul.length, "Le polynôme nul ne possède aucune racine.");
-//
-//		// Test du polynôme de degré 2 défini dans setUp
-//		// P(X) = 1.0 - 5.0X + 3.2X^2 => Delta = (-5)^2 - 4(3.2)(1) = 12.2 (> 0)
-//		double[] racinesDegre2 = pDegre2.calculerRacines();
-//		assertNotNull(racinesDegre2, "Le tableau de racines ne doit pas être null.");
-//		assertEquals(2, racinesDegre2.length,
-//				      "Ce polynôme de degré 2 avec Delta > 0 possède deux racines réelles.");
-//		
-//		// Test d'un polynôme de degré 1 : P(X) = -2.0 + 4.0X  (Racine = 0.5)
-//		Polynome pDegre1 = new Polynome(new double[]{-2.0, 4.0});
-//		double[] racinesDegre1 = pDegre1.calculerRacines();
-//		assertEquals(1, racinesDegre1.length, "Un polynôme de degré 1 a une seule racine.");
-//		assertEquals(0.5, racinesDegre1[0], 0.0001, "La racine de -2 + 4X doit être 0.5.");
-//
-//		// Test d'un cas sans racine réelle : P(X) = 5.0 + 0.0X + 1.0X^2 (X^2 + 5 = 0)
-//		Polynome pSansRacine = new Polynome(new double[]{5.0, 0.0, 1.0});
-//		assertEquals(0, pSansRacine.calculerRacines().length, 
-//				      "Ce polynôme ne devrait pas avoir de racines réelles (Delta < 0).");
-//
-//		// Test de la gestion du degré supérieur à 2 (pDegre3 : P(X) = 2.0X^3)
-//		// On vérifie que le code lève bien l'exception prévue
-//		assertThrows(UnsupportedOperationException.class, () -> {
-//			pDegre3.calculerRacines();
-//		}, "Le calcul pour un degré 3 n'est pas encore supporté et doit lever une exception.");
-//	}
+	
+	@Test
+	final void testEvaluer() {
+	    // P(X) = 3.2X² - 5.0X + 1.0 (défini dans setUp)
+	    // P(0) = 1.0
+	    assertEquals(1.0, pDegre2.evaluer(0.0), 1e-6);
+	    
+	    // P(2) = 3.2(4) - 5.0(2) + 1.0 = 12.8 - 10 + 1 = 3.8
+	    assertEquals(3.8, pDegre2.evaluer(2.0), 1e-6);
+	    
+	    // P(-1) = 3.2(1) - 5.0(-1) + 1.0 = 3.2 + 5 + 1 = 9.2
+	    assertEquals(9.2, pDegre2.evaluer(-1.0), 1e-6);
+
+	    // Test sur le polynôme nul
+	    assertEquals(0.0, pNul.evaluer(99.0), 1e-6);
+	}
+	
+	@Test
+	final void testOverflow() {
+	    // Cas du polynôme avec un coefficient immense qui causait le crash
+	    Polynome pExtreme = new Polynome(new double[] {Double.MAX_VALUE, 0.01});
+	    
+	    // On vérifie que evaluer() ne crash pas (elle doit renvoyer Infinity)
+	    assertDoesNotThrow(() -> {
+	        double res = pExtreme.evaluer(1e10);
+	        assertTrue(Double.isInfinite(res) || res > 1e30);
+	    }, "Evaluer ne doit plus lancer d'ArithmeticException sur de grands nombres.");
+	}
+	
+    @Test
+    final void testMultiplierTableaux() {
+        Polynome p = new Polynome();
+
+        // Test 1 : (X - 1) * (X - 2) = X² - 3X + 2
+        double[] a = {-1.0, 1.0}; // -1 + X
+        double[] b = {-2.0, 1.0}; // -2 + X
+        double[] resultat = p.multiplierTableaux(a, b);
+
+        assertEquals(3, resultat.length);
+        assertEquals(2.0, resultat[0], 1e-6); // constant
+        assertEquals(-3.0, resultat[1], 1e-6); // coefficient de X
+        assertEquals(1.0, resultat[2], 1e-6); // coefficient de X²
+
+        // Test 2 : (2X + 1) * (X - 1) = 2X² - X - 1
+        double[] c = {1.0, 2.0}; // 1 + 2X
+        double[] d = {-1.0, 1.0}; // -1 + X
+        double[] resultat2 = p.multiplierTableaux(c, d);
+
+        assertEquals(3, resultat2.length);
+        assertEquals(-1.0, resultat2[0], 1e-6);
+        assertEquals(-1.0, resultat2[1], 1e-6);
+        assertEquals(2.0, resultat2[2], 1e-6);
+    }
+
+    @Test
+    final void testConstructeurAvecRacinesValides() {
+        // Test 1 : P = 2(X-1)²(X+3) = 2X³ + 2X² - 8X + 6
+        Polynome p1 = new Polynome(2.0, new double[]{1.0, -3.0}, new int[]{2, 1});
+
+        assertEquals(3, p1.getDegre());
+        assertEquals(2.0, p1.getCoefficient(3), 1e-6); // coeff de X³
+        assertEquals(2.0, p1.getCoefficient(2), 1e-6); // coeff de X²
+        assertEquals(-10.0, p1.getCoefficient(1), 1e-6); // coeff de X
+        assertEquals(6.0, p1.getCoefficient(0), 1e-6); // constant
+
+        // Test 2 : P = (X - 2) = X - 2
+        Polynome p2 = new Polynome(1.0, new double[]{2.0}, new int[]{1});
+
+        assertEquals(1, p2.getDegre());
+        assertEquals(-2.0, p2.getCoefficient(0), 1e-6);
+        assertEquals(1.0, p2.getCoefficient(1), 1e-6);
+
+        // Test 3 : P = 3(X + 1)³ 
+        Polynome p3 = new Polynome(3.0, new double[]{-1.0}, new int[]{3});
+
+        assertEquals(3, p3.getDegre());
+        assertEquals(3.0, p3.getCoefficient(3), 1e-6); // 3X³
+    }
+
+    @Test
+    final void testConstructeurAvecRacinesInvalides() {
+        // Test : racines et ordres de tailles différentes
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(1.0, new double[]{1.0, 2.0}, new int[]{1});
+        });
+
+        // Test : coefficient dominant zéro
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(0.0, new double[]{1.0}, new int[]{1});
+        });
+
+        // Test : ordre de multiplicité invalide
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(1.0, new double[]{1.0}, new int[]{0});
+        });
+
+        // Test : tableaux null
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Polynome(1.0, null, new int[]{1});
+        });
+    }
+	
 }

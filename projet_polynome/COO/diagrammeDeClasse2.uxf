@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>40</y>
+      <w>480</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome::Polynome
+--
+-coefficients: double[]
+--
++Polynome(): ctor
++Polynome(double[] coefficients): ctor
++Polynome(double coefficientDominant, double[] racines, int[] ordres): ctor
++getDegre(): int
++getCoefficient(int puissance): double
++getLimitesMoinsInfini(): double
++getLimitesPlusInfini(): double
++getRacines(): double[]
++evaluer(double x): double
++multiplierTableaux(double[] a, double[] b): double[]
++estNul(): boolean
++toString(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>40</y>
+      <w>400</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.test::TestPolynome
+--
+-pNul: Polynome
+-pDegre2: Polynome
+-pDegre3: Polynome
+-grosCoefficient: double
+--
+~setUp(): void
+~testPolynomeDefaut(): void
+~testPolynomeDoubleArray_InstanciationEtExceptions(): void
+~testPolynomeDoubleArray(): void
+~testGetDegre(): void
+~testGetCoefficient(): void
+~testGetLimitesMoinsInfini(): void
+~testGetLimitesPlusInfini(): void
+~testGetRacines(): void
+~testEstNul(): void
+~testToString(): void
+~testEvaluer(): void
+~testOverflow(): void
+~testMultiplierTableaux(): void
+~testConstructeurAvecRacinesValides(): void
+~testConstructeurAvecRacinesInvalides(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>980</x>
+      <y>580</y>
+      <w>320</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.test::TestOperationPolynome
+--
+
+--
+~setUp(): void
+~testAddition(): void
+~testSoustraction(): void
+~testMultiplicationScalaire(): void
+~testMultiplication(): void
+~testDivision(): void
+~testReste(): void
+~testPgcd(): void
+~testDerivee(): void
+~testPrimitive(): void
+~testCalculImageFonction(): void
+~testCalculValeurMoyenneIntervalle(): void
+~testIntegrationPolynome(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>540</y>
+      <w>480</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome::OperationPolynome
+--
+
+--
++addition(Polynome p1, Polynome p2): Polynome
++soustraction(Polynome p1, Polynome p2): Polynome
++multiplicationScalaire(Polynome p, double scalaire): Polynome
++multiplication(Polynome p1, Polynome p2): Polynome
+-divisionEuclidienne(Polynome p1, Polynome p2): Polynome[]
++division(Polynome p1, Polynome p2): Polynome
++reste(Polynome p1, Polynome p2): Polynome
++pgcd(Polynome a, Polynome b): Polynome
++derivee(Polynome p): Polynome
++primitive(Polynome p): Polynome
++calculImageFonction(Polynome p, double x): double
++calculValeurMoyenneIntervalle(Polynome p, double a, double b): double
++integrationPolynome(Polynome p, double a, double b): double
+-normaliser(Polynome p): Polynome
+-nettoyer(Polynome p): Polynome
+-estEffectivementNul(Polynome p): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>310</y>
+      <w>80</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>190</y>
+      <w>210</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>700</y>
+      <w>230</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+</diagram>

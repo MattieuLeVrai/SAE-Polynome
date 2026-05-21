@@ -1,13 +1,123 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
-      <y>160</y>
-      <w>260</w>
-      <h>280</h>
+      <x>584</x>
+      <y>424</y>
+      <w>264</w>
+      <h>272</h>
+    </coordinates>
+    <panel_attributes>TestOperationPolynome
+--
+
+--
++ testAddition()
++ testSoustraction()
++ testMultiplication()
++ testDivision()
++ testDerivee()
++ testCalculImageFonction()
++ testCalculValeurMoyenneIntervalle()
++ testIntegrationPolynome()
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>432</y>
+      <w>336</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>OperationPolynome
+--
+
+--
++ addition(Polynome, Polynome)
++ soustraction(Polynome, Polynome)
++ multiplicationScalaire(Polynome, Polynome)
++ multipliation(Polynome, Polynome)
++ divisionEuclidienne(Polynome, Polynome)
++ division(Polynome, Polynome)
++ reste(Polynome, Polynome)
++ pgcd(Polynome, Polynome)
++ derivee(Polynome)
++ primitive(Polynome)
++ calculImageFonction(Polynome, double)
++ calculValeurMoyenneIntervalle(Polynome, double, double)
++ integrationPolynome(Polynome, double, double)
++ normaliser(Polynome)
++ nettoyer(Polynome)
++ estEffectivementNul(Polynome)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>256</y>
+      <w>128</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>128</y>
+      <w>360</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Polynome
+--
+- coefficients: double[]
+- racines: double[]
+
+
+--
++ Polynome()
++ Polynome(coefficients: double[])
++ Polynome(double coefficientDominant, double[] racines, int[] ordres)
++ getDegre(): int
++ getCoefficient(puissance: int): double
++ getLimitesMoinsInfini(): double
++ getLimitesPlusInfini(): double
++ getRacines(): double[]
++ estNul(): boolean
++ toString(): String
++ evaluer(double x): double
+- multiplierTableaux(double[], double[]): double[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>352</x>
+      <y>360</y>
+      <w>64</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>128</y>
+      <w>256</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>TestPolynome
 --
@@ -20,45 +130,22 @@
 + testGetLimitesMoinsInfini(): void
 + testGetLimitesPlusInfini(): void
 + testGetRacines(): void
-+ testEstNul(): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>150</x>
-      <y>160</y>
-      <w>260</w>
-      <h>280</h>
-    </coordinates>
-    <panel_attributes>Polynome
---
-- coefficients: double[]
-- racines: double[]
-
-
---
-+ Polynome()
-+ Polynome(coefficients: double[])
-+ getDegre(): int
-+ getCoefficient(puissance: int): double
-+ getLimitesMoinsInfini(): double
-+ getLimitesPlusInfini(): double
-+ getRacines(): double[]
-+ estNul(): boolean
-+ toString(): String
-</panel_attributes>
++ testEstNul(): void
++ testMultiplierTableaux(): void
++ testConstructeurAvecRacinesValides(): void
++ testConstructeurAvecRacinesInvalides(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>400</x>
-      <y>280</y>
-      <w>170</w>
-      <h>30</h>
+      <x>448</x>
+      <y>512</y>
+      <w>152</w>
+      <h>32</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
   </element>
 </diagram>
