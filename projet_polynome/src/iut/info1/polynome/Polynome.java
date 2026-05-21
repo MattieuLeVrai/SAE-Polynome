@@ -7,6 +7,7 @@ package iut.info1.polynome;
 
 import java.util.ArrayList;
 import java.util.List;
+import iut.info1.polynome.outils.SuiteSturm;
 
 /**
  * Représente un polynôme à coefficients réels et fournit des outils
@@ -164,74 +165,44 @@ public class Polynome {
     
     /**
      * Retourne le tableau des racines réelles du polynôme.
-     * @return Un tableau de réels
+     * Utilise la suite de Sturm pour localiser les racines avec certitude
+     * (gère les racines multiples et les racines proches), puis les affine
+     * par dichotomie avec une précision de 1e-9.
+     * @return Un tableau de réels contenant les racines trouvées
      */
     public double[] getRacines() {
-    	if (this.estNul() || this.getDegre() == 0) {
+        if (this.estNul() || this.getDegre() == 0) {
             return new double[0]; // Pas de racine (ou infinité si P=0, on retourne vide)
         }
 
-        // 1. Calcul automatique de l'intervalle de recherche
-        int degre = this.getDegre();
+        // 1. Calcul automatique de la borne de recherche (théorème de Cauchy).
+        //    Toutes les racines réelles de P sont dans ]-limite, +limite[.
+        int    degre               = this.getDegre();
         double coefficientDominant = Math.abs(this.getCoefficient(degre));
-        double coefficientMax = 0;
-        
+        double coefficientMax      = 0;
+
         for (int indice = 0; indice < degre; indice++) {
             coefficientMax = Math.max(coefficientMax,
-            		                  Math.abs(this.getCoefficient(indice)));
+                                      Math.abs(this.getCoefficient(indice)));
         }
-        
-        // Toutes les racines se trouvent forcément entre -limite et +limite.
+
         double limite = 1.0 + (coefficientMax / coefficientDominant);
-        
+
         if (Double.isInfinite(limite) || limite > 1e15) {
-            // On force une limite raisonnable pour éviter l'overflow
-            limite = 1e15; 
-        }
-        
-        // 2. Recherche par balayage et dichotomie
-        List<Double> listeRacines = new ArrayList<>();
-        
-        // Si la limite est immense, on adapte un peu le pas
-        // Sinon on garde un pas classique de 0.1
-        double pas = (limite > 1000) ? (limite / 10000.0) : 0.1; 
-
-        for (double valeurX = -limite; valeurX < limite; valeurX += pas) {
-            double valeurY1 = evaluer(valeurX);
-            double valeurY2 = evaluer(valeurX + pas);
-
-            // Si la courbe traverse l'axe (changement de signe)
-            if (valeurY1 * valeurY2 <= 0) {
-                double borneA = valeurX;
-                double borneB = valeurX + pas;
-                double precision = 1e-6; // Précision à 6 décimales
-
-                // Dichotomie pour affiner la position de la racine
-                while ((borneB - borneA) > precision) {
-                    double milieu = (borneA + borneB) / 2.0;
-                    if (evaluer(borneA) * evaluer(milieu) <= 0) {
-                        borneB = milieu; 
-                    } else {
-                        borneA = milieu; 
-                    }
-                }
-
-                // Arrondi à 4 décimales pour gérer les impécisions
-                double racine = Math.round(((borneA + borneB) / 2.0) * 10000.0)
-                		                   / 10000.0;
-                
-                if (!listeRacines.contains(racine)) {
-                    listeRacines.add(racine);
-                }
-            }
+            limite = 1e15; // borne raisonnable pour éviter l'overflow
         }
 
-        // 3. Conversion de la liste en tableau de double
-        double[] tableau = new double[listeRacines.size()];
-        for (int indice = 0; indice < listeRacines.size(); indice++) {
-            tableau[indice] = listeRacines.get(indice);
-        }
-        return tableau;
+        // 2. Pas de balayage : plus serré pour les petites bornes,
+        //    proportionnel sinon. La suite de Sturm garantit qu'on ne rate
+        //    aucune racine indépendamment du pas choisi.
+        double pas = (limite > 1000) ? (limite / 10000.0) : 0.5;
+
+        // 3. Délégation à SuiteSturm :
+        //    - supprime les racines multiples (pour que Sturm soit applicable),
+        //    - localise chaque racine individuelle dans un sous-intervalle,
+        //    - affine par dichotomie à la précision demandée.
+        SuiteSturm sturm = new SuiteSturm();
+        return sturm.chercherToutesLesRacines(this, -limite, limite, pas, 1e-9);
     }
     
     /**
