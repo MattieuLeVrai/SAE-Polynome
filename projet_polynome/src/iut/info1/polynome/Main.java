@@ -78,13 +78,13 @@ public class Main {
             }
         }
 
-        // On sauvegarde AVANT de fermer le scanner de la console ---
+        // On sauvegarde AVANT de fermer le scanner de la console
         sauvegarderDonnees(listeDePolynomes);
         
         System.out.println("Au revoir !");
         entreeUtilisateur.close();
         
-        // Force la fermeture des threads graphiques cachés ---
+        // Force la fermeture des threads graphiques cachés
         System.exit(0);
     }
 
@@ -110,7 +110,7 @@ public class Main {
         FileNameExtensionFilter filtre = new FileNameExtensionFilter("Fichiers texte (*.txt)", "txt");
         selecteurFichier.setFileFilter(filtre);
 
-        // L'astuce : Utiliser un composant invisible pour forcer la fenêtre devant la console
+        // Utiliser un composant invisible pour forcer la fenêtre devant la console
         java.awt.Window fenetreFantome = new java.awt.Window(null);
         fenetreFantome.setAlwaysOnTop(true); 
 
