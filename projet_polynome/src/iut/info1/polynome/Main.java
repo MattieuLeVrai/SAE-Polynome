@@ -13,11 +13,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * Classe principale de l'application de gestion de polynômes.
  * Permet à l'utilisateur de créer interactivement des polynômes (par coefficients ou par racines),
  * de les stocker en mémoire et de les sauvegarder dans un fichier texte.
- * * @author Votre Nom / IUT Info1
- * @version 1.1
+ * @author Moqué Baptiste
+ * @author Liao Mattieu
+ * @author Laurençont Yanis
+ * @author Higounet Yanis
  */
 public class Main {
-
+	
+	// Instance unique pour effectuer les opérations
+    private static final OperationPolynome GESTIONNAIRE_OPERATIONS = new OperationPolynome();
+    
     /**
      * Point d'entrée principal de l'application.
      * Gère la boucle de l'interface utilisateur en mode console, capture les choix du menu
@@ -81,9 +86,12 @@ public class Main {
                     chargerDonnees(listeDePolynomes);
                     break;
                 case 4:
+                    gererMenuOperations(entreeUtilisateur, listeDePolynomes);
+                    break;
+                case 5:
                     sauvegarderDonnees(listeDePolynomes);
                     break; 
-                case 5:
+                case 6:
                     sessionActive = false;
                     break;
                 default:
@@ -104,12 +112,180 @@ public class Main {
     private static void afficherMenu() {
     	System.out.println("\n=== MENU PRINCIPAL ===");
         System.out.println("1. Créer un polynôme par coefficients (ex: 3.0 -5.0 2.0)");
-        System.out.println("2. Créer un polynôme par racines (ex: 2.0 * (X-1)^2 * (X+3))");
+        System.out.println("2. Créer un polynôme par racines");
         System.out.println("3. Charger des polynômes depuis un fichier");
-        System.out.println("4. Terminer et sauvegarder");
+        System.out.println("4. Effectuer des opérations sur les polynômes");
+        System.out.println("5. Sauvegarder la liste de polynômes actuelle");
+        System.out.println("6. Quitter");
         System.out.print("Votre choix : ");
     }
+    
+    /**
+     * Sous-menu gérant toutes les opérations disponibles de la classe OperationPolynome
+     */
+    private static void gererMenuOperations(Scanner sc, List<Polynome> liste) {
+        if (liste.isEmpty()) {
+            System.out.println("\n[!] Erreur : Vous devez d'abord créer ou charger des polynômes.");
+            return;
+        }
 
+        boolean dansSousMenu = true;
+        while (dansSousMenu) {
+            System.out.println("\n--- LISTE DES POLYNÔMES DISPONIBLES ---");
+            for (int i = 0; i < liste.size(); i++) {
+                System.out.println("[" + i + "] : " + liste.get(i));
+            }
+
+            System.out.println("\n--- MENU OPÉRATIONS ---");
+            System.out.println("1. Additionner deux polynômes");
+            System.out.println("2. Soustraire deux polynômes");
+            System.out.println("3. Multiplier par un scalaire (réel)");
+            System.out.println("4. Multiplier deux polynômes");
+            System.out.println("5. Division Euclidienne (Quotient & Reste)");
+            System.out.println("6. Dériver un polynôme");
+            System.out.println("7. Calculer l'image d'un nombre x");
+            System.out.println("8. Calculer l'intégrale sur [a, b]");
+            System.out.println("9. Retour au menu principal");
+            System.out.print("Votre choix d'opération : ");
+
+            int choixOp = selectionnerIndex(sc, 1, 9);
+
+            if (choixOp == 9) {
+                dansSousMenu = false;
+                continue;
+            }
+
+            Polynome p1, p2, resultat;
+            int idx1, idx2;
+
+            switch (choixOp) {
+                case 1: // Addition
+                    System.out.print("Index du premier polynôme : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Index du deuxième polynôme : ");
+                    idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    
+                    resultat = GESTIONNAIRE_OPERATIONS.addition(liste.get(idx1), liste.get(idx2));
+                    ajouterResultatAuPanier(liste, resultat);
+                    break;
+
+                case 2: // Soustraction
+                    System.out.print("Index du polynôme de base : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Index du polynôme à soustraire : ");
+                    idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    
+                    resultat = GESTIONNAIRE_OPERATIONS.soustraction(liste.get(idx1), liste.get(idx2));
+                    ajouterResultatAuPanier(liste, resultat);
+                    break;
+
+                case 3: // Multiplication Scalaire
+                    System.out.print("Index du polynôme : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Entrez la valeur du scalaire (double) : ");
+                    double scalaire = sc.nextDouble();
+                    sc.nextLine(); // Nettoyage du tampon
+                    
+                    resultat = GESTIONNAIRE_OPERATIONS.multiplicationScalaire(liste.get(idx1), scalaire);
+                    ajouterResultatAuPanier(liste, resultat);
+                    break;
+
+                case 4: // Multiplication de 2 polynômes
+                    System.out.print("Index du premier polynôme : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Index du deuxième polynôme : ");
+                    idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    
+                    resultat = GESTIONNAIRE_OPERATIONS.multiplication(liste.get(idx1), liste.get(idx2));
+                    ajouterResultatAuPanier(liste, resultat);
+                    break;
+
+                case 5: // Division Euclidienne
+                    System.out.print("Index du Dividende : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Index du Diviseur : ");
+                    idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    
+                    try {
+                        Polynome q = GESTIONNAIRE_OPERATIONS.division(liste.get(idx1), liste.get(idx2));
+                        Polynome r = GESTIONNAIRE_OPERATIONS.reste(liste.get(idx1), liste.get(idx2));
+                        System.out.println("\nRésultat division euclidienne :");
+                        System.out.println(" -> Quotient (Q) = " + q);
+                        System.out.println(" -> Reste (R)    = " + r);
+                        
+                        System.out.print("Voulez-vous enregistrer le quotient ? (O/N) : ");
+                        if (sc.nextLine().trim().equalsIgnoreCase("O")) liste.add(q);
+                        System.out.print("Voulez-vous enregistrer le reste ? (O/N) : ");
+                        if (sc.nextLine().trim().equalsIgnoreCase("O")) liste.add(r);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Erreur : " + e.getMessage());
+                    }
+                    break;
+
+                case 6: // Dérivation
+                    System.out.print("Index du polynôme à dériver : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    resultat = GESTIONNAIRE_OPERATIONS.derivee(liste.get(idx1));
+                    ajouterResultatAuPanier(liste, resultat);
+                    break;
+
+                case 7: // Image f(x)
+                    System.out.print("Index du polynôme : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Entrez x : ");
+                    double x = sc.nextDouble();
+                    sc.nextLine(); // Nettoyage tampon
+                    double img = GESTIONNAIRE_OPERATIONS.calculImageFonction(liste.get(idx1), x);
+                    System.out.println("\n--> F(" + x + ") = " + img);
+                    break;
+
+                case 8: // Intégration
+                    System.out.print("Index du polynôme : ");
+                    idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
+                    System.out.print("Borne a : ");
+                    double a = sc.nextDouble();
+                    System.out.print("Borne b : ");
+                    double b = sc.nextDouble();
+                    sc.nextLine(); // Nettoyage tampon
+                    double aire = GESTIONNAIRE_OPERATIONS.integrationPolynome(liste.get(idx1), a, b);
+                    System.out.println("\n--> Intégrale de " + a + " à " + b + " = " + aire);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Méthode utilitaire pour sécuriser la saisie d'un index numérique ou d'un choix
+     */
+    private static int selectionnerIndex(Scanner sc, int min, int max) {
+        while (true) {
+            try {
+                String saisie = sc.nextLine().trim();
+                int valeur = Integer.parseInt(saisie);
+                if (valeur >= min && valeur <= max) {
+                    return valeur;
+                }
+                System.out.print("Hors limites. Entrez une valeur entre " + min + " et " + max + " : ");
+            } catch (NumberFormatException e) {
+                System.out.print("Saisie invalide. Veuillez entrer un nombre : ");
+            }
+        }
+    }
+
+    /**
+     * Propose à l'utilisateur de stocker le polynôme fraîchement calculé dans son panier global.
+     */
+    private static void ajouterResultatAuPanier(List<Polynome> liste, Polynome res) {
+        System.out.println("\nRésultat obtenu : " + res);
+        System.out.print("Voulez-vous ajouter ce résultat à votre liste ? (O/N) : ");
+        Scanner scTmp = new Scanner(System.in);
+        String choix = scTmp.nextLine().trim();
+        if (choix.equalsIgnoreCase("O") || choix.equalsIgnoreCase("oui")) {
+            liste.add(res);
+            System.out.println("Polynôme sauvegardé en index [" + (liste.size() - 1) + "]");
+        }
+    }
+    
     /**
      * Gère la saisie utilisateur et la création d'un polynôme à partir de ses coefficients.
      * Le polynôme créé est automatiquement ajouté à la liste.
@@ -251,6 +427,4 @@ public class Main {
             System.out.println("Sauvegarde annulée par l'utilisateur.");
         }
     }
-    
-    // TODO AJOUTER UNE FONCTIONNALITE POUR EFFECTUER DES OPERATIONS SUR LES POLYNOMES
 }
