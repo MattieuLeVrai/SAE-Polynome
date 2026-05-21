@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>40</y>
-      <w>480</w>
-      <h>280</h>
+      <x>372</x>
+      <y>42</y>
+      <w>288</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome::Polynome
 --
@@ -31,10 +31,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>960</x>
-      <y>40</y>
-      <w>400</w>
-      <h>400</h>
+      <x>768</x>
+      <y>42</y>
+      <w>240</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome.test::TestPolynome
 --
@@ -65,10 +65,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>580</y>
-      <w>320</w>
-      <h>280</h>
+      <x>780</x>
+      <y>366</y>
+      <w>192</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome.test::TestOperationPolynome
 --
@@ -93,10 +93,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>300</x>
-      <y>540</y>
-      <w>480</w>
-      <h>320</h>
+      <x>372</x>
+      <y>342</y>
+      <w>288</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome::OperationPolynome
 --
@@ -124,10 +124,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>520</x>
-      <y>310</y>
-      <w>80</w>
-      <h>250</h>
+      <x>504</x>
+      <y>204</y>
+      <w>48</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
@@ -136,10 +136,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>190</y>
-      <w>210</w>
-      <h>40</h>
+      <x>654</x>
+      <y>132</y>
+      <w>126</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
@@ -148,10 +148,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>700</y>
-      <w>230</w>
-      <h>40</h>
+      <x>654</x>
+      <y>438</y>
+      <w>138</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
