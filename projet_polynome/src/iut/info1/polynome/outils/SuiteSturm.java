@@ -14,7 +14,6 @@ import iut.info1.polynome.Polynome;
 /**
  * Implémente la suite de Sturm pour localiser les racines réelles d'un polynôme,
  * puis les approcher par dichotomie ou par la méthode de Newton.
- *
  * <h2>Principe (théorème de Sturm)</h2>
  * <ol>
  *   <li><b>Étape 1</b> : Supprimer les racines multiples en divisant P par
@@ -45,7 +44,6 @@ public class SuiteSturm {
      * Supprime les racines multiples de P en le divisant par pgcd(P, P').
      * Le polynôme résultant P0 n'a que des racines simples (toutes les mêmes
      * racines réelles que P, mais avec la multiplicité ramenée à 1).
-     *
      * Si pgcd(P, P') = constante, P n'a pas de racine multiple et P0 = P.
      *
      * @param p Le polynôme d'origine
@@ -66,15 +64,12 @@ public class SuiteSturm {
 
     /**
      * Construit la suite de Sturm associée à un polynôme P0 sans racines multiples.
-     * <pre>
      *   P0 (donné en entrée)
      *   P1 = P0'
      *   P2 = −reste(P0 / P1)
      *   P3 = −reste(P1 / P2)
      *   ...
-     *   La suite s'arrête quand le reste est nul.
-     * </pre>
-     *
+     * La suite s'arrête quand le reste est nul.
      * Le polynôme P0 passé en paramètre doit idéalement être sans racines
      * multiples (obtenu via {@link #supprimerRacinesMultiples}).
      *
@@ -124,15 +119,13 @@ public class SuiteSturm {
 
         for (Polynome p : suite) {
             double valeur = p.evaluer(x);
-
-            // Les valeurs nulles sont ignorées
-            if (Math.abs(valeur) < 1e-10) continue;
-
-            double signe = Math.signum(valeur);
-            if (signePrec != 0.0 && signe != signePrec) {
-                changements++;
+            if (Math.abs(valeur) >= 1e-10) {
+                double signe = Math.signum(valeur);
+                if (signePrec != 0.0 && signe != signePrec) {
+                    changements++;
+                }
+                signePrec = signe;
             }
-            signePrec = signe;
         }
 
         return changements;
@@ -141,7 +134,6 @@ public class SuiteSturm {
     /**
      * Retourne le nombre de racines réelles de P dans l'intervalle ]a, b[.
      * Applique le théorème de Sturm : nombre de racines = V(a) − V(b).
-     *
      * Précondition : a et b ne doivent pas être des racines de P.
      *
      * @param p Le polynôme (peut avoir des racines multiples, elles seront gérées)
@@ -167,8 +159,8 @@ public class SuiteSturm {
      * @param p     Le polynôme dont on cherche les racines
      * @param debut Borne gauche de la recherche
      * @param fin   Borne droite de la recherche
-     * @param pas   Largeur de la fenêtre de balayage (plus petit = plus précis mais
-     *              plus lent). Valeur typique : 0.5 ou 1.0.
+     * @param pas   Largeur de la fenêtre de balayage (plus petit = plus précis 
+     *              mais plus lent). Valeur typique : 0.5 ou 1.0.
      * @return Liste d'intervalles [a, b] contenant chacun exactement une racine
      */
     public List<double[]> localiserRacines(Polynome p, double debut,
@@ -192,9 +184,7 @@ public class SuiteSturm {
 
     /**
      * Approxime une racine réelle de P dans l'intervalle [a, b] par dichotomie.
-     * L'intervalle [a, b] doit contenir exactement une racine (vérifiable avec
-     * {@link #nombreRacinesIntervalle}).
-     *
+     * L'intervalle [a, b] doit contenir exactement une racine
      * Critère d'arrêt : largeur de l'intervalle < precision.
      *
      * @param p         Le polynôme
@@ -217,11 +207,9 @@ public class SuiteSturm {
         if (Math.abs(fb) < precision) return b;
 
         double milieu = a;
-        while ((b - a) > precision) {
+        while ((b - a) > precision && Math.abs(p.evaluer(milieu)) >= precision){
             milieu          = (a + b) / 2.0;
             double fMilieu  = p.evaluer(milieu);
-
-            if (Math.abs(fMilieu) < precision) break;
 
             if (fa * fMilieu <= 0) {
                 b  = milieu;
@@ -256,20 +244,20 @@ public class SuiteSturm {
         Polynome dp = op.derivee(p);
         double   x  = x0;
 
-        for (int iter = 0; iter < maxIterations; iter++) {
+        for (int iter = 0; 
+        		iter < maxIterations && Math.abs(p.evaluer(x)) >= precision;
+        		iter++) {
             double fx  = p.evaluer(x);
             double dfx = dp.evaluer(x);
 
-            if (Math.abs(fx) < precision) break;
-
             if (Math.abs(dfx) < 1e-15) {
                 throw new ArithmeticException(
-                        "La dérivée est nulle en x=" + x + " : la méthode de Newton diverge.");
+                        "La dérivée est nulle en x=" + x 
+                        + " : la méthode de Newton diverge.");
             }
 
             x = x - fx / dfx;
         }
-
         return x;
     }
 
