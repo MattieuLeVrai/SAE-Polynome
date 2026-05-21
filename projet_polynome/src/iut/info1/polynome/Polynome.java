@@ -271,17 +271,20 @@ public class Polynome {
         StringBuilder sb = new StringBuilder();
         boolean premierTerme = true;
 
-        /* * On parcourt le tableau à l'envers :
-         * L'indice 'puissance' correspond à l'exposant de X.
-         * coefficients[coefficients.length - 1] est le coefficient de plus haut degré (an).
+        /** * Changement ici : On parcourt le tableau de l'index 0 (plus haut degré) 
+         * jusqu'à la fin (terme constant).
+         * La puissance se calcule par rapport à la distance avec la fin du tableau.
          */
-        for (int puissance = this.coefficients.length - 1; puissance >= 0; puissance--) {
-            double coeff = this.coefficients[puissance];
+        for (int i = 0; i < this.coefficients.length; i++) {
+            double coeff = this.coefficients[i];
 
             // On ignore les termes dont le coefficient est zéro
             if (coeff == 0) {
                 continue;
             }
+
+            // Calcul de la puissance correspondante à l'index actuel
+            int puissance = this.coefficients.length - 1 - i;
 
             // 1. Gestion du signe et des opérateurs de liaison (+ / -)
             if (coeff > 0) {
@@ -300,9 +303,9 @@ public class Polynome {
             // 2. Gestion de la valeur absolue du coefficient
             double absCoeff = Math.abs(coeff);
             
-            /* * On affiche le coefficient si :
+            /* On affiche le coefficient si :
              * - Il est différent de 1.0 (on préfère "X" à "1.0X")
-             * - OU si c'est le terme constant (puissance 0), car là il faut afficher "1.0"
+             * - OU si c'est le terme constant (puissance 0)
              */
             if (absCoeff != 1.0 || puissance == 0) {
                 sb.append(absCoeff);
