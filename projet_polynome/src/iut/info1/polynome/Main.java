@@ -11,7 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Main {
     public static void main(String[] args) {
-        // --- ÉTAPE 1 : Force l'utilisation des fenêtres natives du système ---
+        // Force l'utilisation des fenêtres natives du système ---
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -78,13 +78,13 @@ public class Main {
             }
         }
 
-        // --- ÉTAPE 2 : On sauvegarde AVANT de fermer le scanner de la console ---
+        // On sauvegarde AVANT de fermer le scanner de la console ---
         sauvegarderDonnees(listeDePolynomes);
         
         System.out.println("Au revoir !");
         entreeUtilisateur.close();
         
-        // --- ÉTAPE 3 : Force la fermeture des threads graphiques cachés ---
+        // Force la fermeture des threads graphiques cachés ---
         System.exit(0);
     }
 
