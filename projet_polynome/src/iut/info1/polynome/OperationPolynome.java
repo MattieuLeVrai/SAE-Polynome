@@ -267,14 +267,10 @@ public class OperationPolynome {
      */
     public double calculImageFonction(Polynome p, double x) {
         int degre = p.getDegre();
-
-        // Initialisation avec le coefficient dominant (algorithme de Horner)
         double resultat = p.getCoefficient(degre);
-
         for (int i = degre - 1; i >= 0; i--) {
             resultat = resultat * x + p.getCoefficient(i);
         }
-
         return resultat;
     }
 
