@@ -342,7 +342,7 @@ public class Main {
      * Ouvre une boîte de dialogue pour sélectionner un fichier de polynômes (.txt)
      * et ajoute les polynômes lus à la liste de l'application en utilisant PersistancePolynome.
      *
-     * @param listeACompleter La liste actuelle à laquelle ajouter les nouveaux polynômes.
+     * @param listeACompleter La liste actuelle à laquelle ajouter les nouveaux polynômes. 
      */
     private static void chargerDonnees(List<Polynome> listeACompleter) {
         System.out.println("Ouverture de la fenêtre de sélection de fichier...");
