@@ -178,16 +178,16 @@ public class PersistancePolynome {
 
     /**
      * Sérialise un polynôme au format {@code COEFF}.
-     * TODO Changer l'ordre : commencer par la fin de la boulce pour afficher de an a a0
+     * Ordre : commence par la fin pour afficher de an à a0.
      */
     private static String serialiserCoefficients(Polynome p) {
         StringBuilder sb = new StringBuilder(PREFIXE_COEFF);
-        for (int i = 0; i <= p.getDegre(); i++) {
+        for (int i = p.getDegre(); i >= 0; i--) {
             sb.append(' ').append(p.getCoefficient(i));
         }
         return sb.toString();
     }
-
+    
     /**
      * Sérialise un polynôme au format {@code RACINES}.
      */
