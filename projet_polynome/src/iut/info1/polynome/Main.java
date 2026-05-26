@@ -155,9 +155,9 @@ public class Main {
                 continue;
             }
 
-            Polynome p1, p2, resultat;
+            Polynome resultat;
             int idx1, idx2;
-
+            
             switch (choixOp) {
                 case 1: // Addition
                     System.out.print("Index du premier polynôme : ");
@@ -166,7 +166,7 @@ public class Main {
                     idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
                     
                     resultat = GESTIONNAIRE_OPERATIONS.addition(liste.get(idx1), liste.get(idx2));
-                    ajouterResultatAuPanier(liste, resultat);
+                    ajouterResultatAuPanier(sc, liste, resultat);
                     break;
 
                 case 2: // Soustraction
@@ -176,7 +176,7 @@ public class Main {
                     idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
                     
                     resultat = GESTIONNAIRE_OPERATIONS.soustraction(liste.get(idx1), liste.get(idx2));
-                    ajouterResultatAuPanier(liste, resultat);
+                    ajouterResultatAuPanier(sc, liste, resultat);
                     break;
 
                 case 3: // Multiplication Scalaire
@@ -187,7 +187,7 @@ public class Main {
                     sc.nextLine(); // Nettoyage du tampon
                     
                     resultat = GESTIONNAIRE_OPERATIONS.multiplicationScalaire(liste.get(idx1), scalaire);
-                    ajouterResultatAuPanier(liste, resultat);
+                    ajouterResultatAuPanier(sc, liste, resultat);
                     break;
 
                 case 4: // Multiplication de 2 polynômes
@@ -197,7 +197,7 @@ public class Main {
                     idx2 = selectionnerIndex(sc, 0, liste.size() - 1);
                     
                     resultat = GESTIONNAIRE_OPERATIONS.multiplication(liste.get(idx1), liste.get(idx2));
-                    ajouterResultatAuPanier(liste, resultat);
+                    ajouterResultatAuPanier(sc, liste, resultat);
                     break;
 
                 case 5: // Division Euclidienne
@@ -226,7 +226,7 @@ public class Main {
                     System.out.print("Index du polynôme à dériver : ");
                     idx1 = selectionnerIndex(sc, 0, liste.size() - 1);
                     resultat = GESTIONNAIRE_OPERATIONS.derivee(liste.get(idx1));
-                    ajouterResultatAuPanier(liste, resultat);
+                    ajouterResultatAuPanier(sc, liste, resultat);
                     break;
 
                 case 7: // Image f(x)
@@ -275,11 +275,10 @@ public class Main {
     /**
      * Propose à l'utilisateur de stocker le polynôme fraîchement calculé dans son panier global.
      */
-    private static void ajouterResultatAuPanier(List<Polynome> liste, Polynome res) {
+    private static void ajouterResultatAuPanier(Scanner sc, List<Polynome> liste, Polynome res) {
         System.out.println("\nRésultat obtenu : " + res);
         System.out.print("Voulez-vous ajouter ce résultat à votre liste ? (O/N) : ");
-        Scanner scTmp = new Scanner(System.in);
-        String choix = scTmp.nextLine().trim();
+        String choix = sc.nextLine().trim();
         if (choix.equalsIgnoreCase("O") || choix.equalsIgnoreCase("oui")) {
             liste.add(res);
             System.out.println("Polynôme sauvegardé en index [" + (liste.size() - 1) + "]");
@@ -342,7 +341,7 @@ public class Main {
      * Ouvre une boîte de dialogue pour sélectionner un fichier de polynômes (.txt)
      * et ajoute les polynômes lus à la liste de l'application en utilisant PersistancePolynome.
      *
-     * @param listeACompleter La liste actuelle à laquelle ajouter les nouveaux polynômes.
+     * @param listeACompleter La liste actuelle à laquelle ajouter les nouveaux polynômes. 
      */
     private static void chargerDonnees(List<Polynome> listeACompleter) {
         System.out.println("Ouverture de la fenêtre de sélection de fichier...");
@@ -413,7 +412,7 @@ public class Main {
             File fichierSelectionne = selecteurFichier.getSelectedFile();
             String cheminFichierSauvegarde = fichierSelectionne.getAbsolutePath();
 
-            if (!cheminFichierSauvegarde.toLowerCase().endsWith(".txt")) {
+            if (!cheminFichierSauvegarde.toLowerCase().endsWith(".txt")) { 
                 cheminFichierSauvegarde += ".txt";
             }
 
