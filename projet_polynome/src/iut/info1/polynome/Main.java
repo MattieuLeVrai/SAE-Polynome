@@ -281,7 +281,7 @@ public class Main {
         String choix = sc.nextLine().trim();
         if (choix.equalsIgnoreCase("O") || choix.equalsIgnoreCase("oui")) {
             liste.add(res);
-            System.out.println("Polynôme sauvegardé en index [" + (liste.size() - 1) + "]");
+            System.out.println("Polynôme sauvegardé en index [" + (liste.size() - 1) + "]"); 
         }
     }
     
