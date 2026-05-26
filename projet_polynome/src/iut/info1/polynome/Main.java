@@ -286,7 +286,7 @@ public class Main {
         }
     }
     
-    /**
+    /** 
      * Gère la saisie utilisateur et la création d'un polynôme à partir de ses coefficients.
      * Le polynôme créé est automatiquement ajouté à la liste.
      *
