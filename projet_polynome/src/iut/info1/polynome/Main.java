@@ -283,12 +283,12 @@ public class Main {
             liste.add(res);
             System.out.println("Polynôme sauvegardé en index [" + (liste.size() - 1) + "]"); 
         }
-    }
+    }  
     
     /** 
      * Gère la saisie utilisateur et la création d'un polynôme à partir de ses coefficients.
      * Le polynôme créé est automatiquement ajouté à la liste.
-     *
+     * 
      * @param sc L'instance de {@link Scanner} utilisée pour lire les entrées de la console.
      * @param list La liste de {@link Polynome} dans laquelle ajouter le nouveau polynôme.
      */
