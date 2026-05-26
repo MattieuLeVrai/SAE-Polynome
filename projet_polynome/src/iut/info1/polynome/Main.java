@@ -413,7 +413,7 @@ public class Main {
             File fichierSelectionne = selecteurFichier.getSelectedFile();
             String cheminFichierSauvegarde = fichierSelectionne.getAbsolutePath();
 
-            if (!cheminFichierSauvegarde.toLowerCase().endsWith(".txt")) {
+            if (!cheminFichierSauvegarde.toLowerCase().endsWith(".txt")) { 
                 cheminFichierSauvegarde += ".txt";
             }
 
