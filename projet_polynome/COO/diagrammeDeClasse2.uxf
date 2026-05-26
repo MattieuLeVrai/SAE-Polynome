@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>388</y>
+      <w>32</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>340</y>
+      <w>84</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>544</y>
+      <w>92</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>372</x>
-      <y>42</y>
-      <w>288</w>
-      <h>168</h>
+      <x>552</x>
+      <y>284</y>
+      <w>192</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome::Polynome
 --
@@ -25,16 +61,48 @@
 +multiplierTableaux(double[] a, double[] b): double[]
 +estNul(): boolean
 +toString(): String
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>768</x>
-      <y>42</y>
-      <w>240</w>
-      <h>240</h>
+      <x>552</x>
+      <y>476</y>
+      <w>192</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome::OperationPolynome
+--
+--
++addition(Polynome p1, Polynome p2): Polynome
++soustraction(Polynome p1, Polynome p2): Polynome
++multiplicationScalaire(Polynome p, double scalaire): Polynome
++multiplication(Polynome p1, Polynome p2): Polynome
+-divisionEuclidienne(Polynome p1, Polynome p2): Polynome[]
++division(Polynome p1, Polynome p2): Polynome
++reste(Polynome p1, Polynome p2): Polynome
++pgcd(Polynome a, Polynome b): Polynome
++derivee(Polynome p): Polynome
++primitive(Polynome p): Polynome
++calculImageFonction(Polynome p, double x): double
++calculValeurMoyenneIntervalle(Polynome p, double a, double b): double
++integrationPolynome(Polynome p, double a, double b): double
+-normaliser(Polynome p): Polynome
+-nettoyer(Polynome p): Polynome
+-estEffectivementNul(Polynome p): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>816</x>
+      <y>280</y>
+      <w>164</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome.test::TestPolynome
 --
@@ -59,102 +127,309 @@
 ~testMultiplierTableaux(): void
 ~testConstructeurAvecRacinesValides(): void
 ~testConstructeurAvecRacinesInvalides(): void
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>780</x>
-      <y>366</y>
-      <w>192</w>
-      <h>168</h>
+      <x>824</x>
+      <y>464</y>
+      <w>156</w>
+      <h>216</h>
     </coordinates>
     <panel_attributes>iut.info1.polynome.test::TestOperationPolynome
 --
-
+-op: OperationPolynome
+-pConstante5: Polynome
+-pConstante3: Polynome
+-pLinaire: Polynome
+-pLineaire2: Polynome
+-pQuadratique: Polynome
+-pQuadratique2: Polynome
+-pQuadratique3: Polynome
+-pCubique: Polynome
+-pDiviseur: Polynome
+-pNul: Polynome
 --
 ~setUp(): void
 ~testAddition(): void
 ~testSoustraction(): void
 ~testMultiplicationScalaire(): void
+~testMultiplicationScalaireParZero(): void
 ~testMultiplication(): void
 ~testDivision(): void
+~testDivisionParPolynomeNul(): void
 ~testReste(): void
 ~testPgcd(): void
 ~testDerivee(): void
+~testDeriveeConstante(): void
 ~testPrimitive(): void
 ~testCalculImageFonction(): void
+~testCalculImageFonctionZero(): void
 ~testCalculValeurMoyenneIntervalle(): void
+~testCalculValeurMoyenneBornesIdentiques(): void
 ~testIntegrationPolynome(): void
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>372</x>
-      <y>342</y>
-      <w>288</w>
-      <h>192</h>
+      <x>168</x>
+      <y>416</y>
+      <w>276</w>
+      <h>84</h>
     </coordinates>
-    <panel_attributes>iut.info1.polynome::OperationPolynome
+    <panel_attributes>iut.info1.polynome.outils::SuiteSturm
 --
-
+-op = new OperationPolynome(): OperationPolynome
 --
-+addition(Polynome p1, Polynome p2): Polynome
-+soustraction(Polynome p1, Polynome p2): Polynome
-+multiplicationScalaire(Polynome p, double scalaire): Polynome
-+multiplication(Polynome p1, Polynome p2): Polynome
--divisionEuclidienne(Polynome p1, Polynome p2): Polynome[]
-+division(Polynome p1, Polynome p2): Polynome
-+reste(Polynome p1, Polynome p2): Polynome
-+pgcd(Polynome a, Polynome b): Polynome
-+derivee(Polynome p): Polynome
-+primitive(Polynome p): Polynome
-+calculImageFonction(Polynome p, double x): double
-+calculValeurMoyenneIntervalle(Polynome p, double a, double b): double
-+integrationPolynome(Polynome p, double a, double b): double
--normaliser(Polynome p): Polynome
--nettoyer(Polynome p): Polynome
--estEffectivementNul(Polynome p): boolean
++supprimerRacinesMultiples(Polynome p): Polynome
++construireSuite(Polynome p0): Polynome[]
++compterChangementsDeSignes(Polynome[] suite, double x): int
++nombreRacinesIntervalle(Polynome p, double a, double b): int
++localiserRacines(Polynome p, double debut, double fin, double pas): List&lt;double[]&gt;
++approximerParDichotomie(Polynome p, double a, double b, double precision): double
++approximerParNewton(Polynome p, double x0, double precision, int maxIterations): double
++chercherToutesLesRacines(Polynome p, double debut, double fin, double pas, double precision): double[]
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>204</y>
-      <w>48</w>
-      <h>150</h>
+      <x>440</x>
+      <y>344</y>
+      <w>120</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+    <additional_attributes>280.0;10.0;10.0;280.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>654</x>
-      <y>132</y>
-      <w>126</w>
-      <h>24</h>
+      <x>440</x>
+      <y>452</y>
+      <w>116</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+    <additional_attributes>270.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>208</x>
+      <y>28</y>
+      <w>216</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome::Main
+--
+-GESTIONNAIRE_OPERATIONS = new OperationPolynome(): OperationPolynome
+--
++main(String[] args): void
+-afficherMenu(): void
+-gererMenuOperations(Scanner sc, List&lt;Polynome&gt; liste): void
+-selectionnerIndex(Scanner sc, int min, int max): int
+-ajouterResultatAuPanier(List&lt;Polynome&gt; liste, Polynome res): void
+-creerParCoefficients(Scanner sc, List&lt;Polynome&gt; list): void
+-creerParRacines(Scanner sc, List&lt;Polynome&gt; list): void
+-chargerDonnees(List&lt;Polynome&gt; listeACompleter): void
+-sauvegarderDonnees(List&lt;Polynome&gt; polynomesASauvegarder): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>536</y>
+      <w>160</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.test::TestSuiteSturm
+--
+-sturm: SuiteSturm
+-pNul: Polynome
+-pConstante: Polynome
+-pLineaire: Polynome
+-pQuadDeuxRacines: Polynome
+-pQuadSansRacine: Polynome
+-pRacineDouble: Polynome
+-pRacineTriple: Polynome
+-pCubique: Polynome
+--
+~setUp(): void
+~testSupprimerRacinesMultiples(): void
+~testSupprimerRacinesMultiplesConstant(): void
+~testConstruireSuiteLineaire(): void
+~testConstruireSuiteQuadratique(): void
+~testConstruireSuiteAucunElementNul(): void
+~testCompterChangementsDeSignes(): void
+~testCompterChangementsDeSignesValeurNulle(): void
+~testNombreRacinesIntervalle(): void
+~testNombreRacinesIntervalleExceptionASupB(): void
+~testNombreRacinesIntervalleExceptionAEgalB(): void
+~testLocaliserRacines(): void
+~testLocaliserRacinesSansRacine(): void
+~testApproximerParDichotomie(): void
+~testApproximerParDichotomieExceptionMemeSigne(): void
+~testApproximerParNewton(): void
+~testApproximerParNewtonExceptionDeriveeNulle(): void
+~testChercherToutesLesRacines(): void
+~testChercherToutesLesRacinesRacineDouble(): void
+~testChercherToutesLesRacinesAnnulentP(): void
+~testChercherToutesLesRacinesHorsIntervalle(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4</x>
+      <y>316</y>
+      <w>140</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.test::TestInterpolationPolynomiale
+--
+-outilInterpolation: InterpolationPolynomiale
+--
+~setUp(): void
+~testInterpolerLagrangeNominal(): void
+~testInterpolerLagrangeUnSeulPoint(): void
+~testInterpolerLagrangeTableauNull(): void
+~testInterpolerLagrangeTableauVide(): void
+~testInterpolerLagrangeTaillesDifferentes(): void
+~testInterpolerLagrangeAbscissesIdentiques(): void
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>276</x>
+      <y>316</y>
+      <w>144</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.outils::InterpolationPolynomiale
+--
+
+--
++interpolerLagrange(double[] x, double[] y): Polynome
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>168</y>
+      <w>292</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>iut.info1.polynome.outils::PersistancePolynome
+--
+-PREFIXE_COEFF = "COEFF": String
+-PREFIXE_RACINES = "RACINES": String
+--
++sauvegarder(List&lt;Polynome&gt; polynomes, String chemin): void
++sauvegarderParRacines(double[][] racinesListe, int[][] ordresListe, double[] coeffsDominants, String chemin): void
++ajouterPolynome(Polynome p, String chemin): void
++charger(String chemin): List&lt;Polynome&gt;
+-serialiserCoefficients(Polynome p): String
+-serialiserRacines(double[] racines, int[] ordres, double coeffDominant): String
+-deserialiser(String ligne): Polynome
+-deserialiserCoeff(String donnees): Polynome
+-deserialiserRacines(String donnees): Polynome
+--
+</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>654</x>
-      <y>438</y>
-      <w>138</w>
-      <h>24</h>
+      <x>324</x>
+      <y>112</y>
+      <w>32</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;import&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>464</x>
+      <y>208</y>
+      <w>200</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>480.0;190.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>276</x>
+      <y>496</y>
+      <w>32</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>416</x>
+      <y>332</y>
+      <w>144</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>340.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>416</x>
+      <y>340</y>
+      <w>144</w>
+      <h>164</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>340.0;390.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>332</y>
+      <w>144</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>340.0;20.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>
