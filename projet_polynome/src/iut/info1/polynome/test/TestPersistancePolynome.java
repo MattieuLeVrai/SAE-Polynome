@@ -100,7 +100,7 @@ class TestPersistancePolynome {
                 "Valeur attendue : 2 | Valeur obtenue : " + charges.size());
 
         // Vérification du premier polynôme rechargé (2X^2 + 3X + 1)
-        assertEquals(2, charges.get(0).getDegre(),
+        assertEquals(2, charges.get(0).getDegre(), 
                 "Valeur attendue : 2 | Valeur obtenue : " + charges.get(0).getDegre());
         assertEquals(2.0, charges.get(0).getCoefficient(0), 1e-9,
                 "Valeur attendue (a0) : 2.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
