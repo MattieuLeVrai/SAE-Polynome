@@ -62,10 +62,27 @@ public class PersistancePolynome {
         try (PrintWriter writer = new PrintWriter(
                 new BufferedWriter(new FileWriter(chemin)))) {
 
-            writer.println("# Fichier de polynômes – Bibliothèque IR[X]");
-            writer.println("# Format : COEFF an an-1 ... a0  (de degré n à 0)");
-            writer.println("# Format : RACINES coeffDom r1:k1 r2:k2 ...");
-            writer.println();
+        	writer.println("# ============================================================");
+        	writer.println("#   Fichier de polynomes - Bibliotheque IR[X]");
+        	writer.println("# ============================================================");
+        	writer.println("#");
+        	writer.println("#  FORMAT 1 - COEFF");
+        	writer.println("#  -----------------");
+        	writer.println("#  Syntaxe  : COEFF  an  an-1  ...  a1  a0");
+        	writer.println("#  Exemple  : COEFF  3.2  -5.0  1.0");
+        	writer.println("#  Resultat :  P(X) = 3.2X^2 - 5.0X + 1.0");
+        	writer.println("#");
+        	writer.println("#  FORMAT 2 - RACINES");
+        	writer.println("#  -------------------");
+        	writer.println("#  Syntaxe  : RACINES  coeffDom  racine:multiplicite  ...");
+        	writer.println("#  Exemple  : RACINES  2.0  1.0:2  -3.0:1");
+        	writer.println("#  Resultat :  P(X) = 2.0 * (X - 1.0)^2 * (X + 3.0)");
+        	writer.println("#");
+        	writer.println("#  NOTE : lignes vides et lignes '#' sont ignorees");
+        	writer.println("# ============================================================");
+        	writer.println("#  VOS POLYNOMES CI-DESSOUS :");
+        	writer.println("# ============================================================");
+        	writer.println();
 
             for (Polynome p : polynomes) {
                 writer.println(serialiserCoefficients(p));
@@ -106,9 +123,21 @@ public class PersistancePolynome {
         try (PrintWriter writer = new PrintWriter(
                 new BufferedWriter(new FileWriter(chemin)))) {
 
-            writer.println("# Fichier de polynômes – Bibliothèque IR[X]");
-            writer.println("# Format : RACINES coeffDom r1:k1 r2:k2 ...");
-            writer.println();
+        	writer.println("# ============================================================");
+        	writer.println("#   Fichier de polynomes - Bibliotheque IR[X]");
+        	writer.println("# ============================================================");
+        	writer.println("#");
+        	writer.println("#  FORMAT 2 - RACINES");
+        	writer.println("#  -------------------");
+        	writer.println("#  Syntaxe  : RACINES  coeffDom  racine:multiplicite  ...");
+        	writer.println("#  Exemple  : RACINES  2.0  1.0:2  -3.0:1");
+        	writer.println("#  Resultat :  P(X) = 2.0 * (X - 1.0)^2 * (X + 3.0)");
+        	writer.println("#");
+        	writer.println("#  NOTE : lignes vides et lignes '#' sont ignorees");
+        	writer.println("# ============================================================");
+        	writer.println("#  VOS POLYNOMES CI-DESSOUS :");
+        	writer.println("# ============================================================");
+        	writer.println();
 
             for (int i = 0; i < racinesListe.length; i++) {
                 writer.println(serialiserRacines(
