@@ -79,25 +79,21 @@ public class SuiteSturm {
     public Polynome[] construireSuite(Polynome p0) {
         List<Polynome> suite = new ArrayList<>();
         suite.add(p0);
+        suite.add(op.derivee(p0));
 
-        Polynome p1 = op.derivee(p0);
-        suite.add(p1);
+        int n = suite.size();
+        do {
+            Polynome pk1 = suite.get(n - 2);
+            Polynome pk = suite.get(n - 1);
 
-        // Construction itérative : P_{k+1} = -reste(P_{k-1} / P_k)
-        while (!suite.get(suite.size() - 1).estNul()) {
-            int n        = suite.size();
-            Polynome pk1 = suite.get(n - 2); // P_{k-1}
-            Polynome pk  = suite.get(n - 1); // P_k
+            if (!pk.estNul()) {
+                Polynome resteDiv = op.reste(pk1, pk);
+                Polynome suivant = op.multiplicationScalaire(resteDiv, -1.0);
+                suite.add(suivant);
+                n++;
+            }
+        } while (n > 1 && !suite.get(suite.size() - 1).estNul());
 
-            if (pk.estNul()) break;
-
-            Polynome resteDiv = op.reste(pk1, pk);
-            // P_{k+1} = -reste
-            Polynome suivant  = op.multiplicationScalaire(resteDiv, -1.0);
-            suite.add(suivant);
-        }
-
-        // Retirer le dernier élément s'il est nul (fin de l'algorithme d'Euclide)
         if (!suite.isEmpty() && suite.get(suite.size() - 1).estNul()) {
             suite.remove(suite.size() - 1);
         }
@@ -233,7 +229,7 @@ public class SuiteSturm {
      * Critère d'arrêt : |P(x_n)| < precision  ou  nombre maximum d'itérations atteint.
      *
      * @param p           Le polynôme
-     * @param x0          Point de départ de l'itération (doit être proche de la racine)
+     * @param x0          Point de départ de l'itération
      * @param precision   Précision souhaitée (ex : 1e-9)
      * @param maxIterations Nombre maximum d'itérations (ex : 100)
      * @return La racine approchée

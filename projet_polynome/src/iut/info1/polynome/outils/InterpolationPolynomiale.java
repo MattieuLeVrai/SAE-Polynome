@@ -17,7 +17,7 @@ import iut.info1.polynome.Polynome;
  * @author Liao Mattieu
  * @author Moqué Baptiste
  */
-public class InterpolationPolynomiale {
+public class InterpolationPolynomiale { 
 
     /**
      * Calcule le polynôme d'interpolation de Lagrange passant par les points (x_i, y_i).
