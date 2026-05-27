@@ -1,5 +1,6 @@
 package iut.info1.polynome;
 
+import iut.info1.polynome.outils.InterpolationPolynomiale;
 import iut.info1.polynome.outils.PersistancePolynome;
 import java.io.File;
 import java.util.ArrayList;
@@ -89,13 +90,16 @@ public class Main {
                     gererMenuOperations(entreeUtilisateur, listeDePolynomes);
                     break;
                 case 5:
-                    sauvegarderDonnees(listeDePolynomes);
-                    break; 
+                    interpolerLagrange(entreeUtilisateur, listeDePolynomes);
+                    break;
                 case 6:
+                    sauvegarderDonnees(listeDePolynomes);
+                    break;
+                case 7:
                     sessionActive = false;
                     break;
                 default:
-                    System.out.println("Choix invalide, veuillez choisir un nombre entre 1 et 5.");
+                    System.out.println("Choix invalide, veuillez choisir un nombre entre 1 et 7.");
             }
         }
         
@@ -115,9 +119,10 @@ public class Main {
         System.out.println("2. Créer un polynôme par racines");
         System.out.println("3. Charger des polynômes depuis un fichier");
         System.out.println("4. Effectuer des opérations sur les polynômes");
-        System.out.println("5. Sauvegarder la liste de polynômes actuelle");
-        System.out.println("6. Quitter");
-        System.out.print("Votre choix : ");
+        System.out.println("5. Calculer le polynôme d'interpolation de Lagrange");
+        System.out.println("6. Sauvegarder la liste de polynômes actuelle");
+        System.out.println("7. Quitter");
+        System.out.println("Votre choix :");
     }
     
     /**
@@ -335,6 +340,30 @@ public class Main {
         Polynome nouveauPolynome = new Polynome(coefficientDominant, valeursRacines, ordresMultiplicite);
         list.add(nouveauPolynome);
         System.out.println("Ajouté : " + nouveauPolynome);
+    }
+    
+    private static void interpolerLagrange(Scanner sc, List<Polynome> list) {
+        System.out.print("Nombre de points : ");
+        int n = Integer.parseInt(sc.nextLine().trim());
+
+        double[] x = new double[n];
+        double[] y = new double[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("x[" + i + "] : ");
+            x[i] = Double.parseDouble(sc.nextLine().trim());
+            System.out.print("y[" + i + "] : ");
+            y[i] = Double.parseDouble(sc.nextLine().trim());
+        }
+
+        try {
+            InterpolationPolynomiale interpolateur = new InterpolationPolynomiale();
+            Polynome resultat = interpolateur.interpolerLagrange(x, y);
+            list.add(resultat);
+            System.out.println("Polynôme interpolé ajouté en index [" + (list.size() - 1) + "] : " + resultat);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
     }
     
     /**
