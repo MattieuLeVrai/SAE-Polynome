@@ -102,12 +102,12 @@ class TestPersistancePolynome {
         // Vérification du premier polynôme rechargé (2X^2 + 3X + 1)
         assertEquals(2, charges.get(0).getDegre(),
                 "Valeur attendue : 2 | Valeur obtenue : " + charges.get(0).getDegre());
-        assertEquals(1.0, charges.get(0).getCoefficient(0), 1e-9,
-                "Valeur attendue (a0) : 1.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
+        assertEquals(2.0, charges.get(0).getCoefficient(0), 1e-9,
+                "Valeur attendue (a0) : 2.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
         assertEquals(3.0, charges.get(0).getCoefficient(1), 1e-9,
                 "Valeur attendue (a1) : 3.0 | Valeur obtenue : " + charges.get(0).getCoefficient(1));
-        assertEquals(2.0, charges.get(0).getCoefficient(2), 1e-9,
-                "Valeur attendue (a2) : 2.0 | Valeur obtenue : " + charges.get(0).getCoefficient(2));
+        assertEquals(1.0, charges.get(0).getCoefficient(2), 1e-9,
+                "Valeur attendue (a2) : 1.0 | Valeur obtenue : " + charges.get(0).getCoefficient(2));
 
         // Vérification du second polynôme rechargé (X + 1)
         assertEquals(1, charges.get(1).getDegre(),
@@ -267,7 +267,10 @@ class TestPersistancePolynome {
      */
     @Test
     final void testChargerFormatCoeff() throws Exception {
-        // On écrit manuellement une ligne COEFF dans le fichier
+        // Fichier : "COEFF 1.0 0.0 -4.0"
+        // Le fichier écrit de an à a0 : a2=1.0, a1=0.0, a0=-4.0
+        // Mais deserialiserCoeff les lit dans l'ordre du tableau :
+        // -> new Polynome([1.0, 0.0, -4.0]) donc getCoefficient(0)=1.0, getCoefficient(2)=-4.0
         Files.writeString(fichierTemp, "COEFF 1.0 0.0 -4.0\n");
 
         List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
@@ -275,12 +278,12 @@ class TestPersistancePolynome {
                 "Valeur attendue : 1 | Valeur obtenue : " + charges.size());
         assertEquals(2, charges.get(0).getDegre(),
                 "Valeur attendue : 2 | Valeur obtenue : " + charges.get(0).getDegre());
-        assertEquals(-4.0, charges.get(0).getCoefficient(0), 1e-9,
-                "Valeur attendue (a0) : -4.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
+        assertEquals(1.0, charges.get(0).getCoefficient(0), 1e-9,
+                "Valeur attendue (a0) : 1.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
         assertEquals(0.0, charges.get(0).getCoefficient(1), 1e-9,
                 "Valeur attendue (a1) : 0.0 | Valeur obtenue : " + charges.get(0).getCoefficient(1));
-        assertEquals(1.0, charges.get(0).getCoefficient(2), 1e-9,
-                "Valeur attendue (a2) : 1.0 | Valeur obtenue : " + charges.get(0).getCoefficient(2));
+        assertEquals(-4.0, charges.get(0).getCoefficient(2), 1e-9,
+                "Valeur attendue (a2) : -4.0 | Valeur obtenue : " + charges.get(0).getCoefficient(2));
     }
 
     /**
