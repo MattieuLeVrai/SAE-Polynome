@@ -20,14 +20,14 @@ import java.util.List;
  *   <li><b>Format coefficients</b> (mot-clé {@code COEFF}) :<br>
  *       {@code COEFF an an-1 an-2 ... a0}<br>
  *       où a0 est le coefficient de degré 0, a1 celui de degré 1, etc.<br>
- *       Exemple : {@code COEFF 3.2 -5.0 1.0}  →  P(X) = 3.2X² − 5X + 1</li>
+ *       Exemple : {@code COEFF 3.2 -5.0 1.0}  →  P(X) = 3.2X² − 5X + 1</li> 
  *
  *   <li><b>Format racines</b> (mot-clé {@code RACINES}) :<br>
  *       {@code RACINES coeffDominant r1:k1 r2:k2 ...}<br>
  *       où coeffDominant est le coefficient du monôme de plus haut degré,
  *       r_i la valeur de la racine et k_i son ordre de multiplicité.<br>
  *       Exemple : {@code RACINES 2.0 1.0:2 -3.0:1}  →  P(X) = 2(X−1)²(X+3)</li>
- * </ul>
+ * </ul> 
  *
  * Les lignes vides et celles commençant par {@code #} sont ignorées (commentaires).
  *
