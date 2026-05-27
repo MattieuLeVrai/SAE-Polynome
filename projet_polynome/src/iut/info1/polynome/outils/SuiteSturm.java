@@ -229,7 +229,7 @@ public class SuiteSturm {
      * Critère d'arrêt : |P(x_n)| < precision  ou  nombre maximum d'itérations atteint.
      *
      * @param p           Le polynôme
-     * @param x0          Point de départ de l'itération (doit être proche de la racine)
+     * @param x0          Point de départ de l'itération
      * @param precision   Précision souhaitée (ex : 1e-9)
      * @param maxIterations Nombre maximum d'itérations (ex : 100)
      * @return La racine approchée
