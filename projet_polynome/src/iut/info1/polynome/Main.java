@@ -344,7 +344,7 @@ public class Main {
     
     private static void interpolerLagrange(Scanner sc, List<Polynome> list) {
         System.out.print("Nombre de points : ");
-        int n = Integer.parseInt(sc.nextLine().trim());
+        int n = Integer.parseInt(sc.nextLine().trim()); 
 
         double[] x = new double[n];
         double[] y = new double[n];
