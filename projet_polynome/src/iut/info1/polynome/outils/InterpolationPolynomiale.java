@@ -7,7 +7,6 @@ package iut.info1.polynome.outils;
 
 import iut.info1.polynome.OperationPolynome;
 import iut.info1.polynome.Polynome;
-import iut.info1.polynome.outils.InterpolationPolynomiale;
 
 /**
  * Fournit des outils pour calculer le polynôme d'interpolation unique 
