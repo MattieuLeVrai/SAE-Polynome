@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Page d'accueil et interface principale de l'application de gestion de polynômes.
- * Permet de charger, sauvegarder, saisir manuellement et tracer des polynômes IR[X].
+ * Permet de charger, sauvegarder, saisir manuellement et tracer les courbes des polynômes.
  */
 public class PolynomeApp extends Application {
 
@@ -56,8 +56,8 @@ public class PolynomeApp extends Application {
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 0;");
 
-        Button btnCharger = new Button("📂 Charger Fichier");
-        Button btnSauvegarder = new Button("💾 Sauvegarder Fichier");
+        Button btnCharger = new Button("Charger Fichier");
+        Button btnSauvegarder = new Button("sSauvegarder Fichier");
         
         TextField txtCoeffs = new TextField();
         txtCoeffs.setPromptText("Coefficients : a0 a1 a2... (ex: 2 0 -3)");
