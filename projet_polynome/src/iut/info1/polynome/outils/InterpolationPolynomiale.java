@@ -12,7 +12,7 @@ import iut.info1.polynome.Polynome;
  * Fournit des outils pour calculer le polynôme d'interpolation unique 
  * de degré au plus n-1 passant par un ensemble de n points donnés 
  * en utilisant la méthode des polynômes de Lagrange.
- * * @author Higounet Kelvin
+ * @author Higounet Kelvin
  * @author Laurençont Yanis
  * @author Liao Mattieu
  * @author Moqué Baptiste
