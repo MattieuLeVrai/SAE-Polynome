@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Gantt SAE 2.02" company="" webLink="http://" view-date="2026-05-10" view-index="0" gantt-divider-location="297" resource-divider-location="300" version="3.3.3316" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="Gantt SAE 2.02" company="" webLink="http://" view-date="2026-05-17" view-index="0" gantt-divider-location="297" resource-divider-location="300" version="2.8.11" locale="fr_FR">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Nom" width="167" order="0"/>
-        <field id="tpd4" name="Date de début" width="65" order="1"/>
+        <field id="tpd3" name="Nom" width="165" order="0"/>
+        <field id="tpd4" name="Date de début" width="64" order="1"/>
         <field id="tpd5" name="Date de fin" width="64" order="2"/>
-        <option id="filter.completedTasks" value="false"/>
-        <option id="filter.dueTodayTasks" value="false"/>
-        <option id="filter.overdueTasks" value="false"/>
-        <option id="filter.inProgressTodayTasks" value="false"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Nom" width="210" order="0"/>
@@ -78,27 +74,27 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" uid="28e5a9635126450e9520ab1c81883960" name="Découverte du projet" color="#8cb6ce" meeting="false" start="2026-03-24" duration="8" complete="0" thirdDate="2026-05-11" thirdDate-constraint="0" expand="true"/>
-        <task id="9" uid="c7f69f36463b44989323f2d825bf90e8" name="Répartition des rôles" color="#8cb6ce" meeting="false" start="2026-04-01" duration="2" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true"/>
-        <task id="14" uid="bb12f682b1674a979d97e32b70bbadb9" name="Configuration des espaces de travail" color="#8cb6ce" meeting="false" start="2026-04-01" duration="2" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true">
+        <task id="0" name="Découverte du projet" color="#8cb6ce" meeting="false" start="2026-03-24" duration="8" complete="0" thirdDate="2026-05-11" thirdDate-constraint="0" expand="true"/>
+        <task id="9" name="Répartition des rôles" color="#8cb6ce" meeting="false" start="2026-04-01" duration="2" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true"/>
+        <task id="14" name="Configuration des espaces de travail" color="#8cb6ce" meeting="false" start="2026-04-01" duration="2" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true">
             <notes><![CDATA[Eclipse IDE v2026/03
 openJDK 26
 Junit v6
 UMLet (sur eclipse IDE)
 ]]></notes>
         </task>
-        <task id="12" uid="184cdf4b5ce34a54912841a550f97ae0" name="Rédaction du résumé des cas" color="#8cb6ce" meeting="false" start="2026-04-01" duration="7" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true"/>
-        <task id="19" uid="d86254c27e554b34a7059dec6ff911f0" name="Rédaction d’un cas d’utilisation" color="#8cb6ce" meeting="false" start="2026-04-08" duration="2" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true">
+        <task id="12" name="Rédaction du résumé des cas" color="#8cb6ce" meeting="false" start="2026-04-01" duration="7" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true"/>
+        <task id="19" name="Rédaction d’un cas d’utilisation" color="#8cb6ce" meeting="false" start="2026-04-08" duration="2" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true">
             <notes><![CDATA[Absence du gestionnaire de configuration : Moqué Baptiste
 ]]></notes>
         </task>
-        <task id="22" uid="2e1d14fc343f465fa98e3fc0c8f9045b" name="Découverte du support de cours sur les polynômes de M. Wherlé" color="#8cb6ce" meeting="false" start="2026-04-10" duration="4" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true"/>
-        <task id="24" uid="a4c27719bd6f44969fcc50bd3cad824a" name="Rédaction d’un scénario d’une user story" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
-        <task id="25" uid="e98968d4b4e141abb5a861118db88fdd" name="Rédaction du backlog et planification du projet (Cycle de vie du projet)" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
-        <task id="26" uid="4981278c2a034613a0cdcbc1a2e25776" name="Création du github et du workspace" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
-        <task id="27" uid="cd410284451b414bbd11270482670c85" name="Création du diagramme de classe avec UMLET" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
-        <task id="28" uid="e75f4a59c8214914ba9f3e2474aedd7f" name="Création de la structure de la class Polynome" meeting="false" start="2026-04-11" duration="3" complete="0" expand="true"/>
-        <task id="29" uid="0f45d3525a64406195f179d4628ce056" name="avancement du code de polynome.java et testPolynome.java" meeting="false" start="2026-04-14" duration="3" complete="0" expand="true">
+        <task id="22" name="Découverte du support de cours sur les polynômes de M. Wherlé" color="#8cb6ce" meeting="false" start="2026-04-10" duration="4" complete="0" thirdDate="2026-03-23" thirdDate-constraint="0" expand="true"/>
+        <task id="24" name="Rédaction d’un scénario d’une user story" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
+        <task id="25" name="Rédaction du backlog et planification du projet (Cycle de vie du projet)" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
+        <task id="26" name="Création du github et du workspace" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
+        <task id="27" name="Création du diagramme de classe avec UMLET" meeting="false" start="2026-04-10" duration="4" complete="0" expand="true"/>
+        <task id="28" name="Création de la structure de la class Polynome" meeting="false" start="2026-04-11" duration="3" complete="0" expand="true"/>
+        <task id="29" name="avancement du code de polynome.java et testPolynome.java" meeting="false" start="2026-04-14" duration="3" complete="0" expand="true">
             <notes><![CDATA[14/04/2026
 avancement du code de polynome.java et testPolynome.java
 
@@ -111,36 +107,42 @@ code de polynome.java et testPolynome.java completé
 – Fin du sprint 1
 ]]></notes>
         </task>
-        <task id="30" uid="64cd72d71f984ee898f7653ad386adfd" name="Début sprints 2" meeting="false" start="2026-05-05" duration="1" complete="0" expand="true"/>
-        <task id="31" uid="13408ea8c87f49f4926ed90d3618991f" name="Ecriture du dossier technique pour la class polynome et test polynome" meeting="false" start="2026-05-06" duration="1" complete="0" expand="true"/>
-        <task id="32" uid="576a470e4e5d4cd79ba2893ccbb72d07" name="Finition du dossier technique du sprints 1, ainsi que création de la class OpérationPolynome" meeting="false" start="2026-05-07" duration="3" complete="0" expand="true"/>
-        <task id="33" uid="9277686cc749474789fa348d32708836" name="Finition du dossier technique du sprints 1, ainsi que création de la class OpérationPolynome" meeting="false" start="2026-05-11" duration="1" complete="0" expand="true"/>
-        <task id="34" uid="4d1ab37af05648a7b66db22b7d61accd" name="Finition de la class OperationPolynome, implémentation de test sur TestOperationPolynome. Ecriture du plan projet." meeting="false" start="2026-05-12" duration="1" complete="0" expand="true">
+        <task id="30" name="Début sprints 2" meeting="false" start="2026-05-05" duration="1" complete="0" expand="true"/>
+        <task id="31" name="Ecriture du dossier technique pour la class polynome et test polynome" meeting="false" start="2026-05-06" duration="1" complete="0" expand="true"/>
+        <task id="32" name="Finition du dossier technique du sprints 1, ainsi que création de la class OpérationPolynome" meeting="false" start="2026-05-07" duration="3" complete="0" expand="true"/>
+        <task id="33" name="Finition du dossier technique du sprints 1, ainsi que création de la class OpérationPolynome" meeting="false" start="2026-05-11" duration="1" complete="0" expand="true"/>
+        <task id="34" name="Finition de la class OperationPolynome, implémentation de test sur TestOperationPolynome. Ecriture du plan projet." meeting="false" start="2026-05-12" duration="1" complete="0" expand="true">
             <notes><![CDATA[- Finition de la class OperationPolynome, implémentation de test sur TestOperationPolynome.
 - Écriture du plan projet.
 ]]></notes>
         </task>
-        <task id="35" uid="e84f25c5b2b9405f8f7bb359afcbcde4" name="Ajout de plusieurs tests de JUnit pour OpérationPolynome" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
+        <task id="35" name="Ajout de plusieurs tests de JUnit pour OpérationPolynome" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
             <notes><![CDATA[- Ajout de plusieurs de JUnit pour OperationPolynome.
 ]]></notes>
         </task>
-        <task id="41" uid="0eb5525e3ecf4a6ba9e5f86ce780e80a" name="Ajout dans package iut.info1.polynome.outils la class PersistancePolynome qui va servir à sauver les données et normalement exporté et importé des données dans la class." color="#8cb6ce" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
+        <task id="41" name="Ajout dans package iut.info1.polynome.outils la class PersistancePolynome qui va servir à sauver les données et normalement exporté et importé des données dans la class." color="#8cb6ce" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
             <notes><![CDATA[- Ajout dans package iut.info1.polynome.outils la class PersistancePolynome qui va servir à sauver les données et normalement exporté et importé des données dans la class.
 
 ]]></notes>
         </task>
-        <task id="40" uid="1ad6f42a04424d5294e3d23e2cdeb51d" name="Complétion du document technique sur la class OperationPolynome." color="#8cb6ce" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
+        <task id="40" name="Complétion du document technique sur la class OperationPolynome." color="#8cb6ce" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
             <notes><![CDATA[- Complétion du document technique sur la class OperationPolynome.
 
 ]]></notes>
         </task>
-        <task id="39" uid="a381dd1c80654ab4b040ca1921ff4972" name="Avancement de l'écriture du plan projet" color="#8cb6ce" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
+        <task id="39" name="Avancement de l'écriture du plan projet" color="#8cb6ce" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
             <notes><![CDATA[- Avancement de l'écriture du plan projet.
 ]]></notes>
         </task>
-        <task id="37" uid="2307aa711b3e4adc9169c3ab0bcf9333" name="Fin de développement et vérification de la class PersistancePolynome" meeting="false" start="2026-05-14" duration="4" complete="0" expand="true"/>
-        <task id="36" uid="865fd27263fb4ab69bb64bbc89c4922f" name="Implémenter la suite de Sturm" meeting="false" start="2026-05-19" duration="1" complete="0" expand="true"/>
-        <task id="38" uid="8a6c6865e7da433883c2cdd4d5c58891" name="Fin du sprint 2" meeting="false" start="2026-05-19" duration="1" complete="0" expand="true"/>
+        <task id="37" name="Fin de développement et vérification de la class PersistancePolynome" meeting="false" start="2026-05-14" duration="4" complete="0" expand="true"/>
+        <task id="36" name="Implémenter la suite de Sturm" meeting="false" start="2026-05-19" duration="1" complete="0" expand="true"/>
+        <task id="38" name="Fin du sprint 2" meeting="false" start="2026-05-19" duration="1" complete="0" expand="true"/>
+        <task id="42" name="Implémentation de l'interpolation polynomiale" color="#8cb6ce" meeting="false" start="2026-05-20" duration="1" complete="0" thirdDate="2026-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="46" name="Gestion des opérations sur les polynômes" color="#8cb6ce" meeting="false" start="2026-05-20" duration="1" complete="0" thirdDate="2026-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="43" name="Finalisation de la Suite de Sturm" color="#8cb6ce" meeting="false" start="2026-05-21" duration="5" complete="0" thirdDate="2026-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="47" name="Refactoring et Persistance" color="#8cb6ce" meeting="false" start="2026-05-21" duration="5" complete="0" thirdDate="2026-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="48" name="Intégration de modifications et de corrections" color="#8cb6ce" meeting="false" start="2026-05-21" duration="5" complete="0" thirdDate="2026-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="52" name="Modification de la classe main" color="#8cb6ce" meeting="false" start="2026-05-26" duration="1" complete="0" thirdDate="2026-05-10" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
