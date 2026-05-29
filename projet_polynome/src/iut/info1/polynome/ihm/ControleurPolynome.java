@@ -37,8 +37,6 @@ import java.util.List;
  */
 public class ControleurPolynome {
 
-    // ===================== Attributs FXML (injectés depuis la vue) =====================
-
     // Barre du haut
     @FXML private TextField txtCoeffs;
     @FXML private Button    btnAjouter;

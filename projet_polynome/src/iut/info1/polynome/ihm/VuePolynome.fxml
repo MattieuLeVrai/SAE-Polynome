@@ -1,240 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.chart.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="iut.info1.polynome.ihm.ControleurPolynome"
-            prefWidth="1000" prefHeight="680"
-            style="-fx-background-color: #1a1a2e;">
-
-    <!-- ===== BARRE DU HAUT ===== -->
+            fx:controller="iut.info1.polynome.ihm.ControleurPolynome">
+    
     <top>
-        <HBox spacing="12" alignment="CENTER_LEFT"
-              style="-fx-background-color: #16213e; -fx-padding: 14 20 14 20; -fx-border-color: #0f3460; -fx-border-width: 0 0 2 0;">
-
-            <Label text="IR[X]"
-                   style="-fx-text-fill: #e94560; -fx-font-size: 22px; -fx-font-weight: bold;"/>
-            <Label text="Bibliothèque de Polynômes"
-                   style="-fx-text-fill: #a8b2d8; -fx-font-size: 14px;"/>
-
-            <Pane HBox.hgrow="ALWAYS"/>
-
-            <!-- Saisie coefficients -->
-            <TextField fx:id="txtCoeffs"
-                       promptText="Coefficients a0 a1 a2... (ex: -6 1 1)"
-                       prefWidth="240"
-                       style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-prompt-text-fill: #6272a4; -fx-border-color: #e94560; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 6 10;"/>
-            <Button fx:id="btnAjouter" text="+ Ajouter"
-                    onAction="#gererClicAjouter"
-                    style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 6 14; -fx-cursor: hand;"/>
-
-            <Separator orientation="VERTICAL" style="-fx-background-color: #0f3460;"/>
-
-            <Button fx:id="btnCharger" text="📂 Charger"
-                    onAction="#gererClicCharger"
-                    style="-fx-background-color: #0f3460; -fx-text-fill: #cdd6f4; -fx-border-color: #a8b2d8; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 6 12; -fx-cursor: hand;"/>
-            <Button fx:id="btnSauvegarder" text="💾 Sauvegarder"
-                    onAction="#gererClicSauvegarder"
-                    style="-fx-background-color: #0f3460; -fx-text-fill: #cdd6f4; -fx-border-color: #a8b2d8; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 6 12; -fx-cursor: hand;"/>
+        <HBox spacing="10">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Coefficients :"/>
+            <TextField fx:id="txtCoeffs" promptText="ex: -6 1 1"/>
+            <Button fx:id="btnAjouter" text="Ajouter" onAction="#gererClicAjouter"/>
+            <Separator orientation="VERTICAL"/>
+            <Button fx:id="btnCharger" text="Charger" onAction="#gererClicCharger"/>
+            <Button fx:id="btnSauvegarder" text="Sauvegarder" onAction="#gererClicSauvegarder"/>
         </HBox>
     </top>
 
-    <!-- ===== PANNEAU GAUCHE : liste + info ===== -->
     <left>
-        <VBox spacing="10" prefWidth="300"
-              style="-fx-background-color: #16213e; -fx-padding: 16; -fx-border-color: #0f3460; -fx-border-width: 0 2 0 0;">
-
-            <Label text="Polynômes en mémoire"
-                   style="-fx-text-fill: #e94560; -fx-font-size: 13px; -fx-font-weight: bold;"/>
-
-            <ListView fx:id="listView"
-                      style="-fx-background-color: #0f3460; -fx-border-color: #e94560; -fx-border-radius: 5; -fx-background-radius: 5; -fx-control-inner-background: #0f3460; -fx-text-fill: white;"
-                      VBox.vgrow="ALWAYS"/>
-
-            <Button text="🗑 Supprimer"
-                    onAction="#gererClicSupprimer"
-                    maxWidth="Infinity"
-                    style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7 0; -fx-cursor: hand;"/>
-
-            <!-- Infos du polynôme sélectionné -->
-            <Separator style="-fx-background-color: #0f3460;"/>
-            <Label text="Informations"
-                   style="-fx-text-fill: #a8b2d8; -fx-font-size: 12px; -fx-font-weight: bold;"/>
-
-            <GridPane hgap="8" vgap="6"
-                      style="-fx-background-color: #0f3460; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5;">
-                <Label text="P(X) =" GridPane.columnIndex="0" GridPane.rowIndex="0"
-                       style="-fx-text-fill: #6272a4; -fx-font-size: 11px;"/>
-                <Label fx:id="lblFormule" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0"
-                       style="-fx-text-fill: #cdd6f4; -fx-font-size: 11px; -fx-font-weight: bold;" wrapText="true" maxWidth="180"/>
-
-                <Label text="Degré :" GridPane.columnIndex="0" GridPane.rowIndex="1"
-                       style="-fx-text-fill: #6272a4; -fx-font-size: 11px;"/>
-                <Label fx:id="lblDegre" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"
-                       style="-fx-text-fill: #e94560; -fx-font-weight: bold;"/>
-
-                <Label text="lim -∞ :" GridPane.columnIndex="0" GridPane.rowIndex="2"
-                       style="-fx-text-fill: #6272a4; -fx-font-size: 11px;"/>
-                <Label fx:id="lblLimMoins" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"
-                       style="-fx-text-fill: #cdd6f4;"/>
-
-                <Label text="lim +∞ :" GridPane.columnIndex="0" GridPane.rowIndex="3"
-                       style="-fx-text-fill: #6272a4; -fx-font-size: 11px;"/>
-                <Label fx:id="lblLimPlus" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3"
-                       style="-fx-text-fill: #cdd6f4;"/>
-
-                <Label text="Racines :" GridPane.columnIndex="0" GridPane.rowIndex="4"
-                       style="-fx-text-fill: #6272a4; -fx-font-size: 11px;"/>
-                <Label fx:id="lblRacines" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4"
-                       style="-fx-text-fill: #cdd6f4; -fx-font-size: 11px;" wrapText="true" maxWidth="180"/>
+        <VBox spacing="10" prefWidth="240">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Polynômes en mémoire :"/>
+            <ListView fx:id="listView" VBox.vgrow="ALWAYS"/>
+            <Button text="Supprimer" onAction="#gererClicSupprimer" maxWidth="Infinity"/>
+            
+            <Separator/>
+            <Label text="Informations :"/>
+            <GridPane hgap="5" vgap="5">
+                <Label text="P(X) =" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <Label fx:id="lblFormule" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" wrapText="true"/>
+                
+                <Label text="Degré :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Label fx:id="lblDegre" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <Label text="lim -∞ :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Label fx:id="lblLimMoins" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <Label text="lim +∞ :" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <Label fx:id="lblLimPlus" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                
+                <Label text="Racines :" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <Label fx:id="lblRacines" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" wrapText="true"/>
             </GridPane>
         </VBox>
     </left>
 
-    <!-- ===== CENTRE : graphique + onglets opérations ===== -->
     <center>
-        <VBox spacing="10" style="-fx-padding: 14; -fx-background-color: #1a1a2e;">
-
-            <!-- Courbe -->
+        <VBox spacing="10">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Fenêtre X :"
-                       style="-fx-text-fill: #a8b2d8; -fx-font-size: 11px;"/>
-                <TextField fx:id="txtXMin" text="-10" prefWidth="55"
-                           style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #6272a4; -fx-border-radius: 3; -fx-background-radius: 3; -fx-padding: 4 6;"/>
-                <Label text="à" style="-fx-text-fill: #a8b2d8;"/>
-                <TextField fx:id="txtXMax" text="10" prefWidth="55"
-                           style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #6272a4; -fx-border-radius: 3; -fx-background-radius: 3; -fx-padding: 4 6;"/>
-                <Button text="🔄 Recalculer" onAction="#gererClicRecalculer"
-                        style="-fx-background-color: #0f3460; -fx-text-fill: #e94560; -fx-border-color: #e94560; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 4 10; -fx-cursor: hand;"/>
+                <Label text="Fenêtre X min :"/>
+                <TextField fx:id="txtXMin" text="-10" prefWidth="50"/>
+                <Label text="X max :"/>
+                <TextField fx:id="txtXMax" text="10" prefWidth="50"/>
+                <Button text="Recalculer" onAction="#gererClicRecalculer"/>
             </HBox>
 
-            <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS"
-                       style="-fx-background-color: #16213e; -fx-border-color: #0f3460; -fx-border-radius: 5;">
-                <xAxis><NumberAxis fx:id="xAxis" label="X"
-                                   style="-fx-tick-label-fill: #a8b2d8;"/></xAxis>
-                <yAxis><NumberAxis fx:id="yAxis" label="Y"
-                                   style="-fx-tick-label-fill: #a8b2d8;"/></yAxis>
+            <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
+                <xAxis><NumberAxis fx:id="xAxis" label="X"/></xAxis>
+                <yAxis><NumberAxis fx:id="yAxis" label="Y"/></yAxis>
             </LineChart>
 
-            <!-- Onglets Opérations -->
-            <TabPane fx:id="tabPane" prefHeight="200"
-                     style="-fx-background-color: #16213e; -fx-tab-min-height: 32;">
-
-                <!-- Onglet Opérations binaires -->
-                <Tab text="Opérations" closable="false"
-                     style="-fx-background-color: #16213e;">
-                    <VBox spacing="8" style="-fx-padding: 10; -fx-background-color: #16213e;">
+            <TabPane VBox.vgrow="NEVER" prefHeight="150">
+                
+                <Tab text="Opérations" closable="false">
+                    <VBox spacing="8">
+                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="P1 :" style="-fx-text-fill: #a8b2d8;"/>
-                            <ComboBox fx:id="comboP1" prefWidth="160"
-                                      style="-fx-background-color: #0f3460; -fx-text-fill: white;"/>
-                            <Label text="  P2 :" style="-fx-text-fill: #a8b2d8;"/>
-                            <ComboBox fx:id="comboP2" prefWidth="160"
-                                      style="-fx-background-color: #0f3460; -fx-text-fill: white;"/>
+                            <Label text="P1 :"/>
+                            <ComboBox fx:id="comboP1" prefWidth="120"/>
+                            <Label text="P2 :"/>
+                            <ComboBox fx:id="comboP2" prefWidth="120"/>
                         </HBox>
-                        <HBox spacing="8">
-                            <Button text="P1 + P2" onAction="#gererAddition"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #50fa7b; -fx-border-color: #50fa7b; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="P1 − P2" onAction="#gererSoustraction"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #ff79c6; -fx-border-color: #ff79c6; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="P1 × P2" onAction="#gererMultiplication"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #ffb86c; -fx-border-color: #ffb86c; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="P1 ÷ P2 (Q)" onAction="#gererDivision"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #8be9fd; -fx-border-color: #8be9fd; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="Reste P1÷P2" onAction="#gererReste"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #8be9fd; -fx-border-color: #8be9fd; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="PGCD" onAction="#gererPgcd"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #bd93f9; -fx-border-color: #bd93f9; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
+                        <HBox spacing="5">
+                            <Button text="+" onAction="#gererAddition"/>
+                            <Button text="-" onAction="#gererSoustraction"/>
+                            <Button text="×" onAction="#gererMultiplication"/>
+                            <Button text="÷ (Q)" onAction="#gererDivision"/>
+                            <Button text="Reste" onAction="#gererReste"/>
+                            <Button text="PGCD" onAction="#gererPgcd"/>
                         </HBox>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Résultat :" style="-fx-text-fill: #6272a4;"/>
-                            <Label fx:id="lblResultatOp" text="-"
-                                   style="-fx-text-fill: #f1fa8c; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Résultat :"/>
+                            <Label fx:id="lblResultatOp" text="-"/>
                             <Pane HBox.hgrow="ALWAYS"/>
-                            <Button text="➕ Ajouter à la liste" onAction="#gererAjouterResultat"
-                                    style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
+                            <Button text="Ajouter à la liste" onAction="#gererAjouterResultat"/>
                         </HBox>
                     </VBox>
                 </Tab>
 
-                <!-- Onglet Calculs sur P1 -->
                 <Tab text="Calculs" closable="false">
-                    <VBox spacing="8" style="-fx-padding: 10; -fx-background-color: #16213e;">
+                    <VBox spacing="8">
+                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Sur P1 :" style="-fx-text-fill: #a8b2d8;"/>
-                            <ComboBox fx:id="comboCalcP1" prefWidth="160"
-                                      style="-fx-background-color: #0f3460; -fx-text-fill: white;"/>
+                            <Label text="Sur P1 :"/>
+                            <ComboBox fx:id="comboCalcP1" prefWidth="120"/>
                         </HBox>
-                        <HBox spacing="8">
-                            <Button text="P'(X) Dérivée" onAction="#gererDerivee"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #50fa7b; -fx-border-color: #50fa7b; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="∫ Primitive" onAction="#gererPrimitive"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #ffb86c; -fx-border-color: #ffb86c; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Label text="x =" style="-fx-text-fill: #a8b2d8;"/>
-                            <TextField fx:id="txtValeurX" promptText="valeur x" prefWidth="70"
-                                       style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #6272a4; -fx-border-radius: 3; -fx-background-radius: 3; -fx-padding: 4 6;"/>
-                            <Button text="P(x)" onAction="#gererImage"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #ff79c6; -fx-border-color: #ff79c6; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Label text="[a,b] =" style="-fx-text-fill: #a8b2d8;"/>
-                            <TextField fx:id="txtBorneA" promptText="a" prefWidth="50"
-                                       style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #6272a4; -fx-border-radius: 3; -fx-background-radius: 3; -fx-padding: 4 6;"/>
-                            <TextField fx:id="txtBorneB" promptText="b" prefWidth="50"
-                                       style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #6272a4; -fx-border-radius: 3; -fx-background-radius: 3; -fx-padding: 4 6;"/>
-                            <Button text="∫ Définie" onAction="#gererIntegrale"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #8be9fd; -fx-border-color: #8be9fd; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
-                            <Button text="Valeur Moy." onAction="#gererValeurMoyenne"
-                                    style="-fx-background-color: #0f3460; -fx-text-fill: #bd93f9; -fx-border-color: #bd93f9; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Button text="Dérivée" onAction="#gererDerivee"/>
+                            <Button text="Primitive" onAction="#gererPrimitive"/>
+                            <Separator orientation="VERTICAL"/>
+                            <Label text="x ="/>
+                            <TextField fx:id="txtValeurX" promptText="x" prefWidth="40"/>
+                            <Button text="P(x)" onAction="#gererImage"/>
+                            <Separator orientation="VERTICAL"/>
+                            <Label text="[a, b] ="/>
+                            <TextField fx:id="txtBorneA" promptText="a" prefWidth="40"/>
+                            <TextField fx:id="txtBorneB" promptText="b" prefWidth="40"/>
+                            <Button text="Intégrale" onAction="#gererIntegrale"/>
+                            <Button text="Val. Moyenne" onAction="#gererValeurMoyenne"/>
                         </HBox>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Résultat :" style="-fx-text-fill: #6272a4;"/>
-                            <Label fx:id="lblResultatCalc" text="-"
-                                   style="-fx-text-fill: #f1fa8c; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Résultat :"/>
+                            <Label fx:id="lblResultatCalc" text="-"/>
                             <Pane HBox.hgrow="ALWAYS"/>
-                            <Button text="➕ Ajouter à la liste" onAction="#gererAjouterResultatCalc"
-                                    style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
+                            <Button text="Ajouter à la liste" onAction="#gererAjouterResultatCalc"/>
                         </HBox>
                     </VBox>
                 </Tab>
 
-                <!-- Onglet Interpolation -->
-                <Tab text="Interpolation Lagrange" closable="false">
-                    <VBox spacing="8" style="-fx-padding: 10; -fx-background-color: #16213e;">
+                <Tab text="Interpolation" closable="false">
+                    <VBox spacing="8">
+                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                        <Label text="Points au format (x,y) — Ex: 0,1 1,3 2,7"/>
+                        <HBox spacing="10">
+                            <TextField fx:id="txtPointsInterp" promptText="0,1 1,3 2,7" HBox.hgrow="ALWAYS"/>
+                            <Button text="Interpoler" onAction="#gererInterpolation"/>
+                        </HBox>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Points (x,y) séparés par des virgules — ex: 0,1 1,3 2,7"
-                                   style="-fx-text-fill: #a8b2d8; -fx-font-size: 11px;"/>
-                        </HBox>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <TextField fx:id="txtPointsInterp" prefWidth="400"
-                                       promptText="0,1  1,3  2,7  ..."
-                                       style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #6272a4; -fx-border-radius: 3; -fx-background-radius: 3; -fx-padding: 6 10;"/>
-                            <Button text="Interpoler" onAction="#gererInterpolation"
-                                    style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 6 14; -fx-cursor: hand;"/>
-                        </HBox>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Résultat :" style="-fx-text-fill: #6272a4;"/>
-                            <Label fx:id="lblResultatInterp" text="-"
-                                   style="-fx-text-fill: #f1fa8c; -fx-font-weight: bold;"/>
+                            <Label text="Résultat :"/>
+                            <Label fx:id="lblResultatInterp" text="-"/>
                             <Pane HBox.hgrow="ALWAYS"/>
-                            <Button text="➕ Ajouter à la liste" onAction="#gererAjouterInterp"
-                                    style="-fx-background-color: #e94560; -fx-text-fill: white; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 5 12; -fx-cursor: hand;"/>
+                            <Button text="Ajouter à la liste" onAction="#gererAjouterInterp"/>
                         </HBox>
                     </VBox>
                 </Tab>
-
             </TabPane>
         </VBox>
     </center>
 
-    <!-- ===== BAS : barre de statut ===== -->
     <bottom>
-        <HBox style="-fx-background-color: #0f3460; -fx-padding: 5 20;">
-            <Label fx:id="lblStatut" text="Prêt."
-                   style="-fx-text-fill: #6272a4; -fx-font-size: 11px;"/>
+        <HBox>
+            <padding><Insets top="5" right="10" bottom="5" left="10"/></padding>
+            <Label fx:id="lblStatut" text="Prêt."/>
         </HBox>
     </bottom>
-
 </BorderPane>
