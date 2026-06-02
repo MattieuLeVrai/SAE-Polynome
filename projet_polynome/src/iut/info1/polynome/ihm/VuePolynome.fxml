@@ -3,21 +3,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="iut.info1.polynome.ihm.ControleurPolynome">
     
     <top>
-        <HBox spacing="10">
+        <VBox spacing="8">
             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-            <Label text="Coefficients :"/>
-            <TextField fx:id="txtCoeffs" promptText="ex: -6 1 1"/>
-            <Button fx:id="btnAjouter" text="Ajouter" onAction="#gererClicAjouter"/>
-            <Separator orientation="VERTICAL"/>
-            <Button fx:id="btnCharger" text="Charger" onAction="#gererClicCharger"/>
-            <Button fx:id="btnSauvegarder" text="Sauvegarder" onAction="#gererClicSauvegarder"/>
-        </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Méthode de saisie :"/>
+                <ComboBox fx:id="comboTypeSaisie" prefWidth="150" value="Par coefficients">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Par coefficients"/>
+                            <String fx:value="Par racines"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Valeurs :"/>
+                <TextField fx:id="txtCoeffs" promptText="ex: -6 1 1" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnAjouter" text="Ajouter" onAction="#gererClicAjouter"/>
+                <Separator orientation="VERTICAL"/>
+                <Button fx:id="btnCharger" text="Charger" onAction="#gererClicCharger"/>
+                <Button fx:id="btnSauvegarder" text="Sauvegarder" onAction="#gererClicSauvegarder"/>
+            </HBox>
+        </VBox>
     </top>
 
     <left>
