@@ -39,6 +39,7 @@ public class ControleurPolynome {
 
     // Barre du haut
     @FXML private TextField txtCoeffs;
+    @FXML private ComboBox<String> comboTypeSaisie;
     @FXML private Button    btnAjouter;
     @FXML private Button    btnCharger;
     @FXML private Button    btnSauvegarder;
@@ -122,6 +123,20 @@ public class ControleurPolynome {
         );
 
         statut("Prêt. Entrez des coefficients ou chargez un fichier.");
+        
+        
+        
+        
+        // Gestion dynamique du texte d'aide selon le mode de saisie
+        if (comboTypeSaisie != null) {
+            comboTypeSaisie.getSelectionModel().selectedItemProperty().addListener((obs, ancienMode, nouveauMode) -> {
+                if ("Par racines".equals(nouveauMode)) {
+                    txtCoeffs.setPromptText("ex: 2.0 3:1 -1:2 (coeff_dominant racine:mult...)");
+                } else {
+                    txtCoeffs.setPromptText("ex: -6 1 1");
+                }
+            });
+        }
     }
 
     // ===================== Gestion de la liste =====================
@@ -132,27 +147,66 @@ public class ControleurPolynome {
      */
     @FXML
     private void gererClicAjouter() {
-        String input = txtCoeffs.getText().trim();
-        if (input.isEmpty()) {
-            erreur("Saisie vide", "Entrez des coefficients séparés par des espaces.");
+        String saisie = txtCoeffs.getText().trim();
+        if (saisie.isEmpty()) {
+            erreur("Saisie vide", "Veuillez entrer des valeurs avant d'ajouter.");
             return;
         }
+
         try {
-            String[] parts  = input.split("\\s+");
-            double[] coeffs = new double[parts.length];
-            for (int i = 0; i < parts.length; i++) {
-                coeffs[i] = Double.parseDouble(parts[i]);
+            Polynome nouveauPolynome;
+
+            // MODE 1 : Saisie par racines
+            if (comboTypeSaisie != null && "Par racines".equals(comboTypeSaisie.getValue())) {
+                String[] parts = saisie.split("\\s+");
+                
+                // Le premier nombre est toujours le coefficient dominant
+                double coeffDominant = Double.parseDouble(parts[0]);
+                nouveauPolynome = new Polynome(new double[]{coeffDominant});
+                
+                // On parcourt les couples racine:multiplicité
+                for (int i = 1; i < parts.length; i++) {
+                    String[] paire = parts[i].split(":");
+                    if (paire.length != 2) {
+                        throw new IllegalArgumentException("Format de racine invalide. Attendu -> racine:multiplicité (ex: 3:1)");
+                    }
+                    
+                    double racine = Double.parseDouble(paire[0]);
+                    int multiplicite = Integer.parseInt(paire[1]);
+                    
+                    if (multiplicite < 0) {
+                        throw new IllegalArgumentException("La multiplicité ne peut pas être négative.");
+                    }
+                    
+                    // En ordre décroissant, {1.0, -racine} représente (1.0*X - racine)
+                    Polynome facteur = new Polynome(new double[]{1.0, -racine});
+                    
+                    // On multiplie autant de fois que l'ordre de multiplicité
+                    for (int m = 0; m < multiplicite; m++) {
+                        nouveauPolynome = op.multiplication(nouveauPolynome, facteur);
+                    }
+                }
+                
+            // MODE 2 : Saisie classique par coefficients
+            } else {
+                String[] tokens = saisie.split("\\s+");
+                double[] coeffs = new double[tokens.length];
+                for (int i = 0; i < tokens.length; i++) {
+                    coeffs[i] = Double.parseDouble(tokens[i]);
+                }
+                nouveauPolynome = new Polynome(coeffs);
             }
-            Polynome p = new Polynome(coeffs);
-            listePolynomes.add(p);
-            listView.getSelectionModel().select(p);
+
+            // Ajout final dans votre liste et mise à jour de l'IHM
+            listePolynomes.add(nouveauPolynome);
+            listView.getSelectionModel().select(nouveauPolynome);
             txtCoeffs.clear();
-            statut("Polynôme ajouté : " + p);
+            statut("Polynôme ajouté avec succès : " + nouveauPolynome);
+
         } catch (NumberFormatException e) {
-            erreur("Coefficients invalides",
-                    "Entrez uniquement des nombres réels séparés par des espaces.");
-        } catch (IllegalArgumentException e) {
-            erreur("Polynôme invalide", e.getMessage());
+            erreur("Erreur de format", "Veuillez vérifier que vous n'avez inséré que des nombres valides.");
+        } catch (Exception e) {
+            erreur("Erreur de construction", e.getMessage());
         }
     }
 
