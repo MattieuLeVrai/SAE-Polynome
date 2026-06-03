@@ -1,14 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2026-03-24" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3316" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2026-04-29" view-index="0" gantt-divider-location="283" resource-divider-location="300" version="2.8.11" locale="fr">
     <description/>
-    <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Nom" width="200" order="0"/>
-        <field id="tpd4" name="Date de début" width="75" order="1"/>
-        <field id="tpd5" name="Date de fin" width="75" order="2"/>
-        <field id="tpd15" name="Notes" width="20" order="3"/>
-        <option id="filter.completedTasks" value="false"/>
-        <option id="filter.dueTodayTasks" value="false"/>
-        <option id="filter.overdueTasks" value="false"/>
-        <option id="filter.inProgressTodayTasks" value="false"/>
+    <view zooming-state="default:1" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="157" order="0"/>
+        <field id="tpd4" name="Date de début" width="61" order="1"/>
+        <field id="tpd5" name="Date de fin" width="61" order="2"/>
+        <option id="color.recent"><![CDATA[#000000]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nom" width="210" order="0"/>
@@ -38,42 +34,88 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="2" uid="e4150537e8474fd3b4f273204532cf7b" name="SPRINT 1" meeting="true" start="2026-03-24" duration="0" complete="0" expand="true"/>
-        <task id="0" uid="3a4e114008cc41f69bfce6313267b9f6" name="Découverte et appropriation" meeting="false" start="2026-03-24" duration="6" complete="0" expand="true">
+        <task id="2" name="SPRINT 1" meeting="true" start="2026-03-24" duration="0" complete="0" expand="true"/>
+        <task id="0" name="Découverte et appropriation" meeting="false" start="2026-03-24" duration="6" complete="0" expand="true">
             <depend id="1" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="1" uid="2354cf4ea6214dabbb0348a57449d392" name="Répartition des rôles &amp; configuration" meeting="false" start="2026-04-01" duration="1" complete="0" expand="true">
+        <task id="1" name="Répartition des rôles &amp; configuration" meeting="false" start="2026-04-01" duration="1" complete="0" expand="true">
             <depend id="3" type="1" difference="0" hardness="Strong"/>
             <depend id="4" type="2" difference="6" hardness="Strong"/>
         </task>
-        <task id="3" uid="4baeffbf89cb4baaa9e185c5cdfe33b0" name="Analyse : Résumé des cas &amp; User Stories" meeting="false" start="2026-04-01" duration="6" complete="0" expand="true">
+        <task id="3" name="Analyse : Résumé des cas &amp; User Stories" meeting="false" start="2026-04-01" duration="6" complete="0" expand="true">
             <depend id="5" type="2" difference="1" hardness="Strong"/>
         </task>
-        <task id="4" uid="68d09ee14cbc461c843bbd4fb07520cd" name="Backlog &amp; Planification initiale" meeting="false" start="2026-04-10" duration="1" complete="0" expand="true">
+        <task id="4" name="Backlog &amp; Planification initiale" meeting="false" start="2026-04-10" duration="1" complete="0" expand="true">
             <depend id="5" type="1" difference="0" hardness="Strong"/>
         </task>
-        <task id="5" uid="1c685b8b9305483a99b9f5121f662a25" name="Modélisation UML initiale (UMLet)" meeting="false" start="2026-04-10" duration="1" complete="0" expand="true">
+        <task id="5" name="Modélisation UML initiale (UMLet)" meeting="false" start="2026-04-10" duration="1" complete="0" expand="true">
             <depend id="6" type="2" difference="0" hardness="Strong"/>
             <depend id="7" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="6" uid="35f93b4ac6fb4a3fa88a0c651c821a8e" name="Dev : structure de Polynome.java &amp; getters" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
+        <task id="6" name="Dev : structure de Polynome.java &amp; getters" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
             <depend id="8" type="2" difference="1" hardness="Strong"/>
         </task>
-        <task id="7" uid="ec2029b580a64bafb15ea4b792c47b88" name="Dev : Plan de test &amp; initialisation testPolynome.java" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
+        <task id="7" name="Dev : Plan de test &amp; initialisation testPolynome.java" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
             <depend id="8" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="8" uid="4b9d96f89eff4cee8d9b6d63f062426c" name="Dev : Méthodes avancées Sprint 1 et Tests unitaires" meeting="false" start="2026-04-15" duration="2" complete="0" expand="true"/>
-        <task id="9" uid="153893fd557a4f6c8336683e0c928824" name="Fin du Sprint 1" meeting="true" start="2026-04-17" duration="0" complete="0" expand="true">
+        <task id="8" name="Dev : Méthodes avancées Sprint 1 et Tests unitaires" meeting="false" start="2026-04-15" duration="2" complete="0" expand="true"/>
+        <task id="9" name="Fin du Sprint 1" meeting="true" start="2026-04-17" duration="0" complete="0" expand="true">
             <depend id="11" type="2" difference="12" hardness="Strong"/>
         </task>
-        <task id="10" uid="a75adcd4540a45dbbfcc89d63896907e" name="SPRINT 2" meeting="true" start="2026-05-05" duration="0" complete="0" expand="true"/>
-        <task id="11" uid="60da7f18fb904df0a622cf3e199e2d43" name="Rédaction du Dossier Technique (Sprint 1)" meeting="false" start="2026-05-05" duration="2" complete="0" expand="true">
+        <task id="10" name="SPRINT 2" meeting="true" start="2026-05-05" duration="0" complete="0" expand="true"/>
+        <task id="11" name="Rédaction du Dossier Technique (Sprint 1)" meeting="false" start="2026-05-05" duration="2" complete="0" expand="true">
             <depend id="12" type="2" difference="0" hardness="Strong"/>
+            <depend id="51" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="12" uid="97143adf3ddf4c10a4fee0cb28557952" name="Dev : OperationPolynome.java (Bases &amp; divisions)" meeting="false" start="2026-05-07" duration="3" complete="0" expand="true">
+        <task id="12" name="Dev : OperationPolynome.java (Bases &amp; divisions)" meeting="false" start="2026-05-07" duration="3" complete="0" expand="true">
             <depend id="13" type="1" difference="2" hardness="Strong"/>
+            <depend id="14" type="2" difference="0" hardness="Strong"/>
+            <depend id="46" type="2" difference="0" hardness="Strong"/>
+            <depend id="48" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="13" uid="bad7080e40df4aefaa7a37f5ba7c4977" name="Dev : Tests JUnit d'Opérations" meeting="false" start="2026-05-11" duration="2" complete="0" expand="true"/>
+        <task id="13" name="Dev : Tests JUnit d'Opérations" meeting="false" start="2026-05-11" duration="2" complete="0" expand="true"/>
+        <task id="14" name="Dev : Mettre à jour le diagramme de classes UML" color="#8cb6ce" meeting="false" start="2026-05-12" duration="2" complete="0" thirdDate="2026-04-14" thirdDate-constraint="0" expand="true"/>
+        <task id="46" name="Dev : OperationPolynome (Horner, Intégration, etc.)" color="#8cb6ce" meeting="false" start="2026-05-12" duration="1" complete="0" thirdDate="2026-05-04" thirdDate-constraint="0" expand="true">
+            <depend id="52" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="48" name="Dev : Module PersistancePolynome.java (.txt)" color="#8cb6ce" meeting="false" start="2026-05-12" duration="6" complete="0" thirdDate="2026-05-06" thirdDate-constraint="0" expand="true">
+            <depend id="52" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="51" name="Rédaction : Complétion Plan Projet &amp; Suivi d'écarts" color="#8cb6ce" meeting="false" start="2026-05-07" duration="8" complete="0" thirdDate="2026-05-07" thirdDate-constraint="0" expand="true">
+            <depend id="52" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="52" name="Fin du Sprint 2" color="#000000" meeting="true" start="2026-05-20" duration="0" complete="0" thirdDate="2026-05-05" thirdDate-constraint="0" expand="true">
+            <depend id="58" type="2" difference="0" hardness="Strong"/>
+            <depend id="66" type="2" difference="0" hardness="Strong"/>
+            <depend id="69" type="2" difference="0" hardness="Strong"/>
+            <depend id="94" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="57" name="SPRINT 3" color="#000000" meeting="true" start="2026-05-21" duration="0" complete="0" thirdDate="2026-05-11" thirdDate-constraint="0" expand="true"/>
+        <task id="58" name="Dev : Extension Suite de Sturm &amp; tests" color="#8cb6ce" meeting="false" start="2026-05-20" duration="3" complete="0" thirdDate="2026-05-18" thirdDate-constraint="0" expand="true">
+            <depend id="72" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="66" name="Dev : Extension Interpolation de Lagrange &amp; tests" color="#8cb6ce" meeting="false" start="2026-05-20" duration="4" complete="0" thirdDate="2026-05-11" thirdDate-constraint="0" expand="true">
+            <depend id="72" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="69" name="Dev : Finalisation PersistancePolynome &amp; Main console" color="#8cb6ce" meeting="false" start="2026-05-20" duration="1" complete="0" thirdDate="2026-05-13" thirdDate-constraint="0" expand="true">
+            <depend id="72" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="72" name="Dev IHM : Structure de l'application &amp; Vue JavaFX" color="#8cb6ce" meeting="false" start="2026-05-26" duration="4" complete="0" thirdDate="2026-05-13" thirdDate-constraint="0" expand="true">
+            <depend id="78" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="78" name="Dev IHM : Contrôleur JavaFX (Pattern MVC)" color="#8cb6ce" meeting="false" start="2026-05-26" duration="4" complete="0" thirdDate="2026-05-27" thirdDate-constraint="0" expand="true">
+            <depend id="91" type="2" difference="0" hardness="Strong"/>
+            <depend id="119" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="91" name="Génération de l'exécutable (.jar)" color="#8cb6ce" meeting="false" start="2026-06-01" duration="1" complete="0" thirdDate="2026-05-19" thirdDate-constraint="0" expand="true">
+            <depend id="113" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="94" name="Documentation : Manuel Utilisateur" color="#8cb6ce" meeting="false" start="2026-05-20" duration="10" complete="0" thirdDate="2026-05-18" thirdDate-constraint="0" expand="true"/>
+        <task id="113" name="Documentation : Dossier Technique &amp; Plan Projet finaux" color="#8cb6ce" meeting="false" start="2026-06-01" duration="2" complete="0" thirdDate="2026-05-19" thirdDate-constraint="0" expand="true">
+            <depend id="119" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="119" name="Recette finale (Correction des derniers bugs)" color="#8cb6ce" meeting="false" start="2026-06-03" duration="1" complete="0" thirdDate="2026-05-19" thirdDate-constraint="0" expand="true"/>
+        <task id="124" name="LIVRAISON FINALE ET RENDU DU PROJET" color="#000000" meeting="true" start="2026-06-04" duration="0" complete="0" thirdDate="2026-05-20" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Moqué Baptiste" function="Default:0" contacts="" phone=""/>
@@ -92,6 +134,13 @@
         <allocation task-id="8" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="11" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="12" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="46" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="48" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="58" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="78" resource-id="0" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="94" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="119" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="124" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="0" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="2" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="1" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
@@ -101,6 +150,16 @@
         <allocation task-id="8" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="11" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="12" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="46" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="51" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="66" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="69" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="72" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="94" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="113" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="119" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="124" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="0" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="2" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="1" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
@@ -111,6 +170,14 @@
         <allocation task-id="8" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="11" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="48" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="66" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="69" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="78" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="94" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="119" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="124" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="0" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="2" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="1" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
@@ -121,6 +188,13 @@
         <allocation task-id="8" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="11" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="51" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="58" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="72" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="94" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="113" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="119" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="124" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>
