@@ -4,13 +4,13 @@
         <field id="tpd3" name="Nom" width="165" order="0"/>
         <field id="tpd4" name="Date de début" width="64" order="1"/>
         <field id="tpd5" name="Date de fin" width="64" order="2"/>
-    </view>
+    </view> 
     <view id="resource-table">
         <field id="0" name="Nom" width="210" order="0"/>
         <field id="1" name="Rôle par défaut" width="86" order="1"/>
     </view>
     <!-- -->
-    <calendars base-id="fr">
+    <calendars base-id="fr">    
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
