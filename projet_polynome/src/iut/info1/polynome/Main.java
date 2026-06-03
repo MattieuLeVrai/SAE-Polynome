@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Moqué Baptiste
  * @author Liao Mattieu
  * @author Laurençont Yanis
- * @author Higounet Yanis
+ * @author Higounet Kelvin
  */
 public class Main {
 	

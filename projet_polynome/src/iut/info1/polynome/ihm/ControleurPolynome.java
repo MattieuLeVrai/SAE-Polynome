@@ -571,7 +571,6 @@ public class ControleurPolynome {
     private void afficherResultat(String message, Polynome resultat) {
         zoneResultat.setText(message);
         dernierResultat = resultat;
-        afficherStatut("Calcul effectué.");
     }
 
     /**
