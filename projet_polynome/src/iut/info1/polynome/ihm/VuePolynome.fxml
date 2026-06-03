@@ -46,7 +46,7 @@
                              <Label text="Coefficient dominant :" />
                              <TextField fx:id="champCoeffDominant" promptText="ex: 2.0" />
                              <Label text="Racines (racine:multiplicite, séparées par espaces) :" />
-                             <TextField fx:id="champRacines" promptText="ex: 1.0:2 -3.0:1" />
+                             <TextField fx:id="champRacines" promptText="ex: 1:2 -3:1" />
                              <Button maxWidth="Infinity" onAction="#ajouterParRacines" text="Ajouter" />
                          </children>
                       </VBox>
