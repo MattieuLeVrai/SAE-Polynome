@@ -2,9 +2,7 @@
  * OperationPolynome                                   11/05/26 
  * Iut de rodez, pas de copyright ni copyleft
  */
-
 package iut.info1.polynome;
-
 
 /**
  * Fournit les principales opérations algébriques sur les polynômes de IR[X] :
@@ -27,11 +25,9 @@ public class OperationPolynome {
     public Polynome addition(Polynome p1, Polynome p2) {
         int degre = Math.max(p1.getDegre(), p2.getDegre());
         double[] coeffs = new double[degre + 1];
-
         for (int i = 0; i <= degre; i++) {
             coeffs[i] = p1.getCoefficient(i) + p2.getCoefficient(i);
         }
-
         return new Polynome(coeffs);
     }
 
@@ -45,11 +41,9 @@ public class OperationPolynome {
     public Polynome soustraction(Polynome p1, Polynome p2) {
         int degre = Math.max(p1.getDegre(), p2.getDegre());
         double[] coeffs = new double[degre + 1];
-
         for (int i = 0; i <= degre; i++) {
             coeffs[i] = p1.getCoefficient(i) - p2.getCoefficient(i);
         }
-
         return new Polynome(coeffs);
     }
     
@@ -70,7 +64,6 @@ public class OperationPolynome {
         }
         return new Polynome(coeffs);
     }
-    
     /**
      * Multiplie deux polynômes P1 et P2.
      * Le degré du résultat est deg(P1) + deg(P2).
@@ -82,17 +75,14 @@ public class OperationPolynome {
         if (p1.estNul() || p2.estNul()) {
             return new Polynome(); // 0 × P = 0
         }
-
         int degre1 = p1.getDegre();
         int degre2 = p2.getDegre();
         double[] coeffs = new double[degre1 + degre2 + 1];
-
         for (int i = 0; i <= degre1; i++) {
             for (int j = 0; j <= degre2; j++) {
                 coeffs[i + j] += p1.getCoefficient(i) * p2.getCoefficient(j);
             }
         }
-
         return new Polynome(coeffs);
     }
 
@@ -110,58 +100,52 @@ public class OperationPolynome {
      */
     private Polynome[] divisionEuclidienne(Polynome p1, Polynome p2) {
         if (p2.estNul()) {
-            throw new IllegalArgumentException("Division par le polynôme nul impossible.");
+            throw new IllegalArgumentException("Division par le polynôme"
+            		                           + " nul impossible.");
         }
         int degreP1 = p1.getDegre();
         int degreP2 = p2.getDegre();
         if (degreP1 < degreP2) {
             return new Polynome[]{new Polynome(), p1};
         }
-        
-        double[] r      = new double[degreP1 + 1];
+        double[] r = new double[degreP1 + 1];
         for (int i = 0; i <= degreP1; i++) {
             r[i] = p1.getCoefficient(i);
         }
- 
-        double[] q      = new double[degreP1 - degreP2 + 1];
-        double   bmax   = p2.getCoefficient(degreP2);
-        int      degreR = degreP1;
+        double[] q = new double[degreP1 - degreP2 + 1];
+        double bmax = p2.getCoefficient(degreP2);
+        int degreR = degreP1;
+
         while (degreR >= degreP2) {
-            double alpha    = r[degreR] / bmax;
-            int    exposant = degreR - degreP2;
+            double alpha = r[degreR] / bmax;
+            int exposant = degreR - degreP2;
             q[exposant] += alpha;
+            
             for (int i = 0; i <= degreP2; i++) {
                 r[i + exposant] -= alpha * p2.getCoefficient(i);
             }
- 
-            // Mise à jour du degré effectif de R
-            while (degreR > 0 && Math.abs(r[degreR]) < 1e-10) {
-                r[degreR] = 0.0;
+            while (degreR >= 0 && Math.abs(r[degreR]) < 1e-10) {
+                if (degreR >= 0) { 
+                	r[degreR] = 0.0;
+                }
                 degreR--;
             }
-            if (degreR == 0 && Math.abs(r[0]) < 1e-10) {
-                r[0] = 0.0;
-                break;
-            }
         }
- 
-        // Construction du quotient
         int dq = q.length - 1;
         while (dq > 0 && Math.abs(q[dq]) < 1e-10) dq--;
         double[] qFinal = new double[dq + 1];
         System.arraycopy(q, 0, qFinal, 0, dq + 1);
- 
-        // Construction du reste
-        double[] rFinal   = new double[degreR + 1];
-        boolean  resteNul = true;
+        if (degreR < 0) {
+            return new Polynome[]{new Polynome(qFinal), new Polynome()};
+        }
+
+        double[] rFinal = new double[degreR + 1];
         for (int i = 0; i <= degreR; i++) {
             rFinal[i] = r[i];
-            if (Math.abs(r[i]) >= 1e-10) resteNul = false;
         }
- 
         return new Polynome[]{
             new Polynome(qFinal),
-            resteNul ? new Polynome() : new Polynome(rFinal)
+            new Polynome(rFinal)
         };
     }
     
@@ -178,7 +162,6 @@ public class OperationPolynome {
         return divisionEuclidienne(p1, p2)[0];
     }
     
-    
     /**
      * Retourne le reste R de la division euclidienne de P1 par P2,
      * telle que P1 = P2 x Q + R avec deg(R) < deg(P2).
@@ -192,13 +175,10 @@ public class OperationPolynome {
         return divisionEuclidienne(p1, p2)[1];
     }
     
-    
     /**
      * Calcule le PGCD de deux polynômes par l'algorithme d'Euclide.
      * Le résultat est normalisé (polynôme unitaire : coefficient dominant = 1).
      * pgcd(A, 0) = A  ;  pgcd(A, B) = pgcd(B, reste(A, B))
-     *
-     * Exemple : pgcd(2X^3+4X^2-26X+20,  X^2+X-6) = X-2
      *
      * @param a Premier polynôme
      * @param b Deuxième polynôme
@@ -214,13 +194,13 @@ public class OperationPolynome {
 
     /**
      * Calcule le polynôme dérivé de P.
-     * Si P = a0 + a1*X + ... + an*X^n, alors P' = a1 + 2*a2*X + ... + n*an*X^(n-1).
+     * Si P = a0 + a1*X + ... + an*X^n, 
+     * alors P' = a1 + 2*a2*X + ... + n*an*X^(n-1).
      * @param p Le polynôme à dériver
      * @return Le polynôme dérivé P'
      */
     public Polynome derivee(Polynome p) {
         int degre = p.getDegre();
-        // La dérivée d'une constante est le polynôme nul
         if (degre == 0) {
             return new Polynome();
         }
@@ -231,8 +211,6 @@ public class OperationPolynome {
 
         return new Polynome(coeffs);
     }
-    
-    
     
     /**
      * Calcule la primitive F de P (constante d'intégration = 0).
@@ -250,16 +228,12 @@ public class OperationPolynome {
         }
         return new Polynome(coeffs);
     }
-    
-    
 
     /**
      * Calcule l'image de x par le polynôme P, soit p(x).
      * Utilise l'algorithme de Horner pour minimiser le nombre d'opérations :
-     * n multiplications et n additions au lieu de n(n+1)/2 multiplications naïves.
-     *
-     * Exemple : P = a0 + a1*X + a2*X^2 + a3*X^3
-     *   => p(x) = a0 + x*(a1 + x*(a2 + x*a3))
+     * n multiplications et n additions au lieu de n(n+1)/2 
+     * multiplications naïves.
      *
      * @param p Le polynôme
      * @param x La valeur à évaluer
@@ -275,7 +249,8 @@ public class OperationPolynome {
     }
 
     /**
-     * Calcule la valeur moyenne de la fonction polynômiale associée à P sur [a, b].
+     * Calcule la valeur moyenne de la fonction polynômiale associée 
+     * à P sur [a, b].
      * Formule : (1 / (b - a)) * intégrale de a à b de p(x) dx
      *
      * @param p Le polynôme
@@ -284,9 +259,10 @@ public class OperationPolynome {
      * @return La valeur moyenne de p sur [a, b]
      * @throws IllegalArgumentException si a == b
      */
-    public double calculValeurMoyenneIntervalle(Polynome p, double a, double b) {
+    public double calculValeurMoyenneIntervalle(Polynome p, double a, double b){
         if (a == b) {
-            throw new IllegalArgumentException("Les bornes a et b doivent être distinctes.");
+            throw new IllegalArgumentException("Les bornes a et b doivent"
+                                               + " être distinctes.");
         }
 
         return integrationPolynome(p, a, b) / (b - a);
@@ -306,8 +282,6 @@ public class OperationPolynome {
      */
     public double integrationPolynome(Polynome p, double a, double b) {
         int degre = p.getDegre();
-
-        // Construction de la primitive F (la constante d'intégration est ignorée car elle s'annule)
         double[] coeffsPrimitive = new double[degre + 2];
         coeffsPrimitive[0] = 0.0; // constante d'intégration = 0
 
