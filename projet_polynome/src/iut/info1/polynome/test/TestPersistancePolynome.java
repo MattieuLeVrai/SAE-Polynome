@@ -22,10 +22,10 @@ import iut.info1.polynome.outils.PersistancePolynome;
 /**
  * Classe de validation unitaire de la classe {@link PersistancePolynome}.
  * Tests réalisés en boîte noire : seul le comportement décrit dans la
- * Javadoc et les spécifications est vérifié, sans hypothèse sur l'implémentation interne.
+ * Javadoc et les spécifications est vérifié, sans hypothèse sur 
+ * l'implémentation interne.
  *
  * Plan de test :
- *
  * sauvegarder() :
  *   - Cas nominal : liste non vide, fichier créé et rechargeable.
  *   - Liste vide : fichier créé mais sans données de polynômes.
@@ -44,7 +44,8 @@ import iut.info1.polynome.outils.PersistancePolynome;
  *   - Cas nominal format COEFF : lecture et reconstruction correctes.
  *   - Cas nominal format RACINES : lecture et reconstruction correctes.
  *   - Fichier mixte COEFF + RACINES : tous les polynômes sont chargés.
- *   - Lignes commentaires et vides ignorées : pas d'erreur, pas de données parasites.
+ *   - Lignes commentaires et vides ignorées : pas d'erreur, 
+ *     pas de données parasites.
  *   - Cas d'erreur : fichier inexistant -> IOException.
  *   - Cas d'erreur : format inconnu (ni COEFF ni RACINES) -> IOException.
  *   - Cas d'erreur : valeur numérique invalide -> IOException.
@@ -59,7 +60,6 @@ class TestPersistancePolynome {
     /** Fichier temporaire utilisé par chaque test, supprimé après. */
     private Path fichierTemp;
 
-    // Polynômes de base réutilisés dans les tests
     private Polynome pQuadratique;   // 2X^2 + 3X + 1
     private Polynome pLinaire;       // X + 1
     private Polynome pConstante;     // 5
@@ -80,12 +80,9 @@ class TestPersistancePolynome {
         Files.deleteIfExists(fichierTemp);
     }
 
-    // =========================================================================
-    //  sauvegarder()
-    // =========================================================================
-
     /**
-     * Couverture : liste non vide -> fichier créé, polynômes récupérables par charger().
+     * Couverture : liste non vide -> fichier créé,
+     * polynômes récupérables par charger().
      */
     @Test
     final void testSauvegarderNominal() throws Exception {
@@ -101,19 +98,25 @@ class TestPersistancePolynome {
 
         // Vérification du premier polynôme rechargé (2X^2 + 3X + 1)
         assertEquals(2, charges.get(0).getDegre(), 
-                "Valeur attendue : 2 | Valeur obtenue : " + charges.get(0).getDegre());
+                "Valeur attendue : 2 | Valeur obtenue : " 
+                + charges.get(0).getDegre());
         assertEquals(2.0, charges.get(0).getCoefficient(0), 1e-9,
-                "Valeur attendue (a0) : 2.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
+                "Valeur attendue (a0) : 2.0 | Valeur obtenue : " 
+                + charges.get(0).getCoefficient(0));
         assertEquals(3.0, charges.get(0).getCoefficient(1), 1e-9,
-                "Valeur attendue (a1) : 3.0 | Valeur obtenue : " + charges.get(0).getCoefficient(1));
+                "Valeur attendue (a1) : 3.0 | Valeur obtenue : "
+                + charges.get(0).getCoefficient(1));
         assertEquals(1.0, charges.get(0).getCoefficient(2), 1e-9,
-                "Valeur attendue (a2) : 1.0 | Valeur obtenue : " + charges.get(0).getCoefficient(2));
+                "Valeur attendue (a2) : 1.0 | Valeur obtenue : " 
+                + charges.get(0).getCoefficient(2));
 
         // Vérification du second polynôme rechargé (X + 1)
         assertEquals(1, charges.get(1).getDegre(),
-                "Valeur attendue : 1 | Valeur obtenue : " + charges.get(1).getDegre());
+                "Valeur attendue : 1 | Valeur obtenue : " 
+                + charges.get(1).getDegre());
         assertEquals(1.0, charges.get(1).getCoefficient(0), 1e-9,
-                "Valeur attendue (a0) : 1.0 | Valeur obtenue : " + charges.get(1).getCoefficient(0));
+                "Valeur attendue (a0) : 1.0 | Valeur obtenue : " 
+                + charges.get(1).getCoefficient(0));
     }
 
     /**
@@ -128,7 +131,8 @@ class TestPersistancePolynome {
         assertTrue(Files.exists(fichierTemp),
                 "Le fichier doit exister même si la liste est vide.");
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(0, charges.size(),
                 "Valeur attendue : 0 | Valeur obtenue : " + charges.size());
     }
@@ -142,10 +146,6 @@ class TestPersistancePolynome {
             PersistancePolynome.sauvegarder(null, fichierTemp.toString());
         }, "Une exception doit être levée si la liste est null.");
     }
-
-    // =========================================================================
-    //  sauvegarderParRacines()
-    // =========================================================================
 
     /**
      * Couverture : tableaux cohérents -> fichier créé et rechargeable.
@@ -163,11 +163,13 @@ class TestPersistancePolynome {
         assertTrue(Files.exists(fichierTemp),
                 "Le fichier doit exister après la sauvegarde par racines.");
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(1, charges.size(),
                 "Valeur attendue : 1 | Valeur obtenue : " + charges.size());
         assertEquals(3, charges.get(0).getDegre(),
-                "Valeur attendue : 3 | Valeur obtenue : " + charges.get(0).getDegre());
+                "Valeur attendue : 3 | Valeur obtenue : " 
+                + charges.get(0).getDegre());
     }
 
     /**
@@ -210,12 +212,9 @@ class TestPersistancePolynome {
         }, "Exception attendue si les tableaux ont des tailles incohérentes.");
     }
 
-    // =========================================================================
-    //  ajouterPolynome()
-    // =========================================================================
 
     /**
-     * Couverture : ajout dans un fichier existant -> contenu cumulé correctement.
+     * Couverture : ajout dans un fichier existant ->contenu cumulé correctement
      */
     @Test
     final void testAjouterPolynomeNominal() throws Exception {
@@ -227,30 +226,37 @@ class TestPersistancePolynome {
         // Puis on en ajoute un second
         PersistancePolynome.ajouterPolynome(pConstante, fichierTemp.toString());
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(2, charges.size(),
-                "Valeur attendue : 2 polynômes | Valeur obtenue : " + charges.size());
+                "Valeur attendue : 2 polynômes | Valeur obtenue : " 
+                + charges.size());
 
         // Le second ajouté est la constante 5
         assertEquals(0, charges.get(1).getDegre(),
-                "Valeur attendue : 0 | Valeur obtenue : " + charges.get(1).getDegre());
+                "Valeur attendue : 0 | Valeur obtenue : " 
+                + charges.get(1).getDegre());
         assertEquals(5.0, charges.get(1).getCoefficient(0), 1e-9,
-                "Valeur attendue (a0) : 5.0 | Valeur obtenue : " + charges.get(1).getCoefficient(0));
+                "Valeur attendue (a0) : 5.0 | Valeur obtenue : " 
+                + charges.get(1).getCoefficient(0));
     }
 
     /**
-     * Couverture : ajout dans un fichier inexistant -> fichier créé automatiquement.
+     * Couverture : ajout dans un fichier inexistant 
+     * -> fichier créé automatiquement.
      */
     @Test
     final void testAjouterPolynomeFichierInexistant() throws Exception {
         Path nouveauFichier = fichierTemp.resolveSibling("nouveau_test.txt");
         try {
-            PersistancePolynome.ajouterPolynome(pQuadratique, nouveauFichier.toString());
+            PersistancePolynome.ajouterPolynome(pQuadratique,
+            		                            nouveauFichier.toString());
 
             assertTrue(Files.exists(nouveauFichier),
                     "Le fichier doit être créé s'il n'existait pas.");
 
-            List<Polynome> charges = PersistancePolynome.charger(nouveauFichier.toString());
+            List<Polynome> charges = 
+            		PersistancePolynome.charger(nouveauFichier.toString());
             assertEquals(1, charges.size(),
                     "Valeur attendue : 1 | Valeur obtenue : " + charges.size());
         } finally {
@@ -258,32 +264,30 @@ class TestPersistancePolynome {
         }
     }
 
-    // =========================================================================
-    //  charger()
-    // =========================================================================
 
     /**
      * Couverture : format COEFF -> coefficients reconstruits correctement.
      */
     @Test
     final void testChargerFormatCoeff() throws Exception {
-        // Fichier : "COEFF 1.0 0.0 -4.0"
-        // Le fichier écrit de an à a0 : a2=1.0, a1=0.0, a0=-4.0
-        // Mais deserialiserCoeff les lit dans l'ordre du tableau :
-        // -> new Polynome([1.0, 0.0, -4.0]) donc getCoefficient(0)=1.0, getCoefficient(2)=-4.0
         Files.writeString(fichierTemp, "COEFF 1.0 0.0 -4.0\n");
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(1, charges.size(),
                 "Valeur attendue : 1 | Valeur obtenue : " + charges.size());
         assertEquals(2, charges.get(0).getDegre(),
-                "Valeur attendue : 2 | Valeur obtenue : " + charges.get(0).getDegre());
+                "Valeur attendue : 2 | Valeur obtenue : " 
+                 + charges.get(0).getDegre());
         assertEquals(1.0, charges.get(0).getCoefficient(0), 1e-9,
-                "Valeur attendue (a0) : 1.0 | Valeur obtenue : " + charges.get(0).getCoefficient(0));
+                "Valeur attendue (a0) : 1.0 | Valeur obtenue : " 
+                 + charges.get(0).getCoefficient(0));
         assertEquals(0.0, charges.get(0).getCoefficient(1), 1e-9,
-                "Valeur attendue (a1) : 0.0 | Valeur obtenue : " + charges.get(0).getCoefficient(1));
+                "Valeur attendue (a1) : 0.0 | Valeur obtenue : " 
+                 + charges.get(0).getCoefficient(1));
         assertEquals(-4.0, charges.get(0).getCoefficient(2), 1e-9,
-                "Valeur attendue (a2) : -4.0 | Valeur obtenue : " + charges.get(0).getCoefficient(2));
+                "Valeur attendue (a2) : -4.0 | Valeur obtenue : " 
+                 + charges.get(0).getCoefficient(2));
     }
 
     /**
@@ -294,11 +298,14 @@ class TestPersistancePolynome {
         // RACINES 2.0 1.0:2 -3.0:1  ->  2(X-1)^2(X+3), degré 3
         Files.writeString(fichierTemp, "RACINES 2.0 1.0:2 -3.0:1\n");
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(1, charges.size(),
-                "Valeur attendue : 1 | Valeur obtenue : " + charges.size());
+                "Valeur attendue : 1 | Valeur obtenue : " 
+                + charges.size());
         assertEquals(3, charges.get(0).getDegre(),
-                "Valeur attendue : 3 | Valeur obtenue : " + charges.get(0).getDegre());
+                "Valeur attendue : 3 | Valeur obtenue : "
+                 + charges.get(0).getDegre());
     }
 
     /**
@@ -311,13 +318,16 @@ class TestPersistancePolynome {
                        + "COEFF 5.0\n";
         Files.writeString(fichierTemp, contenu);
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(3, charges.size(),
-                "Valeur attendue : 3 | Valeur obtenue : " + charges.size());
+                "Valeur attendue : 3 | Valeur obtenue : " 
+                + charges.size());
     }
 
     /**
-     * Couverture : lignes vides et commentaires ignorées -> aucune erreur, aucune donnée parasite.
+     * Couverture : lignes vides et commentaires ignorées 
+     * -> aucune erreur, aucune donnée parasite.
      */
     @Test
     final void testChargerIgnoreCommentairesEtLignesVides() throws Exception {
@@ -329,7 +339,8 @@ class TestPersistancePolynome {
                        + "# Fin\n";
         Files.writeString(fichierTemp, contenu);
 
-        List<Polynome> charges = PersistancePolynome.charger(fichierTemp.toString());
+        List<Polynome> charges = 
+        		PersistancePolynome.charger(fichierTemp.toString());
         assertEquals(1, charges.size(),
                 "Valeur attendue : 1 | Valeur obtenue : " + charges.size());
     }
@@ -357,7 +368,8 @@ class TestPersistancePolynome {
     }
 
     /**
-     * Couverture : valeur numérique invalide dans une ligne COEFF -> IOException.
+     * Couverture : valeur numérique invalide dans une ligne COEFF 
+     * -> IOException.
      */
     @Test
     final void testChargerValeurNonNumerique() throws Exception {
