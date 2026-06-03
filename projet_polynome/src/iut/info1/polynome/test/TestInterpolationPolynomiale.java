@@ -17,7 +17,7 @@ import iut.info1.polynome.outils.InterpolationPolynomiale;
  * Classe de validation unitaire de la classe {@link InterpolationPolynomiale}.
  * Tests réalisés en boîte noire : seul le comportement décrit dans la 
  * Javadoc et les spécifications est vérifié, sans hypothèse sur l'implémentation interne.
- * * Plan de test (Couverture des cas d'utilisation et limites) :
+ * Plan de test (Couverture des cas d'utilisation et limites) :
  * interpolerLagrange() :
  * - Cas nominal standard : 3 points distincts alignés ou formant une parabole.
  * - Cas limite à 1 seul point : génère un polynôme constant P(X) = y0.
@@ -26,7 +26,7 @@ import iut.info1.polynome.outils.InterpolationPolynomiale;
  * - Tableaux vides.
  * - Tableaux de tailles différentes.
  * - Abscisses (x) identiques ou confondues (division par zéro théorique).
- * * @author Higounet Kelvin
+ * @author Higounet Kelvin
  * @author Laurençont Yanis
  * @author Liao Mattieu
  * @author Moqué Baptiste
