@@ -41,15 +41,15 @@ public class Polynome {
      */
     public Polynome(double[] coefficients) {
     	if (coefficients == null || coefficients.length == 0) {
-            throw new IllegalArgumentException("Le tableau ne doit pas être" +
-    	                                       "null ou vide.");
+            throw new IllegalArgumentException("Le tableau ne doit pas être" 
+    	                                        + "null ou vide.");
         }
     	
     	for (double coeff : coefficients) {
     		if (Double.isNaN(coeff) || Double.isInfinite(coeff)) {
-                throw new IllegalArgumentException("Le tableau ne doit pas" +
-    		                                       "contenir de coefficients NaN" +
-                		                            ", ou infinis.");
+                throw new IllegalArgumentException("Le tableau ne doit pas" 
+    		                                        + "contenir de coefficients"
+    		                                        + " NaN, ou infinis.");
             }
     	}
         
@@ -57,27 +57,29 @@ public class Polynome {
     }
     
     /**
-     * Constructeur à partir des racines réelles, de leurs ordres de multiplicité
-     * et du coefficient du monôme de plus haut degré.
+     * Constructeur à partir des racines réelles, de leurs ordres de 
+     * multiplicité et du coefficient du monôme de plus haut degré.
      * Exemple : coefficientDominant = 2.0, racines={1.0, -3.0}, ordres = {2, 1}
      * donne P = 2(X−1)²(X+3) = 2X³ + 2X² − 8X + 6
-     * @param coefficientDominant Coefficient du terme de plus haut degré(non nul)
+     * @param coefficientDominant Coefficient du terme 
+     *        de plus haut degré non nul
      * @param racines Racines réelles du polynôme
      * @param ordres Ordres de multiplicité (>= 1 chacun)
      * @throws IllegalArgumentException si les paramètres sont invalides
      */
-    public Polynome(double coefficientDominant, double[] racines, int[] ordres) {
+    public Polynome(double coefficientDominant, double[] racines, int[] ordres){
         if (racines == null || ordres == null) {
             throw new IllegalArgumentException(
                     "Les tableaux racines et ordres ne peuvent pas être null.");
         }
         if (racines.length != ordres.length) {
-            throw new IllegalArgumentException(
-                    "Les tableaux racines et ordres doivent avoir la même taille.");
+            throw new IllegalArgumentException( "Les tableaux racines et "
+                                                + "ordres doivent avoir "
+            		                            + "la même taille.");
         }
         if (coefficientDominant == 0.0) {
-            throw new IllegalArgumentException("Le coefficient dominant ne peut" +
-                                               " pas être zéro.");
+            throw new IllegalArgumentException("Le coefficient dominant ne peut" 
+                                                 + " pas être zéro.");
         }
         for (int o : ordres) {
             if (o < 1) {
@@ -85,12 +87,8 @@ public class Polynome {
                         "Chaque ordre de multiplicité doit être >= 1.");
             }
         }
-        // Départ : polynôme constant égal au coefficient dominant
         double[] result = new double[]{coefficientDominant};
- 
-        // Pour chaque racine r d'ordre k, on multiplie par (X − r)^k
         for (int i = 0; i < racines.length; i++) {
-            // (X − r) en tableau : [-r, 1.0]
             double[] facteur = new double[]{-racines[i], 1.0};
             for (int k = 0; k < ordres[i]; k++) {
                 result = multiplierTableaux(result, facteur);
@@ -104,7 +102,6 @@ public class Polynome {
      * @return Le degré (entier)
      */
     public int getDegre() {
-    	// On cherche l'indice du premier coefficient non nul en partant de la fin
     	for (int indiceCoefficient = this.coefficients.length - 1;
     	     indiceCoefficient >= 0;
     		 indiceCoefficient--) {
@@ -129,7 +126,8 @@ public class Polynome {
     
     /**
      * Calcule et retourne la limite du polynôme quand X tend vers -infini.
-     * @return La limite (peut utiliser Double.NEGATIVE_INFINITY ou POSITIVE_INFINITY)
+     * @return La limite (peut utiliser Double.NEGATIVE_INFINITY 
+     *                     ou POSITIVE_INFINITY)
      */
     public double getLimitesMoinsInfini() {
     	int degre = this.getDegre();
@@ -172,11 +170,9 @@ public class Polynome {
      */
     public double[] getRacines() {
         if (this.estNul() || this.getDegre() == 0) {
-            return new double[0]; // Pas de racine (ou infinité si P=0, on retourne vide)
+            return new double[0];
         }
 
-        // 1. Calcul automatique de la borne de recherche (théorème de Cauchy).
-        //    Toutes les racines réelles de P sont dans ]-limite, +limite[.
         int    degre               = this.getDegre();
         double coefficientDominant = Math.abs(this.getCoefficient(degre));
         double coefficientMax      = 0;
@@ -191,22 +187,13 @@ public class Polynome {
         if (Double.isInfinite(limite) || limite > 1e15) {
             limite = 1e15; // borne raisonnable pour éviter l'overflow
         }
-
-        // 2. Pas de balayage : plus serré pour les petites bornes,
-        //    proportionnel sinon. La suite de Sturm garantit qu'on ne rate
-        //    aucune racine indépendamment du pas choisi.
         double pas = (limite > 1000) ? (limite / 10000.0) : 0.5;
-
-        // 3. Délégation à SuiteSturm :
-        //    - supprime les racines multiples (pour que Sturm soit applicable),
-        //    - localise chaque racine individuelle dans un sous-intervalle,
-        //    - affine par dichotomie à la précision demandée.
         SuiteSturm sturm = new SuiteSturm();
         return sturm.chercherToutesLesRacines(this, -limite, limite, pas, 1e-9);
     }
     
     /**
-     * Calcule la valeur de P(x) pour un x donné (indispensable pour la dichotomie).
+     * Calcule la valeur de P(x) pour un x donné.
      * @param x La valeur à tester
      * @return Le résultat de l'équation
      */
@@ -214,20 +201,16 @@ public class Polynome {
         double resultat = 0;
 
         for (int indice = 0; indice < this.coefficients.length; indice++) {
-            // On laisse Java calculer naturellement. 
-            // Si le chiffre dépasse, terme deviendra "Infinity".
             double terme = this.coefficients[indice] * Math.pow(x, indice);
             resultat += terme;
         }
-
         return resultat;
     }
     
-    
     /**
-     * Multiplie deux polynômes représentés sous forme de tableaux de coefficients.
-     * Utilisée par le constructeur par racines pour éviter une dépendance circulaire
-     * avec OperationPolynome.
+     * Multiplie deux polynômes représentés sous forme 
+     * de tableaux de coefficients. Utilisée par le constructeur par racines 
+     * pour éviter une dépendance circulaire avec OperationPolynome.
      *
      * @param a Coefficients du premier polynôme (indice = puissance)
      * @param b Coefficients du second polynôme  (indice = puissance)
@@ -257,71 +240,48 @@ public class Polynome {
     }
     
     /**
-     * Retourne une représentation textuelle du polynôme (ex: "7.0X^4 + 2.0X^3 + 12.0").
-     * L'ordre d'affichage est décroissant (du plus haut degré vers le terme constant).
+     * Retourne une représentation textuelle du polynôme.
+     * L'ordre d'affichage est décroissant.
      * @return La chaîne de caractères représentant le polynôme
      */
     @Override
     public String toString() {
-        // Gestion du cas particulier : polynôme nul
         if (this.estNul()) {
             return "0.0";
         }
-
         StringBuilder sb = new StringBuilder();
         boolean premierTerme = true;
-
-        // On parcourt du degré le plus élevé jusqu'au terme constant (degré 0).
-        // coefficients[i] est le coefficient de X^i, donc puissance = i.
         int degre = this.getDegre();
         for (int i = degre; i >= 0; i--) {
             double coeff = this.coefficients[i];
-
-            // On ignore les termes dont le coefficient est zéro
             if (coeff == 0) {
                 continue;
             }
-
-            // La puissance correspond directement à l'indice dans le tableau
             int puissance = i;
-
-            // 1. Gestion du signe et des opérateurs de liaison (+ / -)
+            // Gestion du signe et des opérateurs de liaison (+ / -)
             if (coeff > 0) {
                 if (!premierTerme) {
                     sb.append(" + ");
                 }
             } else {
-                // Pour un coefficient négatif
                 if (premierTerme) {
                     sb.append("-");
                 } else {
                     sb.append(" - ");
                 }
             }
-
-            // 2. Gestion de la valeur absolue du coefficient
             double absCoeff = Math.abs(coeff);
-            
-            /* On affiche le coefficient si :
-             * - Il est différent de 1.0 (on préfère "X" à "1.0X")
-             * - OU si c'est le terme constant (puissance 0)
-             */
             if (absCoeff != 1.0 || puissance == 0) {
                 sb.append(absCoeff);
             }
-
-            // 3. Gestion de la variable X et de sa puissance
             if (puissance > 0) {
                 sb.append("X");
                 if (puissance > 1) {
                     sb.append("^").append(puissance);
                 }
             }
-
-            // Une fois qu'on a ajouté un terme, le suivant ne sera plus le "premier"
             premierTerme = false;
         }
-
         return sb.toString();
     }
 }
