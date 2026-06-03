@@ -271,11 +271,10 @@ public class Polynome {
         StringBuilder sb = new StringBuilder();
         boolean premierTerme = true;
 
-        /** * Changement ici : On parcourt le tableau de l'index 0 (plus haut degré) 
-         * jusqu'à la fin (terme constant).
-         * La puissance se calcule par rapport à la distance avec la fin du tableau.
-         */
-        for (int i = 0; i < this.coefficients.length; i++) {
+        // On parcourt du degré le plus élevé jusqu'au terme constant (degré 0).
+        // coefficients[i] est le coefficient de X^i, donc puissance = i.
+        int degre = this.getDegre();
+        for (int i = degre; i >= 0; i--) {
             double coeff = this.coefficients[i];
 
             // On ignore les termes dont le coefficient est zéro
@@ -283,8 +282,8 @@ public class Polynome {
                 continue;
             }
 
-            // Calcul de la puissance correspondante à l'index actuel
-            int puissance = this.coefficients.length - 1 - i;
+            // La puissance correspond directement à l'indice dans le tableau
+            int puissance = i;
 
             // 1. Gestion du signe et des opérateurs de liaison (+ / -)
             if (coeff > 0) {
