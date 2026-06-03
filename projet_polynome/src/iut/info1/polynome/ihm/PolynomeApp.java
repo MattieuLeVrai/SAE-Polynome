@@ -14,17 +14,23 @@ import javafx.stage.Stage;
 /**
  * Point d'entrée de l'interface graphique JavaFX de l'application Polynôme.
  * <p>
- * Pour lancer l'application, exécutez cette classe (elle étend {@link Application}).
- * Elle charge la vue définie dans {@code VuePolynome.fxml} et instancie automatiquement
- * le contrôleur {@link ControleurPolynome} grâce au mécanisme FXML de JavaFX.
+ * Pour lancer l'application, exécutez cette classe 
+ * (elle étend {@link Application}). Elle charge la vue définie dans
+ * {@code VuePolynome.fxml} et instancie automatiquement le contrôleur 
+ * {@link ControleurPolynome} grâce au mécanisme FXML de JavaFX.
  * </p>
  *
  * <h2>Structure MVC</h2>
  * <ul>
- *   <li><b>Modèle</b> : {@code iut.info1.polynome.Polynome}, {@code OperationPolynome},
- *       {@code PersistancePolynome}, {@code InterpolationPolynomiale}, {@code SuiteSturm}</li>
- *   <li><b>Vue</b>    : {@code VuePolynome.fxml} (décrit l'interface en XML)</li>
- *   <li><b>Contrôleur</b> : {@code ControleurPolynome.java} (gère les événements)</li>
+ *   <li><b>Modèle</b>
+ *       : {@code iut.info1.polynome.Polynome}, {@code OperationPolynome},
+ *       {@code PersistancePolynome},
+ *       {@code InterpolationPolynomiale},
+ *       {@code SuiteSturm}</li>
+ *   <li><b>Vue</b>   
+ *       : {@code VuePolynome.fxml} (décrit l'interface en XML)</li>
+ *   <li><b>Contrôleur</b> 
+ *       : {@code ControleurPolynome.java} (gère les événements)</li>
  * </ul>
  *
  * @author Higounet Kelvin
@@ -43,13 +49,11 @@ public class PolynomeApp extends Application {
      */
     @Override
     public void start(Stage fenetrePrincipale) throws Exception {
-        // Chargement de la vue (FXML doit être dans le même package que cette classe)
         FXMLLoader chargeur = new FXMLLoader(
             getClass().getResource("VuePolynome.fxml")
         );
         Parent racine = chargeur.load();
-
-        // Configuration de la fenêtre
+        
         fenetrePrincipale.setTitle("Application Polynôme – IUT de Rodez");
         fenetrePrincipale.setScene(new Scene(racine));
         fenetrePrincipale.setMinWidth(900);

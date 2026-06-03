@@ -82,7 +82,8 @@ public class ControleurPolynome {
     private final List<Polynome> polynomes = new ArrayList<>();
 
     /** Liste observable utilisée par le ListView. */
-    private final ObservableList<String> affichage = FXCollections.observableArrayList();
+    private final ObservableList<String> affichage 
+    = FXCollections.observableArrayList();
 
     /** Moteur de calcul (réutilise la classe du projet). */
     private final OperationPolynome operations = new OperationPolynome();
@@ -124,7 +125,8 @@ public class ControleurPolynome {
             champCoefficients.clear();
             afficherStatut("Polynôme ajouté avec succès.");
         } catch (NumberFormatException e) {
-            afficherStatut("Erreur : coefficients invalides. Utilisez des nombres séparés par des espaces.");
+            afficherStatut("Erreur : coefficients invalides." 
+                          +"Utilisez des nombres séparés par des espaces.");
         } catch (IllegalArgumentException e) {
             afficherStatut("Erreur : " + e.getMessage());
         }
@@ -140,7 +142,8 @@ public class ControleurPolynome {
         String saisieCoeff   = champCoeffDominant.getText().trim();
         String saisieRacines = champRacines.getText().trim();
         if (saisieCoeff.isEmpty() || saisieRacines.isEmpty()) {
-            afficherStatut("Erreur : remplissez le coefficient dominant et les racines.");
+            afficherStatut("Erreur : remplissez le coefficient" 
+                           +"dominant et les racines.");
             return;
         }
         try {
@@ -153,7 +156,8 @@ public class ControleurPolynome {
                 String[] paire = parties[i].split(":");
                 if (paire.length != 2) {
                     throw new IllegalArgumentException(
-                        "Format invalide pour la racine : " + parties[i] + ". Attendu : valeur:multiplicite");
+                        "Format invalide pour la racine : " + parties[i] +
+                         ". Attendu : valeur:multiplicite");
                 }
                 racines[i] = Double.parseDouble(paire[0]);
                 ordres[i]  = Integer.parseInt(paire[1]);
@@ -171,15 +175,16 @@ public class ControleurPolynome {
     }
 
     /**
-     * Calcule le polynôme d'interpolation de Lagrange passant par les points saisis.
-     * Format attendu : "x:y" séparés par des espaces.
+     * Calcule le polynôme d'interpolation de Lagrange passant
+     * par les points saisis. Format attendu : "x:y" séparés par des espaces.
      * Exemple : "0:1 1:3 2:7"
      */
     @FXML
     private void interpolerLagrange() {
         String saisie = champPoints.getText().trim();
         if (saisie.isEmpty()) {
-            afficherStatut("Erreur : saisissez des points au format x:y séparés par des espaces.");
+            afficherStatut("Erreur : saisissez des points au format x:y" 
+                          +"séparés par des espaces.");
             return;
         }
         try {
@@ -190,7 +195,8 @@ public class ControleurPolynome {
             for (int i = 0; i < parties.length; i++) {
                 String[] paire = parties[i].split(":");
                 if (paire.length != 2) {
-                    throw new IllegalArgumentException("Format invalide : " + parties[i] + ". Attendu : x:y");
+                    throw new IllegalArgumentException("Format invalide : "
+                              + parties[i] + ". Attendu : x:y");
                 }
                 x[i] = Double.parseDouble(paire[0]);
                 y[i] = Double.parseDouble(paire[1]);
@@ -317,7 +323,8 @@ public class ControleurPolynome {
         if (idx < 0) return;
         try {
             double scalaire = Double.parseDouble(champScalaire.getText().trim());
-            Polynome res    = operations.multiplicationScalaire(polynomes.get(idx), scalaire);
+            Polynome res = operations.multiplicationScalaire(polynomes.get(idx),
+            		                                         scalaire);
             afficherResultat(scalaire + " × P" + idx + " = " + res, res);
         } catch (NumberFormatException e) {
             afficherStatut("Erreur : scalaire invalide.");
@@ -349,8 +356,10 @@ public class ControleurPolynome {
         try {
             double a   = Double.parseDouble(champBorneA.getText().trim());
             double b   = Double.parseDouble(champBorneB.getText().trim());
-            double val = operations.integrationPolynome(polynomes.get(idx), a, b);
-            zoneResultat.setText("∫[" + a + "," + b + "] P" + idx + " dx = " + val);
+            double val = operations.integrationPolynome(
+            		                polynomes.get(idx), a, b);
+            zoneResultat.setText("∫[" + a + "," + b + "] P" 
+                                 + idx + " dx = " + val);
             dernierResultat = null;
             afficherStatut("Intégrale calculée.");
         } catch (NumberFormatException e) {
@@ -368,8 +377,10 @@ public class ControleurPolynome {
         try {
             double a   = Double.parseDouble(champBorneA.getText().trim());
             double b   = Double.parseDouble(champBorneB.getText().trim());
-            double val = operations.calculValeurMoyenneIntervalle(polynomes.get(idx), a, b);
-            zoneResultat.setText("Valeur moyenne de P" + idx + " sur [" + a + "," + b + "] = " + val);
+            double val = operations.calculValeurMoyenneIntervalle(
+            		                polynomes.get(idx), a, b);
+            zoneResultat.setText("Valeur moyenne de P" + idx 
+            		             + " sur [" + a + "," + b + "] = " + val);
             dernierResultat = null;
             afficherStatut("Valeur moyenne calculée.");
         } catch (NumberFormatException e) {
@@ -401,12 +412,14 @@ public class ControleurPolynome {
     
     /**
      * Ajoute le dernier résultat polynomial calculé à la liste des polynômes.
-     * Ne fait rien si le dernier résultat est une valeur numérique (pas un polynôme).
+     * Ne fait rien si le dernier résultat est une
+     * valeur numérique (pas un polynôme).
      */
     @FXML
     private void ajouterResultat() {
         if (dernierResultat == null) {
-            afficherStatut("Aucun résultat polynomial à ajouter (les valeurs numériques ne peuvent pas être ajoutées).");
+            afficherStatut("Aucun résultat polynomial à ajouter" 
+            +"(les valeurs numériques ne peuvent pas être ajoutées).");
             return;
         }
         ajouterPolynome(dernierResultat);
@@ -440,7 +453,8 @@ public class ControleurPolynome {
             double min = Double.parseDouble(champIntervalleMin.getText().trim());
             double max = Double.parseDouble(champIntervalleMax.getText().trim());
             if (min >= max) {
-                afficherStatut("Erreur : le minimum doit être inférieur au maximum.");
+                afficherStatut("Erreur : le minimum doit" 
+               + "être inférieur au maximum.");
                 return;
             }
 
@@ -462,7 +476,8 @@ public class ControleurPolynome {
             }
 
             graphique.getData().add(serie);
-            afficherStatut("Courbe de P" + idx + " tracée sur [" + min + ", " + max + "].");
+            afficherStatut("Courbe de P" + idx + " tracée sur [" 
+                            + min + ", " + max + "].");
 
         } catch (NumberFormatException e) {
             afficherStatut("Erreur : intervalle invalide.");
@@ -479,18 +494,21 @@ public class ControleurPolynome {
         File fichier = choisirFichier(false);
         if (fichier == null) return;
         try {
-            List<Polynome> charges = PersistancePolynome.charger(fichier.getAbsolutePath());
+            List<Polynome> charges = PersistancePolynome.charger(
+            		                 fichier.getAbsolutePath());
             for (Polynome p : charges) {
                 ajouterPolynome(p);
             }
-            afficherStatut(charges.size() + " polynôme(s) chargé(s) depuis " + fichier.getName());
+            afficherStatut(charges.size() + " polynôme(s) chargé(s) depuis " 
+                          + fichier.getName());
         } catch (IOException e) {
             afficherStatut("Erreur lors du chargement : " + e.getMessage());
         }
     }
 
     /**
-     * Ouvre une boîte de dialogue pour sauvegarder tous les polynômes dans un fichier .txt.
+     * Ouvre une boîte de dialogue pour sauvegarder 
+     * tous les polynômes dans un fichier .txt.
      * Utilise PersistancePolynome.sauvegarder().
      */
     @FXML
@@ -508,7 +526,9 @@ public class ControleurPolynome {
         }
         try {
             PersistancePolynome.sauvegarder(polynomes, chemin);
-            afficherStatut(polynomes.size() + " polynôme(s) sauvegardé(s) dans " + fichier.getName());
+            afficherStatut(polynomes.size() + 
+            		      " polynôme(s) sauvegardé(s) dans " 
+            		      + fichier.getName());
         } catch (IOException e) {
             afficherStatut("Erreur lors de la sauvegarde : " + e.getMessage());
         }
@@ -562,7 +582,8 @@ public class ControleurPolynome {
     }
 
     /**
-     * Lit un entier depuis un champ texte et vérifie qu'il correspond à un index valide.
+     * Lit un entier depuis un champ texte et vérifie qu'il
+     * correspond à un index valide.
      * Affiche un message d'erreur et retourne -1 si la valeur est invalide.
      * @param champ  Le champ TextField à lire
      * @param nom    Le nom du polynôme (pour le message d'erreur)
@@ -573,28 +594,33 @@ public class ControleurPolynome {
             int idx = Integer.parseInt(champ.getText().trim());
             if (idx < 0 || idx >= polynomes.size()) {
                 afficherStatut("Erreur : l'index de " + nom + " (" + idx
-                    + ") est hors de la liste (0 à " + (polynomes.size() - 1) + ").");
+                    + ") est hors de la liste (0 à " 
+                	+ (polynomes.size() - 1) + ").");
                 return -1;
             }
             return idx;
         } catch (NumberFormatException e) {
-            afficherStatut("Erreur : index de " + nom + " invalide. Saisissez un entier.");
+            afficherStatut("Erreur : index de " + nom 
+            		       + " invalide. Saisissez un entier.");
             return -1;
         }
     }
 
     /**
      * Ouvre une boîte de dialogue de sélection de fichier .txt.
-     * @param sauvegarder true pour une boîte de sauvegarde, false pour une boîte d'ouverture
+     * @param sauvegarder true pour une boîte de sauvegarde,
+     * false pour une boîte d'ouverture
      * @return Le fichier sélectionné, ou null si annulé
      */
     private File choisirFichier(boolean sauvegarder) {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle(sauvegarder ? "Sauvegarder les polynômes" : "Charger des polynômes");
+        chooser.setTitle(sauvegarder ? 
+        		        "Sauvegarder les polynômes" : "Charger des polynômes");
         chooser.getExtensionFilters().add(
             new FileChooser.ExtensionFilter("Fichiers texte (*.txt)", "*.txt"));
 
         Stage stage = (Stage) listePolynomes.getScene().getWindow();
-        return sauvegarder ? chooser.showSaveDialog(stage) : chooser.showOpenDialog(stage);
+        return sauvegarder ? 
+        	   chooser.showSaveDialog(stage) : chooser.showOpenDialog(stage);
     }
 }

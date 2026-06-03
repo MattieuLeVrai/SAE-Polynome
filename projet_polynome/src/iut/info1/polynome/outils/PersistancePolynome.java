@@ -29,8 +29,6 @@ import java.util.List;
  *       Exemple : {@code RACINES 2.0 1.0:2 -3.0:1}  →  P(X) = 2(X−1)²(X+3)</li>
  * </ul> 
  *
- * Les lignes vides et celles commençant par {@code #} sont ignorées (commentaires).
- *
  * @author Higounet Kelvin
  * @author Laurençont Yanis
  * @author Liao Mattieu
@@ -45,11 +43,12 @@ public class PersistancePolynome {
     private static final String PREFIXE_RACINES = "RACINES";
 
     /**
-     * Sauvegarde une liste de polynômes dans un fichier texte au format coefficients.
+     * Sauvegarde une liste de polynômes dans
+     * un fichier texte au format coefficients.
      *
      * @param polynomes La liste de polynômes à sauvegarder (non null)
      * @param chemin    Le chemin du fichier de destination
-     * @throws IOException              en cas d'erreur d'écriture
+     * @throws IOException en cas d'erreur d'écriture
      * @throws IllegalArgumentException si la liste est null
      */
     public static void sauvegarder(List<Polynome> polynomes, String chemin)
@@ -62,9 +61,11 @@ public class PersistancePolynome {
         try (PrintWriter writer = new PrintWriter(
                 new BufferedWriter(new FileWriter(chemin)))) {
 
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println("#   Fichier de polynomes - Bibliotheque IR[X]");
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println("#");
         	writer.println("#  FORMAT 1 - COEFF");
         	writer.println("#  -----------------");
@@ -74,14 +75,17 @@ public class PersistancePolynome {
         	writer.println("#");
         	writer.println("#  FORMAT 2 - RACINES");
         	writer.println("#  -------------------");
-        	writer.println("#  Syntaxe  : RACINES  coeffDom  racine:multiplicite  ...");
+        	writer.println(
+        	  "#  Syntaxe  : RACINES  coeffDom  racine:multiplicite  ...");
         	writer.println("#  Exemple  : RACINES  2.0  1.0:2  -3.0:1");
         	writer.println("#  Resultat :  P(X) = 2.0 * (X - 1.0)^2 * (X + 3.0)");
         	writer.println("#");
         	writer.println("#  NOTE : lignes vides et lignes '#' sont ignorees");
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println("#  VOS POLYNOMES CI-DESSOUS :");
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println();
 
             for (Polynome p : polynomes) {
@@ -96,12 +100,13 @@ public class PersistancePolynome {
      * <p>Chaque polynôme est décrit par son tableau de racines, les ordres de
      * multiplicité associés et son coefficient dominant.
      *
-     * @param racinesListe       Tableau de tableaux de racines (une ligne par polynôme)
-     * @param ordresListe        Tableau de tableaux d'ordres
-     * @param coeffsDominants    Coefficients dominants
-     * @param chemin             Chemin du fichier de destination
-     * @throws IOException              en cas d'erreur d'écriture
-     * @throws IllegalArgumentException si les tableaux ont des tailles incohérentes
+     * @param racinesListe Tableau de tableaux de racines (une ligne par polynôme)
+     * @param ordresListe  Tableau de tableaux d'ordres
+     * @param coeffsDominants  Coefficients dominants
+     * @param chemin   Chemin du fichier de destination
+     * @throws IOException    en cas d'erreur d'écriture
+     * @throws IllegalArgumentException si les tableaux ont
+     * des tailles incohérentes
      */
     public static void sauvegarderParRacines(double[][] racinesListe,
                                               int[][]    ordresListe,
@@ -109,7 +114,8 @@ public class PersistancePolynome {
                                               String     chemin)
             throws IOException {
 
-        if (racinesListe == null || ordresListe == null || coeffsDominants == null) {
+        if (racinesListe == null || ordresListe == null 
+            || coeffsDominants == null) {
             throw new IllegalArgumentException(
                 "Les tableaux de données ne doivent pas être null.");
         }
@@ -123,20 +129,25 @@ public class PersistancePolynome {
         try (PrintWriter writer = new PrintWriter(
                 new BufferedWriter(new FileWriter(chemin)))) {
 
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println("#   Fichier de polynomes - Bibliotheque IR[X]");
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println("#");
         	writer.println("#  FORMAT 2 - RACINES");
         	writer.println("#  -------------------");
-        	writer.println("#  Syntaxe  : RACINES  coeffDom  racine:multiplicite  ...");
+        	writer.println(
+        	  "#  Syntaxe  : RACINES  coeffDom  racine:multiplicite  ...");
         	writer.println("#  Exemple  : RACINES  2.0  1.0:2  -3.0:1");
         	writer.println("#  Resultat :  P(X) = 2.0 * (X - 1.0)^2 * (X + 3.0)");
         	writer.println("#");
         	writer.println("#  NOTE : lignes vides et lignes '#' sont ignorees");
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println("#  VOS POLYNOMES CI-DESSOUS :");
-        	writer.println("# ============================================================");
+        	writer.println(
+        	  "# ============================================================");
         	writer.println();
 
             for (int i = 0; i < racinesListe.length; i++) {
@@ -149,7 +160,7 @@ public class PersistancePolynome {
     /**
      * Ajoute un polynôme (format coefficients) à un fichier existant.
      *
-     * @param p      Le polynôme à ajouter
+     * @param p Le polynôme à ajouter
      * @param chemin Le chemin du fichier
      * @throws IOException en cas d'erreur d'écriture
      */
@@ -167,7 +178,7 @@ public class PersistancePolynome {
      *
      * @param chemin Le chemin du fichier source
      * @return La liste des polynômes lus (dans l'ordre du fichier)
-     * @throws IOException              en cas d'erreur de lecture ou de format invalide
+     * @throws IOException  en cas d'erreur de lecture ou de format invalide
      * @throws IllegalArgumentException si un polynôme ne peut pas être construit
      *                                  (coefficients invalides, ordres ≤ 0…)
      */
@@ -193,11 +204,12 @@ public class PersistancePolynome {
                 } catch (NumberFormatException e) {
                     throw new IOException(
                         "Erreur de format à la ligne " + numeroLigne
-                        + " : valeur numérique invalide. Ligne : \"" + ligne + "\"", e);
+                        + " : valeur numérique invalide. Ligne : \""
+                        + ligne + "\"", e);
                 } catch (IllegalArgumentException e) {
                     throw new IOException(
-                        "Erreur à la ligne " + numeroLigne + " : " + e.getMessage()
-                        + ". Ligne : \"" + ligne + "\"", e);
+                        "Erreur à la ligne " + numeroLigne + " : "
+                        + e.getMessage() + ". Ligne : \"" + ligne + "\"", e);
                 }
             }
         }
@@ -249,10 +261,12 @@ public class PersistancePolynome {
             throws IOException {
 
         if (ligne.startsWith(PREFIXE_COEFF)) {
-            return deserialiserCoeff(ligne.substring(PREFIXE_COEFF.length()).trim());
+            return deserialiserCoeff(ligne.
+            		                 substring(PREFIXE_COEFF.length()).trim());
 
         } else if (ligne.startsWith(PREFIXE_RACINES)) {
-            return deserialiserRacines(ligne.substring(PREFIXE_RACINES.length()).trim());
+            return deserialiserRacines(ligne.
+            		                substring(PREFIXE_RACINES.length()).trim());
 
         } else {
             throw new IOException(
