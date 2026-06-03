@@ -1,6 +1,6 @@
 /*
- * PolynomeApp                                                     29/05/26
- * IUT de Rodez, pas de copyright ni copyleft
+ * PolynomeApp.java                                                      15/05/26
+ * Iut de Rodez, pas de copyright ni copyleft
  */
 
 package iut.info1.polynome.ihm;
@@ -11,22 +11,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
- * Classe principale de l'application graphique IR[X].
+ * Point d'entrée de l'interface graphique JavaFX de l'application Polynôme.
  * <p>
- * Cette classe hérite de {@link Application} comme exigé par JavaFX.
- * Elle suit exactement la structure enseignée dans le cours (section 6) :
- * <ol>
- *   <li>Création d'un {@link FXMLLoader}</li>
- *   <li>Chargement du fichier {@code VuePolynome.fxml} (la vue)</li>
- *   <li>Création de la {@link javafx.scene.Scene} à partir du conteneur racine</li>
- *   <li>Configuration du {@link Stage} et appel à {@code show()}</li>
- * </ol>
- * Toute la logique applicative est déléguée au contrôleur
- * {@link ControleurPolynome}, déclaré dans le fichier FXML via
- * {@code fx:controller}.
+ * Pour lancer l'application, exécutez cette classe (elle étend {@link Application}).
+ * Elle charge la vue définie dans {@code VuePolynome.fxml} et instancie automatiquement
+ * le contrôleur {@link ControleurPolynome} grâce au mécanisme FXML de JavaFX.
+ * </p>
+ *
+ * <h2>Structure MVC</h2>
+ * <ul>
+ *   <li><b>Modèle</b> : {@code iut.info1.polynome.Polynome}, {@code OperationPolynome},
+ *       {@code PersistancePolynome}, {@code InterpolationPolynomiale}, {@code SuiteSturm}</li>
+ *   <li><b>Vue</b>    : {@code VuePolynome.fxml} (décrit l'interface en XML)</li>
+ *   <li><b>Contrôleur</b> : {@code ControleurPolynome.java} (gère les événements)</li>
+ * </ul>
  *
  * @author Higounet Kelvin
  * @author Laurençont Yanis
@@ -36,45 +35,33 @@ import java.io.IOException;
 public class PolynomeApp extends Application {
 
     /**
-     * Point d'entrée JavaFX : appelé automatiquement par {@code launch(args)}.
-     * C'est ici que l'on charge la vue FXML et que l'on affiche la fenêtre.
+     * Méthode principale de JavaFX, appelée après {@link #main(String[])}.
+     * Charge le fichier FXML, crée la scène et affiche la fenêtre principale.
      *
-     * @param primaryStage La fenêtre principale fournie par JavaFX
-     * @throws IOException si le fichier FXML est introuvable ou mal formé
+     * @param fenetrePrincipale La fenêtre principale fournie par JavaFX.
+     * @throws Exception si le fichier FXML est introuvable ou mal formé.
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage fenetrePrincipale) throws Exception {
+        // Chargement de la vue (FXML doit être dans le même package que cette classe)
+        FXMLLoader chargeur = new FXMLLoader(
+            getClass().getResource("VuePolynome.fxml")
+        );
+        Parent racine = chargeur.load();
 
-        // 1. Création du chargeur de code FXML (comme dans le cours section 6.3)
-        FXMLLoader chargeurFXML = new FXMLLoader();
-
-        // 2. On indique quel fichier FXML charger (la vue)
-        chargeurFXML.setLocation(getClass().getResource("VuePolynome.fxml"));
-
-        // 3. Chargement : le code FXML est traduit en objets Java
-        //    Le contrôleur ControleurPolynome est instancié automatiquement
-        //    et sa méthode initialize() est appelée juste après.
-        Parent racine = chargeurFXML.load();
-
-        // 4. Création de la scène
-        Scene scene = new Scene(racine);
-
-        // 5. Configuration de la fenêtre principale
-        primaryStage.setTitle("Bibliothèque Algébrique IR[X] — IUT de Rodez");
-        primaryStage.setWidth(1100);
-        primaryStage.setHeight(720);
-        primaryStage.setMinWidth(900);
-        primaryStage.setMinHeight(600);
-        primaryStage.setScene(scene);
-
-        // 6. Affichage
-        primaryStage.show();
+        // Configuration de la fenêtre
+        fenetrePrincipale.setTitle("Application Polynôme – IUT de Rodez");
+        fenetrePrincipale.setScene(new Scene(racine));
+        fenetrePrincipale.setMinWidth(900);
+        fenetrePrincipale.setMinHeight(600);
+        fenetrePrincipale.show();
     }
 
     /**
-     * Programme principal : lance l'application JavaFX.
+     * Point d'entrée Java classique.
+     * Délègue à {@link Application#launch(String...)} pour démarrer JavaFX.
      *
-     * @param args arguments non utilisés
+     * @param args Les arguments de la ligne de commande (non utilisés).
      */
     public static void main(String[] args) {
         launch(args);

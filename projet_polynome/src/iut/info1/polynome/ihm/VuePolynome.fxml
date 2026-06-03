@@ -1,169 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="iut.info1.polynome.ihm.ControleurPolynome">
-    
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="700" prefWidth="1100" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="iut.info1.polynome.ihm.ControleurPolynome">
+
     <top>
-        <VBox spacing="8">
-            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-            
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Méthode de saisie :"/>
-                <ComboBox fx:id="comboTypeSaisie" prefWidth="150" value="Par coefficients">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Par coefficients"/>
-                            <String fx:value="Par racines"/>
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-            </HBox>
-            
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Valeurs :"/>
-                <TextField fx:id="txtCoeffs" promptText="ex: -6 1 1" HBox.hgrow="ALWAYS"/>
-                <Button fx:id="btnAjouter" text="Ajouter" onAction="#gererClicAjouter"/>
-                <Separator orientation="VERTICAL"/>
-                <Button fx:id="btnCharger" text="Charger" onAction="#gererClicCharger"/>
-                <Button fx:id="btnSauvegarder" text="Sauvegarder" onAction="#gererClicSauvegarder"/>
-            </HBox>
-        </VBox>
+        <MenuBar>
+           <menus>
+               <Menu text="Fichier">
+                  <items>
+                      <MenuItem onAction="#chargerFichier" text="Charger un fichier..." />
+                      <MenuItem onAction="#sauvegarderFichier" text="Sauvegarder..." />
+                      <SeparatorMenuItem />
+                      <MenuItem onAction="#quitter" text="Quitter" />
+                  </items>
+               </Menu>
+           </menus>
+        </MenuBar>
     </top>
 
     <left>
-        <VBox spacing="10" prefWidth="240">
-            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-            <Label text="Polynômes en mémoire :"/>
-            <ListView fx:id="listView" VBox.vgrow="ALWAYS"/>
-            <Button text="Supprimer" onAction="#gererClicSupprimer" maxWidth="Infinity"/>
-            
-            <Separator/>
-            <Label text="Informations :"/>
-            <GridPane hgap="5" vgap="5">
-                <Label text="P(X) =" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <Label fx:id="lblFormule" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" wrapText="true"/>
-                
-                <Label text="Degré :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <Label fx:id="lblDegre" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                
-                <Label text="lim -∞ :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <Label fx:id="lblLimMoins" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                
-                <Label text="lim +∞ :" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                <Label fx:id="lblLimPlus" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                
-                <Label text="Racines :" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                <Label fx:id="lblRacines" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" wrapText="true"/>
-            </GridPane>
+        <VBox spacing="10" style="-fx-padding: 10;">
+           <children>
+   
+               <TitledPane collapsible="false" text="Créer par coefficients">
+      <content>
+                      <VBox spacing="6" style="-fx-padding: 6;">
+                         <children>
+                             <Label text="Coefficients de an à a0 (séparés par espaces) :" />
+                             <TextField fx:id="champCoefficients" promptText="ex: 1.0 -3.0 2.0" />
+                             <Button maxWidth="Infinity" onAction="#ajouterParCoefficients" text="Ajouter" />
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
+   
+               <TitledPane collapsible="false" text="Créer par racines">
+      <content>
+                      <VBox spacing="6" style="-fx-padding: 6;">
+                         <children>
+                             <Label text="Coefficient dominant :" />
+                             <TextField fx:id="champCoeffDominant" promptText="ex: 2.0" />
+                             <Label text="Racines (racine:multiplicite, séparées par espaces) :" />
+                             <TextField fx:id="champRacines" promptText="ex: 1.0:2 -3.0:1" />
+                             <Button maxWidth="Infinity" onAction="#ajouterParRacines" text="Ajouter" />
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
+   
+               <TitledPane collapsible="false" text="Interpolation de Lagrange">
+      <content>
+                      <VBox spacing="6" style="-fx-padding: 6;">
+                         <children>
+                             <Label text="Points (x:y séparés par espaces) :" />
+                             <TextField fx:id="champPoints" promptText="ex: 0:1 1:3 2:7" />
+                             <Button maxWidth="Infinity" onAction="#interpolerLagrange" text="Interpoler" />
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
+   
+               <TitledPane collapsible="false" text="Liste des polynômes" VBox.vgrow="ALWAYS">
+      <content>
+                      <VBox spacing="6" style="-fx-padding: 6;" VBox.vgrow="ALWAYS">
+                         <children>
+                             <ListView fx:id="listePolynomes" prefHeight="200" VBox.vgrow="ALWAYS" />
+                             <Button maxWidth="Infinity" onAction="#supprimerPolynome" text="Supprimer sélectionné" />
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
+           </children>
+
         </VBox>
     </left>
 
     <center>
-        <VBox spacing="10">
-            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-            
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Fenêtre X min :"/>
-                <TextField fx:id="txtXMin" text="-10" prefWidth="50"/>
-                <Label text="X max :"/>
-                <TextField fx:id="txtXMax" text="10" prefWidth="50"/>
-                <Button text="Recalculer" onAction="#gererClicRecalculer"/>
-            </HBox>
+        <VBox spacing="10" style="-fx-padding: 10;" VBox.vgrow="ALWAYS">
+           <children>
+   
+               <TitledPane collapsible="false" text="Opérations">
+      <content>
+                      <GridPane hgap="10" style="-fx-padding: 6;" vgap="8">
+                         <children>
+         
+                             <Label text="P1 (index) :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                             <TextField fx:id="champIndexP1" prefWidth="60" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                             <Label text="P2 (index) :" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                             <TextField fx:id="champIndexP2" prefWidth="60" promptText="1" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+         
+                             <Button onAction="#additionner" prefWidth="100" text="P1 + P2" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                             <Button onAction="#soustraire" prefWidth="100" text="P1 - P2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                             <Button onAction="#multiplier" prefWidth="100" text="P1 × P2" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                             <Button onAction="#pgcd" prefWidth="100" text="PGCD" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         
+                             <Button onAction="#quotient" prefWidth="130" text="Quotient P1/P2" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                             <Button onAction="#reste" prefWidth="130" text="Reste P1/P2" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+         
+                             <Button onAction="#deriver" prefWidth="130" text="Dériver P1" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                             <Button onAction="#primitive" prefWidth="130" text="Primitive de P1" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+         
+                             <Label text="Scalaire :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                             <TextField fx:id="champScalaire" prefWidth="80" promptText="ex: 2.5" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                             <Button onAction="#multiplierScalaire" prefWidth="130" text="P1 × scalaire" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+         
+                             <Label text="x :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                             <TextField fx:id="champX" prefWidth="80" promptText="ex: 3.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                             <Button onAction="#evaluer" prefWidth="100" text="P1(x)" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+         
+                             <Label text="[a, b] :" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                             <TextField fx:id="champBorneA" prefWidth="60" promptText="a" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                             <TextField fx:id="champBorneB" prefWidth="60" promptText="b" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                             <Button onAction="#integrale" prefWidth="100" text="Intégrale" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+         
+                             <Button onAction="#valeurMoyenne" prefWidth="130" text="Valeur moyenne" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+                             <Button onAction="#calculerRacines" prefWidth="130" text="Racines de P1" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+                         </children>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+      
+                      </GridPane>
+      </content>
+               </TitledPane>
+   
+               <TitledPane collapsible="false" text="Résultat">
+      <content>
+                      <VBox spacing="4" style="-fx-padding: 6;">
+                         <children>
+                             <TextArea fx:id="zoneResultat" editable="false" prefHeight="80" wrapText="true" />
+                             <Button onAction="#ajouterResultat" text="Ajouter le résultat à la liste" />
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
+   
+               <TitledPane collapsible="false" text="Tracé de courbe" VBox.vgrow="ALWAYS">
+      <content>
+                      <VBox spacing="6" style="-fx-padding: 6;" VBox.vgrow="ALWAYS">
+                         <children>
+                             <HBox alignment="CENTER_LEFT" spacing="10">
+                                <children>
+                                    <Label text="Polynôme (index) :" />
+                                    <TextField fx:id="champIndexCourbe" prefWidth="50" promptText="0" />
+                                    <Label text="Intervalle [" />
+                                    <TextField fx:id="champIntervalleMin" prefWidth="60" text="-10" />
+                                    <Label text="," />
+                                    <TextField fx:id="champIntervalleMax" prefWidth="60" text="10" />
+                                    <Label text="]" />
+                                    <Button onAction="#tracerCourbe" text="Tracer" />
+                                </children>
+                             </HBox>
+                             <LineChart fx:id="graphique" VBox.vgrow="ALWAYS">
+                                 <xAxis>
+                              <NumberAxis fx:id="axeX" label="x" />
+                           </xAxis>
+                                 <yAxis>
+                              <NumberAxis fx:id="axeY" label="P(x)" />
+                           </yAxis>
+                             </LineChart>
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
+           </children>
 
-            <LineChart fx:id="lineChart" VBox.vgrow="ALWAYS">
-                <xAxis><NumberAxis fx:id="xAxis" label="X"/></xAxis>
-                <yAxis><NumberAxis fx:id="yAxis" label="Y"/></yAxis>
-            </LineChart>
-
-            <TabPane VBox.vgrow="NEVER" prefHeight="150">
-                
-                <Tab text="Opérations" closable="false">
-                    <VBox spacing="8">
-                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="P1 :"/>
-                            <ComboBox fx:id="comboP1" prefWidth="120"/>
-                            <Label text="P2 :"/>
-                            <ComboBox fx:id="comboP2" prefWidth="120"/>
-                        </HBox>
-                        <HBox spacing="5">
-                            <Button text="+" onAction="#gererAddition"/>
-                            <Button text="-" onAction="#gererSoustraction"/>
-                            <Button text="×" onAction="#gererMultiplication"/>
-                            <Button text="÷ (Q)" onAction="#gererDivision"/>
-                            <Button text="Reste" onAction="#gererReste"/>
-                            <Button text="PGCD" onAction="#gererPgcd"/>
-                        </HBox>
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Résultat :"/>
-                            <Label fx:id="lblResultatOp" text="-"/>
-                            <Pane HBox.hgrow="ALWAYS"/>
-                            <Button text="Ajouter à la liste" onAction="#gererAjouterResultat"/>
-                        </HBox>
-                    </VBox>
-                </Tab>
-
-                <Tab text="Calculs" closable="false">
-                    <VBox spacing="8">
-                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Sur P1 :"/>
-                            <ComboBox fx:id="comboCalcP1" prefWidth="120"/>
-                        </HBox>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
-                            <Button text="Dérivée" onAction="#gererDerivee"/>
-                            <Button text="Primitive" onAction="#gererPrimitive"/>
-                            <Separator orientation="VERTICAL"/>
-                            <Label text="x ="/>
-                            <TextField fx:id="txtValeurX" promptText="x" prefWidth="40"/>
-                            <Button text="P(x)" onAction="#gererImage"/>
-                            <Separator orientation="VERTICAL"/>
-                            <Label text="[a, b] ="/>
-                            <TextField fx:id="txtBorneA" promptText="a" prefWidth="40"/>
-                            <TextField fx:id="txtBorneB" promptText="b" prefWidth="40"/>
-                            <Button text="Intégrale" onAction="#gererIntegrale"/>
-                            <Button text="Val. Moyenne" onAction="#gererValeurMoyenne"/>
-                        </HBox>
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Résultat :"/>
-                            <Label fx:id="lblResultatCalc" text="-"/>
-                            <Pane HBox.hgrow="ALWAYS"/>
-                            <Button text="Ajouter à la liste" onAction="#gererAjouterResultatCalc"/>
-                        </HBox>
-                    </VBox>
-                </Tab>
-
-                <Tab text="Interpolation" closable="false">
-                    <VBox spacing="8">
-                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-                        <Label text="Points au format (x,y) — Ex: 0,1 1,3 2,7"/>
-                        <HBox spacing="10">
-                            <TextField fx:id="txtPointsInterp" promptText="0,1 1,3 2,7" HBox.hgrow="ALWAYS"/>
-                            <Button text="Interpoler" onAction="#gererInterpolation"/>
-                        </HBox>
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Résultat :"/>
-                            <Label fx:id="lblResultatInterp" text="-"/>
-                            <Pane HBox.hgrow="ALWAYS"/>
-                            <Button text="Ajouter à la liste" onAction="#gererAjouterInterp"/>
-                        </HBox>
-                    </VBox>
-                </Tab>
-            </TabPane>
         </VBox>
     </center>
 
-    <bottom>
-        <HBox>
-            <padding><Insets top="5" right="10" bottom="5" left="10"/></padding>
-            <Label fx:id="lblStatut" text="Prêt."/>
-        </HBox>
-    </bottom>
 </BorderPane>
