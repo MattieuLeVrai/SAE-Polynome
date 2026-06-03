@@ -1,5 +1,5 @@
 /*
- * PolynomeApp.java                                                      15/05/26
+ * PolynomeApp.java                                         15/05/26
  * Iut de Rodez, pas de copyright ni copyleft
  */
 

@@ -60,12 +60,10 @@ public class InterpolationPolynomiale {
                 }
             }
         }
-
         // Un seul point (x0, y0) -> donne le polynôme constant P(X) = y0
         if (nombreDePoints == 1) {
             return new Polynome(new double[]{y[0]});
         }
-
         OperationPolynome calculateur = new OperationPolynome();
         Polynome polynomeResultat = new Polynome();// Initialisé au polynôme nul 
 
@@ -95,7 +93,6 @@ public class InterpolationPolynomiale {
             // On multiplie le polynôme de base L_i(X) obtenu par son ordonnée y_i
             Polynome termeCourant = calculateur.multiplicationScalaire(li,
             		                                                  y[i]);
-
             // On l'ajoute au polynôme final : P(X) = P(X) + (y_i * L_i(X))
             polynomeResultat = calculateur.addition(polynomeResultat,
             		                                termeCourant);
