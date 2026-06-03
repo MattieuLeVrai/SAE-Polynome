@@ -75,8 +75,9 @@ public class ControleurPolynome {
     @FXML private NumberAxis axeX;
     @FXML private NumberAxis axeY;
 
-    // Barre de statut
-    @FXML private Label labelStatut;
+    // Infos
+    @FXML private TextField champIndexInfos;
+    @FXML private TextArea  zoneInfos;
 
     /** Liste interne des polynômes (modèle). */
     private final List<Polynome> polynomes = new ArrayList<>();
@@ -574,11 +575,43 @@ public class ControleurPolynome {
     }
 
     /**
-     * Met à jour la barre de statut en bas de la fenêtre.
+     * Affiche un message dans la zone de résultat (statut ou erreur).
      * @param message Le message à afficher
      */
     private void afficherStatut(String message) {
-        labelStatut.setText(message);
+        zoneResultat.setText(message);
+    }
+
+    /**
+     * Formate une limite (±Infinity ou réel) pour l'affichage.
+     * @param valeur La valeur de la limite
+     * @return La chaîne correspondante
+     */
+    private String formatLimite(double valeur) {
+        if (valeur == Double.POSITIVE_INFINITY) return "+∞";
+        if (valeur == Double.NEGATIVE_INFINITY) return "-∞";
+        return String.valueOf(valeur);
+    }
+    
+    /**
+     * Affiche le degré et les limites en ±∞ du polynôme dont l'index est saisi.
+     */
+    @FXML
+    private void afficherInfos() {
+        int idx = lireIndex(champIndexInfos, "Infos");
+        if (idx < 0) return;
+ 
+        Polynome p = polynomes.get(idx);
+ 
+        String limitemoins = formatLimite(p.getLimitesMoinsInfini());
+        String limitePlus  = formatLimite(p.getLimitesPlusInfini());
+ 
+        zoneInfos.setText(
+            "Polynôme P" + idx + " :\n"
+            + "  Degré          : " + p.getDegre() + "\n"
+            + "  lim x→-∞ P(x) : " + limitemoins + "\n"
+            + "  lim x→+∞ P(x) : " + limitePlus
+        );
     }
 
     /**

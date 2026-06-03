@@ -75,6 +75,19 @@
                       </VBox>
       </content>
                </TitledPane>
+
+               <TitledPane collapsible="false" text="Infos">
+      <content>
+                      <VBox spacing="6" style="-fx-padding: 6;">
+                         <children>
+                             <Label text="Polynôme (index) :" />
+                             <TextField fx:id="champIndexInfos" promptText="ex: 0" />
+                             <Button maxWidth="Infinity" onAction="#afficherInfos" text="Afficher les infos" />
+                             <TextArea fx:id="zoneInfos" editable="false" prefHeight="90" wrapText="true" />
+                         </children>
+                      </VBox>
+      </content>
+               </TitledPane>
            </children>
 
         </VBox>
