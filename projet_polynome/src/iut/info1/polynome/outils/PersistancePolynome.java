@@ -279,15 +279,17 @@ public class PersistancePolynome {
      * Désérialise la partie données d'une ligne {@code COEFF}.
      */
     private static Polynome deserialiserCoeff(String donnees) {
-        if (donnees.isEmpty()) {
+    	if (donnees.isEmpty()) {
             throw new IllegalArgumentException(
                 "Aucun coefficient fourni après le mot-clé COEFF.");
         }
         String[] parts  = donnees.split("\\s+");
         double[] coeffs = new double[parts.length];
+        
         for (int i = 0; i < parts.length; i++) {
-            coeffs[i] = Double.parseDouble(parts[i]);
+            coeffs[parts.length - 1 - i] = Double.parseDouble(parts[i]);
         }
+        
         return new Polynome(coeffs);
     }
 

@@ -343,7 +343,6 @@ public class ControleurPolynome {
             // Pas de polynôme résultat ici, juste une valeur numérique
             zoneResultat.setText("P" + idx + "(" + x + ") = " + val);
             dernierResultat = null;
-            afficherStatut("Évaluation effectuée.");
         } catch (NumberFormatException e) {
             afficherStatut("Erreur : x invalide.");
         }
@@ -362,7 +361,6 @@ public class ControleurPolynome {
             zoneResultat.setText("∫[" + a + "," + b + "] P" 
                                  + idx + " dx = " + val);
             dernierResultat = null;
-            afficherStatut("Intégrale calculée.");
         } catch (NumberFormatException e) {
             afficherStatut("Erreur : bornes invalides.");
         } catch (IllegalArgumentException e) {
@@ -383,7 +381,6 @@ public class ControleurPolynome {
             zoneResultat.setText("Valeur moyenne de P" + idx 
             		             + " sur [" + a + "," + b + "] = " + val);
             dernierResultat = null;
-            afficherStatut("Valeur moyenne calculée.");
         } catch (NumberFormatException e) {
             afficherStatut("Erreur : bornes invalides.");
         } catch (IllegalArgumentException e) {
@@ -407,7 +404,6 @@ public class ControleurPolynome {
             zoneResultat.setText(sb.toString());
         }
         dernierResultat = null;
-        afficherStatut("Calcul des racines terminé.");
     }
 
     
